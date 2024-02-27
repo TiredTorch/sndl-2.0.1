@@ -1,0 +1,8 @@
+{
+  "name": "sndl-app",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/frontend/sndl-app/src",
+  "projectType": "application",
+  "targets": {},
+  "tags": []
+}
