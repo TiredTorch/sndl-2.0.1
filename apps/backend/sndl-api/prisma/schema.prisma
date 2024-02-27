@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id Int @id @default(autoincrement())
+
+  createdAlbums  Album[] @relation("album-creator")
+  followedAlbums Album[] @relation("album-follower")
+
+  createdPosts  Post[] @relation("post-creator")
+  followedPosts Post[] @relation("post-follower")
+
+  friendUsers User[] @relation("friends")
+  friendOf    User[] @relation("friends")
+
+  chats ChatRoom[] @relation("participants")
+
+  messages Message[] @relation("sender")
+}
+
+model ChatRoom {
+  id Int @id @default(autoincrement())
+
+  participants User[] @relation("participants")
+
+  messages Message[]
+}
+
+model Post {
+  id      Int    @id @default(autoincrement())
+  content String
+
+  createdPosts  User[] @relation("post-creator")
+  followedPosts User[] @relation("post-follower")
+}
+
+model Album {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  createdAlbums  User[] @relation("album-creator")
+  followedAlbums User[] @relation("album-follower")
+
+  songs Song[]
+}
+
+model Song {
+  id Int @id @default(autoincrement())
+
+  album   Album @relation(fields: [albumId], references: [id])
+  albumId Int
+}
+
+model Message {
+  id      Int    @id @default(autoincrement())
+  content String
+
+  sender   User @relation("sender", fields: [senderId], references: [id])
+  senderId Int
+
+  chatRoom   ChatRoom @relation(fields: [chatRoomId], references: [id])
+  chatRoomId Int
+}
