@@ -1,3 +1,4 @@
+import { PrismaModule } from "nestjs-prisma";
 import { Module } from "@nestjs/common";
 import { AuthModule } from "./auth/auth.module";
 import { ChatModule } from "./chat/chat.module";
@@ -7,14 +8,14 @@ import { UserModule } from "./user/user.module";
 
 @Module({
   imports: [
+    PrismaModule.forRoot({
+      isGlobal: true
+    }),
     AuthModule,
     ChatModule,
     PostModule,
     SongModule,
     UserModule
   ],
-  controllers: [],
-  providers: [],
-  exports: [],
 })
 export class SndlApiLibModule {}

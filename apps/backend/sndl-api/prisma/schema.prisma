@@ -11,6 +11,11 @@ datasource db {
 model User {
   id Int @id @default(autoincrement())
 
+  name String
+  email String @unique
+  avatar String
+  status String
+
   createdAlbums  Album[] @relation("album-creator")
   followedAlbums Album[] @relation("album-follower")
 
@@ -23,6 +28,8 @@ model User {
   chats ChatRoom[] @relation("participants")
 
   messages Message[] @relation("sender")
+  
+  deleted Boolean @default(false)
 }
 
 model ChatRoom {
@@ -31,6 +38,8 @@ model ChatRoom {
   participants User[] @relation("participants")
 
   messages Message[]
+
+  deleted Boolean @default(false)
 }
 
 model Post {
@@ -39,23 +48,33 @@ model Post {
 
   createdPosts  User[] @relation("post-creator")
   followedPosts User[] @relation("post-follower")
+
+  deleted Boolean @default(false)
 }
 
 model Album {
   id   Int    @id @default(autoincrement())
-  name String
+  name String @unique
+  image String
 
   createdAlbums  User[] @relation("album-creator")
   followedAlbums User[] @relation("album-follower")
 
   songs Song[]
+
+  deleted Boolean @default(false)
 }
 
 model Song {
   id Int @id @default(autoincrement())
+  name String
 
   album   Album @relation(fields: [albumId], references: [id])
   albumId Int
+
+  sourse String
+  
+  deleted Boolean @default(false)
 }
 
 model Message {
@@ -67,4 +86,6 @@ model Message {
 
   chatRoom   ChatRoom @relation(fields: [chatRoomId], references: [id])
   chatRoomId Int
+
+  deleted Boolean @default(false)
 }
