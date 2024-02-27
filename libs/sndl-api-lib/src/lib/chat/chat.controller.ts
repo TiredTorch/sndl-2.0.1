@@ -1,16 +1,18 @@
 import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
-import { ChatService } from './chat.service';
-import { CreateChatDto } from './dto/create-chat.dto';
-import { UpdateChatDto } from './dto/update-chat.dto';
+	Body,
+	Controller,
+	Delete,
+	Get,
+	Param,
+	Patch,
+	Post
+} from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
+import { ChatService } from "./chat.service";
+import { CreateChatDto } from "./dto/create-chat.dto";
+import { UpdateChatDto } from "./dto/update-chat.dto";
 
+@ApiTags("Cart")
 @Controller('chat')
 export class ChatController {
   constructor(private readonly chatService: ChatService) {}

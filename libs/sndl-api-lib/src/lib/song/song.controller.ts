@@ -1,16 +1,18 @@
 import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
-import { SongService } from './song.service';
-import { CreateSongDto } from './dto/create-song.dto';
-import { UpdateSongDto } from './dto/update-song.dto';
+	Body,
+	Controller,
+	Delete,
+	Get,
+	Param,
+	Patch,
+	Post
+} from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
+import { CreateSongDto } from "./dto/create-song.dto";
+import { UpdateSongDto } from "./dto/update-song.dto";
+import { SongService } from "./song.service";
 
+@ApiTags("Song")
 @Controller('song')
 export class SongController {
   constructor(private readonly songService: SongService) {}

@@ -1,11 +1,38 @@
-import { Logger } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-
-import { SndlApiLibModule } from '@sndl-api-lib';
+import { Logger } from "@nestjs/common";
+import { NestFactory } from "@nestjs/core";
+import {
+	FastifyAdapter,
+	NestFastifyApplication
+} from "@nestjs/platform-fastify";
+import {
+	DocumentBuilder,
+	SwaggerModule
+} from "@nestjs/swagger";
+import { SndlApiLibModule } from "@sndl-api-lib";
 
 async function bootstrap() {
-  const app = await NestFactory.create(SndlApiLibModule);
+  const app = await NestFactory.create<NestFastifyApplication>(
+    SndlApiLibModule,
+    new FastifyAdapter({
+      maxParamLength: 1000
+    }),
+    {
+      cors: {
+        methods: [
+          "GET",
+          "POST",
+          "PUT",
+          "DELETE",
+          "HEAD",
+          "PATCH",
+          "OPTIONS"
+        ],
+        allowedHeaders: "*",
+        origin: "*"
+      },
+      bufferLogs: true
+    }  
+  );
 
   const globalPrefix = 'api';
   const globalDocsPrefix = 'docs';
@@ -16,15 +43,15 @@ async function bootstrap() {
 			.setTitle("Sndl api")
 			.setDescription("Soundle REST API documentation")
 			.setVersion("1.0")
-			// .addBearerAuth(
-			// 	{
-			// 		type: "http",
-			// 		scheme: "bearer",
-			// 		bearerFormat: "JWT",
-			// 		in: "header"
-			// 	},
-			// 	"Auth"
-			// )
+			.addBearerAuth(
+				{
+					type: "http",
+					scheme: "bearer",
+					bearerFormat: "JWT",
+					in: "header"
+				},
+				"Auth"
+			)
 			.build();
 
   SwaggerModule.setup(
