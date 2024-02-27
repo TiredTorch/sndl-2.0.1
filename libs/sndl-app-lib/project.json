@@ -1,0 +1,8 @@
+{
+  "name": "sndl-app-lib",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/sndl-app-lib/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {}
+}
