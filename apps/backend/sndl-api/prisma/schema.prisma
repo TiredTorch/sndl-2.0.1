@@ -16,6 +16,8 @@ model User {
   avatar String
   status String
 
+  password String
+
   createdAlbums  Album[] @relation("album-creator")
   followedAlbums Album[] @relation("album-follower")
 
@@ -29,7 +31,7 @@ model User {
 
   messages Message[] @relation("sender")
   
-  deleted Boolean @default(false)
+  deletedAt DateTime?
 }
 
 model ChatRoom {
@@ -39,7 +41,7 @@ model ChatRoom {
 
   messages Message[]
 
-  deleted Boolean @default(false)
+  deletedAt DateTime?
 }
 
 model Post {
@@ -49,7 +51,7 @@ model Post {
   createdPosts  User[] @relation("post-creator")
   followedPosts User[] @relation("post-follower")
 
-  deleted Boolean @default(false)
+  deletedAt DateTime?
 }
 
 model Album {
@@ -62,7 +64,7 @@ model Album {
 
   songs Song[]
 
-  deleted Boolean @default(false)
+  deletedAt DateTime?
 }
 
 model Song {
@@ -74,7 +76,7 @@ model Song {
 
   sourse String
   
-  deleted Boolean @default(false)
+  deletedAt DateTime?
 }
 
 model Message {
@@ -87,5 +89,5 @@ model Message {
   chatRoom   ChatRoom @relation(fields: [chatRoomId], references: [id])
   chatRoomId Int
 
-  deleted Boolean @default(false)
+  deletedAt DateTime?
 }
