@@ -1,7 +1,5 @@
 import { PrismaService } from "nestjs-prisma";
 import { Injectable } from "@nestjs/common";
-import { CreateSongDto } from "./dto/create-song.dto";
-import { UpdateSongDto } from "./dto/update-song.dto";
 
 @Injectable()
 export class SongService {
@@ -9,23 +7,23 @@ export class SongService {
     private readonly prismaService: PrismaService
   ) {}
 
-  create(createSongDto: CreateSongDto) {
-    return 'This action adds a new song';
+  public async uploadSong() {
+    console.log("a")
   }
 
-  findAll() {
-    return `This action returns all song`;
+  public async deleteSong() {
+    console.log("a")
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} song`;
+  public async updateSong() {
+    console.log("a")
   }
 
-  update(id: number, updateSongDto: UpdateSongDto) {
-    return `This action updates a #${id} song`;
+  public async findSongs() {
+    console.log("a")
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} song`;
+  public async findSong() {
+    console.log("a")
   }
 }

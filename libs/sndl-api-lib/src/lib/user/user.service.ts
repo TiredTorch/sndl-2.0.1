@@ -32,7 +32,7 @@ export class UserService {
 
   async update(
     id: Prisma.UserWhereUniqueInput["id"], 
-    data: Prisma.UserCreateInput
+    data: Prisma.UserUpdateInput
   ) {
     await this.prismaService.user.update({
       data,
