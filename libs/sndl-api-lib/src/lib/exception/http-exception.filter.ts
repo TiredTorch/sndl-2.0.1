@@ -8,7 +8,7 @@ import {
 } from "@nestjs/common";
 
 @Catch(HttpException)
-export class HttpExceptionFilter implements ExceptionFilter {
+export class AllExceptionFilter implements ExceptionFilter {
 	catch(
 		exception: HttpException, host: ArgumentsHost
 	) {
@@ -24,7 +24,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
 		response.status(status).send({
 			statusCode: status,
 			error: HttpStatus[status],
-			message: exception.message || "Forbidden",
+			message: exception.message || "a",
 		});
 	}
 }

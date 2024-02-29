@@ -1,8 +1,4 @@
 import { Module } from "@nestjs/common";
-import {
-	APP_FILTER,
-	BaseExceptionFilter
-} from "@nestjs/core";
 import { AlbumModule } from "./album/album.module";
 import { AuthModule } from "./auth/auth.module";
 import { ChatModule } from "./chat/chat.module";
@@ -25,12 +21,6 @@ import { UserModule } from "./user/user.module";
 		UserModule,
 		MessageModule,
 		AlbumModule
-	],
-	providers: [
-		{
-			provide: APP_FILTER,
-			useClass: BaseExceptionFilter
-		}
 	]
 })
 export class SndlApiLibModule {}

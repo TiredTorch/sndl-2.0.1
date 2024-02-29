@@ -5,20 +5,23 @@ import {
 	Get,
 	Param,
 	Patch,
-	Post
+	Post,
+	UseFilters
 } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
+import { AllExceptionFilter } from "../exception";
 import { CreateSongDto } from "./dto/create-song.dto";
 import { UpdateSongDto } from "./dto/update-song.dto";
 import { SongService } from "./song.service";
 
 @ApiTags("Song")
 @Controller("song")
+@UseFilters(new AllExceptionFilter())
 export class SongController {
 	constructor(private readonly songService: SongService) {}
 
 	@Post("upload")
-	uploadSong() {
+	uploadSong(@Body() updateUserDto: CreateSongDto) {
 		this.songService.uploadSongFile();
 	}
 
@@ -28,16 +31,16 @@ export class SongController {
 	}
 
 	@Delete(":id")
-	deleteSong() {
+	deleteSong(@Param("id") id: string) {
 		this.songService.deleteSong();
 	}
 
 	@Patch(":id")
-	updateSong(
+	async updateSong(
         @Param("id") id: string, 
         @Body() updateUserDto: UpdateSongDto
 	) {
-		this.songService.updateSong();
+		await this.songService.updateSong();
 	}
 
 	@Get()
@@ -46,7 +49,7 @@ export class SongController {
 	}
 
 	@Get(":id")
-	findSong() {
+	findSong(@Param("id") id: string) {
 		this.songService.findSong();
 	}
 }
