@@ -1,22 +1,4 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { PartialType } from "@nestjs/swagger";
+import { CreateUserDto } from "./create-user.dto";
 
-export class UpdateUserDto {
-    constructor(partial?: Partial<UpdateUserDto>) {
-	    Object.assign(this, partial);
-	}
-
-    @ApiProperty()
-    name: string;
-
-    @ApiProperty()
-    email: string;
-
-    @ApiProperty()
-    avatar: string;
-
-    @ApiProperty()
-    status: string;
-    
-    @ApiProperty()
-    password: string;
-}
+export class UpdateUserDto extends PartialType(CreateUserDto) {}

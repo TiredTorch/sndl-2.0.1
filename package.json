@@ -4,7 +4,11 @@
   "license": "MIT",
   "scripts": {
     "sndl-api:serve": "npx nx run sndl-api:serve",
-    "sndl-app:serve": "npx nx run sndl-app:serve"
+    "sndl-app:serve": "npx nx run sndl-app:serve",
+    "lint:api-lib": "npx nx run sndl-api-lib:lint",
+    "lint:api-lib:fix": "npx nx run sndl-api-lib:lint --fix",
+    "lint:api": "npx nx run sndl-api:lint",
+    "lint:api:fix": "npx nx run sndl-api:lint --fix"
   },
   "private": true,
   "devDependencies": {
@@ -74,6 +78,7 @@
     "@nestjs/swagger": "^7.3.0",
     "@prisma/client": "^5.10.2",
     "axios": "^1.6.0",
+    "fastify": "^4.26.1",
     "prisma-extension-soft-delete": "^1.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",

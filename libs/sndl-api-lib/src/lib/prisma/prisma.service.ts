@@ -9,38 +9,36 @@ import { PrismaClient } from "@prisma/client";
 
 @Injectable()
 export class PrismaService
-  extends PrismaClient
-  implements OnModuleInit, OnModuleDestroy
+	extends PrismaClient
+	implements OnModuleInit, OnModuleDestroy
 {
-  async onModuleInit() {
-    await this.$connect();
+	async onModuleInit() {
+		await this.$connect();
 
-    Object.assign(
-      this,
-      this.$extends(
-        createSoftDeleteExtension({
-            models: {
-                Album: true,
-                ChatRoom: true,
-                Message: true,
-                Post: true,
-                Song: true,
-                User: true,
-            },
-            defaultConfig: {
-                field: "deletedAt",
-                createValue: (deleted) => {
-                  if (deleted) return new Date();
-                  return null;
-                },
-            },
-        })
-      )
-    )
+		Object.assign(
+			this,
+			this.$extends(createSoftDeleteExtension({
+				models: {
+					Album: true,
+					ChatRoom: true,
+					Message: true,
+					Post: true,
+					Song: true,
+					User: true,
+				},
+				defaultConfig: {
+					field: "deletedAt",
+					createValue: (deleted) => {
+						if (deleted) return new Date();
+						return null;
+					},
+				},
+			}))
+		);
     
-  }
+	}
  
-  async onModuleDestroy() {
-    await this.$disconnect();
-  }
+	async onModuleDestroy() {
+		await this.$disconnect();
+	}
 }

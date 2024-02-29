@@ -11,35 +11,35 @@ import {
 import { SndlApiLibModule } from "@sndl-api-lib";
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestFastifyApplication>(
-    SndlApiLibModule,
-    new FastifyAdapter({
-      maxParamLength: 1000
-    }),
-    {
-      cors: {
-        methods: [
-          "GET",
-          "POST",
-          "PUT",
-          "DELETE",
-          "HEAD",
-          "PATCH",
-          "OPTIONS"
-        ],
-        allowedHeaders: "*",
-        origin: "*"
-      },
-      bufferLogs: true
-    }  
-  );
+		const app = await NestFactory.create<NestFastifyApplication>(
+			SndlApiLibModule,
+			new FastifyAdapter({
+				maxParamLength: 1000
+			}),
+			{
+				cors: {
+					methods: [
+						"GET",
+						"POST",
+						"PUT",
+						"DELETE",
+						"HEAD",
+						"PATCH",
+						"OPTIONS"
+					],
+					allowedHeaders: "*",
+					origin: "*"
+				},
+				bufferLogs: true
+			}  
+		);
 
-  const globalPrefix = 'api';
-  const globalDocsPrefix = 'docs';
+		const globalPrefix = "api";
+		const globalDocsPrefix = "docs";
 
-  app.setGlobalPrefix(globalPrefix);
+		app.setGlobalPrefix(globalPrefix);
 
-  const swaggerConfig = new DocumentBuilder()
+		const swaggerConfig = new DocumentBuilder()
 			.setTitle("Sndl api")
 			.setDescription("Soundle REST API documentation")
 			.setVersion("1.0")
@@ -54,22 +54,20 @@ async function bootstrap() {
 			)
 			.build();
 
-  SwaggerModule.setup(
-    globalDocsPrefix,
-    app,
-    SwaggerModule.createDocument(
-      app,
-      swaggerConfig
-    )
-  );
+		SwaggerModule.setup(
+			globalDocsPrefix,
+			app,
+			SwaggerModule.createDocument(
+				app,
+				swaggerConfig
+			)
+		);
 
-  const port = process.env.PORT || 3000;
+		const port = process.env.PORT || 3000;
 
-  await app.listen(port);
+		await app.listen(port);
 
-  Logger.log(
-    `🚀 Application is running on: http://localhost:${port}/${globalDocsPrefix}`
-  );
+		Logger.log(`🚀 Application is running on: http://localhost:${port}/${globalDocsPrefix}`);
 }
 
 bootstrap();

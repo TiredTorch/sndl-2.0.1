@@ -1,40 +1,52 @@
 import {
+	Body,
 	Controller,
 	Delete,
 	Get,
+	Param,
 	Patch,
 	Post
 } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
+import { CreateSongDto } from "./dto/create-song.dto";
+import { UpdateSongDto } from "./dto/update-song.dto";
 import { SongService } from "./song.service";
 
 @ApiTags("Song")
-@Controller('song')
+@Controller("song")
 export class SongController {
-  constructor(private readonly songService: SongService) {}
+	constructor(private readonly songService: SongService) {}
 
-  @Post()
-  uploadSong() {
-    this.songService.uploadSong()
-  }
+	@Post("upload")
+	uploadSong() {
+		this.songService.uploadSongFile();
+	}
 
-  @Delete(':id')
-  deleteSong() {
-    this.songService.deleteSong()
-  }
+	@Post()
+	createSong(@Body() createSongDto: CreateSongDto) {
+		this.songService.createSong(createSongDto);
+	}
 
-  @Patch(':id')
-  updateSong() {
-    this.songService.updateSong()
-  }
+	@Delete(":id")
+	deleteSong() {
+		this.songService.deleteSong();
+	}
 
-  @Get()
-  findSongs() {
-    this.songService.findSongs()
-  }
+	@Patch(":id")
+	updateSong(
+        @Param("id") id: string, 
+        @Body() updateUserDto: UpdateSongDto
+	) {
+		this.songService.updateSong();
+	}
 
-  @Get(":id")
-  findSong() {
-    this.songService.findSong()
-  }
+	@Get()
+	findSongs() {
+		this.songService.findSongs();
+	}
+
+	@Get(":id")
+	findSong() {
+		this.songService.findSong();
+	}
 }
