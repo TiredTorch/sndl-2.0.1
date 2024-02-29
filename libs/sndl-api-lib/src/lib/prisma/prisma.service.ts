@@ -25,6 +25,7 @@ export class PrismaService
 					Post: true,
 					Song: true,
 					User: true,
+					Comment: true
 				},
 				defaultConfig: {
 					field: "deletedAt",

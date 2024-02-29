@@ -4,25 +4,25 @@ import { UpdateAuthDto } from "./dto/update-auth.dto";
 
 @Injectable()
 export class AuthService {
-	create(createAuthDto: CreateAuthDto) {
+	async create(createAuthDto: CreateAuthDto) {
 		return "This action adds a new auth";
 	}
 
-	findAll() {
+	async findAll() {
 		return `This action returns all auth`;
 	}
 
-	findOne(id: number) {
+	async findOne(id: number) {
 		return `This action returns a #${id} auth`;
 	}
 
-	update(
+	async update(
 		id: number, updateAuthDto: UpdateAuthDto
 	) {
 		return `This action updates a #${id} auth`;
 	}
 
-	remove(id: number) {
+	async remove(id: number) {
 		return `This action removes a #${id} auth`;
 	}
 }

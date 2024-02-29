@@ -1,12 +1,15 @@
 import { Module } from "@nestjs/common";
-import { AlbumModule } from "./album/album.module";
+import { APP_FILTER } from "@nestjs/core";
+import { AlbumsModule } from "./albums/albums.module";
 import { AuthModule } from "./auth/auth.module";
-import { ChatModule } from "./chat/chat.module";
-import { MessageModule } from "./message/message.module";
-import { PostModule } from "./post/post.module";
+import { ChatsModule } from "./chats/chats.module";
+import { CommentsModule } from "./comments/comments.module";
+import { AllExceptionFilter } from "./exception";
+import { MessagesModule } from "./messages/messages.module";
+import { PostsModule } from "./posts/posts.module";
 import { PrismaModule } from "./prisma/prisma.module";
-import { SongModule } from "./song/song.module";
-import { UserModule } from "./user/user.module";
+import { SongsModule } from "./songs/songs.module";
+import { UsersModule } from "./users/users.module";
 
 @Module({
 	imports: [
@@ -15,12 +18,19 @@ import { UserModule } from "./user/user.module";
 			module: PrismaModule
 		},
 		AuthModule,
-		ChatModule,
-		PostModule,
-		SongModule,
-		UserModule,
-		MessageModule,
-		AlbumModule
+		PostsModule,
+		CommentsModule,
+		UsersModule,
+		ChatsModule,
+		MessagesModule,
+		SongsModule,
+		AlbumsModule
+	],
+	providers: [
+		{
+			provide: APP_FILTER,
+			useClass: AllExceptionFilter
+		}
 	]
 })
 export class SndlApiLibModule {}
