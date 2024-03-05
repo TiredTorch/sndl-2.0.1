@@ -6,6 +6,7 @@ import {
 	Navigate,
 	useLocation
 } from "react-router-dom";
+import { PrivatePagesLayout } from "../../layouts";
 import { PageRoutes } from "../../types";
 
 export const PrivateRoute: FC<PropsWithChildren> = ({
@@ -25,7 +26,11 @@ export const PrivateRoute: FC<PropsWithChildren> = ({
 		);
 	}
 
-	return children;
+	return (
+        <PrivatePagesLayout>
+            {children}
+        </PrivatePagesLayout>
+	);
 };
 
 export default PrivateRoute;

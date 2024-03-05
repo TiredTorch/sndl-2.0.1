@@ -1,4 +1,5 @@
 import { lazy } from "react";
+import { Navigate } from "react-router-dom";
 import {
 	PageRoutes,
 	Routes
@@ -7,7 +8,6 @@ import {
 const LoginPage = lazy(() => import("../pages/LoginPage/LoginPage"));
 const RegisterPage = lazy(() => import("../pages/RegisterPage/RegisterPage"));
 const ResetPasswordPage = lazy(() => import("../pages/ResetPasswordPage/ResetPasswordPage"));
-const NotFoundPage = lazy(() => import("../pages/NotFoundPage/NotFoundPage"));
 
 export const commonRoutes: Routes = [
 	{
@@ -27,7 +27,7 @@ export const commonRoutes: Routes = [
 	},
 	{
 		isAuth: false,
-		element: <NotFoundPage/>,
+		element: <Navigate to={PageRoutes.LOGIN}/>,
 		path: "*"
 	}
 ];
