@@ -16,7 +16,9 @@ export const PrivatePagesLayout: FC<PropsWithChildren> = ({
         <Box
             sx={privatePagesLayoutStyles.root}
         >
-            <Box>
+            <Box
+                sx={privatePagesLayoutStyles.innerBox}
+            >
                 {children}
             </Box>
             <Sidebar/>

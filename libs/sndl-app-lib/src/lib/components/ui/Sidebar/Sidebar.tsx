@@ -3,6 +3,7 @@ import {
 	useCallback,
 	useMemo
 } from "react";
+import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import {
 	Box,
@@ -24,7 +25,7 @@ import { sidebarStyles } from "./Sidebar.styles";
 import SidebarListItem from "./SidebarListItem/SidebarListItem";
 
 export const Sidebar = () => {
-
+	const intl = useIntl();
 	const navigate = useNavigate();
 	const isOpenSidebar = useTypedSelector(store => store.userSlice.isOpenNavBar);
 
@@ -40,37 +41,44 @@ export const Sidebar = () => {
 			{
 				image: dashboardIcon,
 				position: "top",
-				onClick: () => navigate(PageRoutes.DASHBOARD)
+				onClick: () => navigate(PageRoutes.DASHBOARD),
+				title: "TXT_DASHBOARD_TITLE"
 			},
 			{
 				image: profileIcon,
 				position: "top",
-				onClick: () => navigate(PageRoutes.PROFILE)
+				onClick: () => navigate(PageRoutes.PROFILE),
+				title: "TXT_PROFILE_TITLE"
 			},
 			{
 				image: friendsIcon,
 				position: "top",
-				onClick: () => navigate(PageRoutes.FRIENDS)
+				onClick: () => navigate(PageRoutes.FRIENDS),
+				title: "TXT_FRIENDS_TITLE"
 			},
 			{
 				image: libraryIcon,
 				position: "top",
-				onClick: () => navigate(PageRoutes.LIBRARY)
+				onClick: () => navigate(PageRoutes.LIBRARY),
+				title: "TXT_LIBRARY_TITLE"
 			},
 			{
 				image: workshopIcon,
 				position: "top",
-				onClick: () => navigate(PageRoutes.WORKSHOP)
+				onClick: () => navigate(PageRoutes.WORKSHOP),
+				title: "TXT_WORKSHOP_TITLE"
 			},
 			{
 				image: settingsIcon,
 				position: "bottom",
-				onClick: () => navigate(PageRoutes.SETTINGS)
+				onClick: () => navigate(PageRoutes.SETTINGS),
+				title: "TXT_SETTINGS_TITLE"
 			},
 			{
 				image: logoutIcon,
 				position: "bottom",
-				onClick: handleLogout
+				onClick: handleLogout,
+				title: "TXT_LOGOUT_TITLE"
 			}
 		],
 		[handleLogout, navigate]
@@ -81,7 +89,6 @@ export const Sidebar = () => {
             variant="persistent"
             open={isOpenSidebar}
             sx={sidebarStyles.root}
-            hideBackdrop
             PaperProps={{
                 sx: {
                     ...sidebarStyles.paper,
@@ -103,7 +110,7 @@ export const Sidebar = () => {
                             isOpenSidebar={isOpenSidebar}
                             onClick={item.onClick}
                             key={i} 
-                            title={"title"}                            
+                            title={intl.formatMessage({ id: item.title })}                            
                         />
                     ))
                 }
@@ -120,7 +127,7 @@ export const Sidebar = () => {
                             isOpenSidebar={isOpenSidebar}
                             onClick={item.onClick}
                             key={i} 
-                            title={"title"}                            
+                            title={intl.formatMessage({ id: item.title })}                                                   
                         />
                     ))
                 }

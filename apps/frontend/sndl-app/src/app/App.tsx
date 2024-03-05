@@ -5,6 +5,7 @@ import {
 	ThemeProvider
 } from "@mui/material";
 import {
+	AppIntlProvider,
 	AppRoutes,
 	store,
 	theme
@@ -13,12 +14,14 @@ import {
 const App = () => {
 	return (
         <BrowserRouter>
-            <Provider store={store}>
-                <ThemeProvider theme={theme}>
-                    <CssBaseline/>
-                    <AppRoutes/>
-                </ThemeProvider>
-            </Provider>
+            <AppIntlProvider>
+                <Provider store={store}>
+                    <ThemeProvider theme={theme}>
+                        <CssBaseline/>
+                        <AppRoutes/>
+                    </ThemeProvider>
+                </Provider>
+            </AppIntlProvider>
         </BrowserRouter>
 	);
 };

@@ -1,3 +1,4 @@
+import { Theme } from "@mui/material";
 import { StyleList } from "../../../../types";
 
 export const sidebarListItemStyles: StyleList = {
@@ -9,6 +10,9 @@ export const sidebarListItemStyles: StyleList = {
 		cursor: "pointer"
 	},
 	text: {
-		width: "100%"
+		width: "100%",
+		fontSize: "20px",
+		fontWeight: 700,
+		color: (theme: Theme) => theme.palette.sndlGray[300]
 	}
 };

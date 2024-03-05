@@ -7,5 +7,12 @@ export const privatePagesLayoutStyles = {
 		minWidth: "100dvw",
 		maxHeight: "100dvh",
 		maxWidth: "100dvw",
+		paddingLeft: "80px"
+	},
+	innerBox: {
+		width: "100%",
+		height: "calc(100dvh - 50px)",
+		padding: "20px",
+		paddingBottom: "80px"
 	}
 };

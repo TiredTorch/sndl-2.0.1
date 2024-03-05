@@ -50,6 +50,9 @@ theme.components = {
 			"*": {
 				scrollbarWidth: "auto",
 				scrollbarColor: "#878089 #474747",
+				fontFamily: "'Inria Serif', serif",
+				fontWeight: 400,
+				fontStyle: "normal",
 			},
 			background: theme.palette.sndlGray[500]
 		}
