@@ -1,6 +1,14 @@
+import { SearchMusicForm } from "../../components";
+import LibraryMusicItem from "./LibraryMusicItem/LibraryMusicItem";
+import ZoneDivider from "./ZoneDivider/ZoneDivider";
+
 const LibraryPage = () => {
 	return (
-        <div>LibraryPage</div>
+        <div>
+            <SearchMusicForm/>
+            <ZoneDivider/>
+            <LibraryMusicItem/>
+        </div>
 	);
 };
 

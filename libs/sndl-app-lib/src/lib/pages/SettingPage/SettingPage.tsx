@@ -1,6 +1,10 @@
+import { SettingItemForm } from "../../components";
+
 const SettingPage = () => {
 	return (
-        <div>SettingPage</div>
+        <div>
+            <SettingItemForm/>
+        </div>
 	);
 };
 

@@ -4,9 +4,10 @@ export enum PageRoutes {
 	RESET_PASSWORD = "/resetPassword",
 	PROFILE = "/profile/:id",
 	EDIT_PROFILE = "/profileEdit",
-	DASHBOARD = "/dashboard",
+	DASHBOARD = "/",
 	LIBRARY = "/lib",
 	FRIENDS = "/friends",
 	WORKSHOP = "/workshop",
+	WORKSHOP_UPLOAD = "/workshop/upload",
 	SETTINGS = "/settings"
 }

@@ -1,6 +1,16 @@
+import ChatContainer from "./ChatContainer/ChatContainer";
+import ExpandedUserModal from "./ExpandedUserModal/ExpandedUserModal";
+import FriendsListContainer from "./FriendsListContainer/FriendsListContainer";
+import UserSearchContainer from "./UserSearchContainer/UserSearchContainer";
+
 const FriendsPage = () => {
 	return (
-        <div>FriendsPage</div>
+        <div>
+            <FriendsListContainer/>
+            <ExpandedUserModal/>
+            <ChatContainer/>
+            <UserSearchContainer/>
+        </div>
 	);
 };
 

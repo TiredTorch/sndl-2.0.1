@@ -1,6 +1,8 @@
+import WorkshopButtonNavigate from "./WorkshopButtonNavigate/WorkshopButtonNavigate";
+
 const WorkshopPage = () => {
 	return (
-        <div>WorkshopPage</div>
+        <div><WorkshopButtonNavigate/></div>
 	);
 };
 

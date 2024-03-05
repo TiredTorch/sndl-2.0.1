@@ -1,6 +1,10 @@
+import { EditProfileForm } from "../../components";
+
 const EditProfilePage = () => {
 	return (
-        <div>EditProfilePage</div>
+        <div>
+            <EditProfileForm/>
+        </div>
 	);
 };
 

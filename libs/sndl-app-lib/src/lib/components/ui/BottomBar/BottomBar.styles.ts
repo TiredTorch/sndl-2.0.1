@@ -7,7 +7,10 @@ import { StyleList } from "../../../types";
 
 export const bottomBarStyles: StyleList = {
 	root: {
-		background: (theme: Theme) => `linear-gradient(0deg, ${theme.palette.sndlGray[500]} 0%, ${theme.palette.sndlGray[500]} 65%, ${alpha(
+		background: (theme: Theme) => `linear-gradient(0deg, ${theme.palette.sndlGray[500]} 0%, ${alpha(
+			theme.palette.sndlGray[500] ?? "",
+			0.7
+		)} 55%, ${alpha(
 			theme.palette.sndlGray[700] ?? "",
 			0.1
 		)} 100%)`,

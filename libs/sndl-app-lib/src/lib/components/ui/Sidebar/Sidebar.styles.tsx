@@ -11,7 +11,6 @@ export const sidebarStyles: StyleList = {
 		width: "230px",
 		background: (theme: Theme) => theme.palette.sndlGray[500],
 		border: "none",
-		borderRight: (theme: Theme) => `1px solid ${theme.palette.sndlGray[800]}`,
 		display: "flex",
 		flexDirection: "column",
 		justifyContent: "space-between",
