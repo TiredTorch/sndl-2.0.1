@@ -5,6 +5,8 @@ const initialState: {
     //user data section
 	userId: number | null,
 	userImage: string | null,
+	userName: string | null,
+	userStatus: string | null,
 
     //app state section
 	isLoggedIn: boolean,
@@ -20,6 +22,8 @@ const initialState: {
     //user data section
 	userId: 1,
 	userImage: faker.image.url(),
+	userName: faker.internet.displayName(),
+	userStatus: faker.lorem.paragraph(),
 
     //app state section
 	isLoggedIn: true,

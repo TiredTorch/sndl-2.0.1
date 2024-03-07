@@ -1,7 +1,37 @@
+import { FC } from "react";
+import { Box } from "@mui/material";
+import { musicHistoryItemStyles } from "./MusicHistoryItem.styles";
+import { MusicHistoryItemProps } from "./MusicHistoryItem.types";
 
-const MusicHistoryItem = () => {
+const MusicHistoryItem: FC<MusicHistoryItemProps> = ({
+	author,
+	image,
+	title
+}) => {
 	return (
-        <div>MusicHistoryItem</div>
+        <Box
+            sx={musicHistoryItemStyles.root}
+        >
+            <Box
+                sx={musicHistoryItemStyles.image}
+                component="img"
+                src={image}
+            />
+            <Box
+                sx={musicHistoryItemStyles.textWrapper}
+            >
+                <Box
+                    sx={musicHistoryItemStyles.author}
+                >
+                    {author}
+                </Box>
+                <Box
+                    sx={musicHistoryItemStyles.name}
+                >
+                    {title}
+                </Box>
+            </Box>
+        </Box>
 	);
 };
 

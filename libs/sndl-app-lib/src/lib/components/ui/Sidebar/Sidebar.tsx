@@ -28,6 +28,7 @@ export const Sidebar = () => {
 	const intl = useIntl();
 	const navigate = useNavigate();
 	const isOpenSidebar = useTypedSelector(store => store.userSlice.isOpenNavBar);
+	const userId = useTypedSelector(store => store.userSlice.userId);
 
 	const handleLogout = useCallback(
 		() => {
@@ -47,7 +48,7 @@ export const Sidebar = () => {
 			{
 				image: profileIcon,
 				position: "top",
-				onClick: () => navigate(PageRoutes.PROFILE),
+				onClick: () => navigate(`/profile/${userId}`),
 				title: "TXT_PROFILE_TITLE"
 			},
 			{
@@ -81,7 +82,7 @@ export const Sidebar = () => {
 				title: "TXT_LOGOUT_TITLE"
 			}
 		],
-		[handleLogout, navigate]
+		[handleLogout, navigate, userId]
 	);
 
 	return (
