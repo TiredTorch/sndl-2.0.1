@@ -2,15 +2,35 @@ import { faker } from "@faker-js/faker";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: {
+    //user data section
 	userId: number | null,
 	userImage: string | null,
+
+    //app state section
 	isLoggedIn: boolean,
 	isOpenNavBar: boolean,
+
+    //user config section
+	isWorkshopSoundMuted: boolean,
+	isNotificationsEnabled: boolean,
+	isListenHistoryPublic: boolean,
+	isAdorable: boolean,
+	isVisualizerEnabled: boolean,
 } = {
+    //user data section
 	userId: 1,
 	userImage: faker.image.url(),
+
+    //app state section
 	isLoggedIn: true,
-	isOpenNavBar: false
+	isOpenNavBar: false,
+    
+    //user config section
+	isWorkshopSoundMuted: false,
+	isNotificationsEnabled: false,
+	isListenHistoryPublic: true,
+	isAdorable: true,
+	isVisualizerEnabled: true,
 };
 
 export const userSlice = createSlice({

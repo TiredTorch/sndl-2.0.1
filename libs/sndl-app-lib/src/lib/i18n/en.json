@@ -5,5 +5,11 @@
     "TXT_WORKSHOP_TITLE": "Workshop",
     "TXT_SETTINGS_TITLE": "Settings",
     "TXT_LOGOUT_TITLE": "Logout",
-    "TXT_LIBRARY_TITLE": "Library"
+    "TXT_LIBRARY_TITLE": "Library",
+
+    "TXT_MUTE_WORKSHOP": "Mute sound in workshop",
+    "TXT_ENABLE_NOTIFICATIONS": "Enable notifications",
+    "TXT_SHOW_HISTORY": "Show listening history",
+    "TXT_BE_ADORABLE": "Be the most adorable person",
+    "TXT_ENABLE_VISUALISATOR": "Enable visualisator"
 }
