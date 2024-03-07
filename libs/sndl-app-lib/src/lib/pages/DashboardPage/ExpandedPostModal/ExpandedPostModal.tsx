@@ -87,7 +87,12 @@ const ExpandedPostModal: FC<ExpandedPostModalProps> = ({
                 >
                     {selectedPost?.content}
                 </Box>
-                <PostCommentForm/>
+                <PostCommentForm 
+                    onSubmit={console.log} 
+                    initState={{
+                        field: ""
+                    }}
+                />
                 <Box
                     sx={expandedPostModalStyles.commentWrapper}
                 >

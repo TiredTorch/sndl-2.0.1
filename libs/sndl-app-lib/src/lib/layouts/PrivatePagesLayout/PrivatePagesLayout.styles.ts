@@ -13,7 +13,6 @@ export const privatePagesLayoutStyles: StyleList = {
 	innerBox: {
 		width: "100%",
 		height: "100dvh",
-		padding: "20px",
 		paddingRight: "0px",
 		overflow: "hidden"
 	}

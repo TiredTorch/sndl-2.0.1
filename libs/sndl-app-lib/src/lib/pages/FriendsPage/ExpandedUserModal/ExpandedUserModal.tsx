@@ -1,7 +1,28 @@
+import { FC } from "react";
+import {
+	Box,
+	Modal
+} from "@mui/material";
+import { expandedUserModalStyles } from "./ExpandedUserModal.styles";
+import { ExpandedUserModalProps } from "./ExpandedUserModal.types";
 
-const ExpandedUserModal = () => {
+const ExpandedUserModal: FC<ExpandedUserModalProps> = ({
+	onClose,
+	selectedUser
+}) => {
 	return (
-        <div>ExpandedUserModal</div>
+        <Modal
+            open={!!selectedUser}
+            onClose={onClose}
+            disableAutoFocus
+        >
+            <Box
+                sx={expandedUserModalStyles.root}
+            >
+                <Box
+                />
+            </Box>
+        </Modal>
 	);
 };
 

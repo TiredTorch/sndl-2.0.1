@@ -8,7 +8,8 @@ export const dashboardPageStyles: StyleList = {
 		justifyContent: "flex-start",
 		width: "100%",
 		maxHeight: "100dvh",
+		padding: "20px",
 		paddingLeft: "2%",
-		overflowY: "scroll"
+		overflowY: "scroll",
 	}
 };

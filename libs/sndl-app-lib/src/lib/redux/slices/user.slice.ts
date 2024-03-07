@@ -1,9 +1,14 @@
+import { faker } from "@faker-js/faker";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: {
+	userId: number | null,
+	userImage: string | null,
 	isLoggedIn: boolean,
 	isOpenNavBar: boolean,
 } = {
+	userId: 1,
+	userImage: faker.image.url(),
 	isLoggedIn: true,
 	isOpenNavBar: false
 };
