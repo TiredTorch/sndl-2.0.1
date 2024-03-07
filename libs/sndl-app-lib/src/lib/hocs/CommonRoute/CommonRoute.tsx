@@ -6,6 +6,7 @@ import {
 	Navigate,
 	useLocation
 } from "react-router-dom";
+import { useTypedSelector } from "../../redux";
 import { PageRoutes } from "../../types";
 
 export const CommonRoute: FC<PropsWithChildren> = ({
@@ -13,7 +14,7 @@ export const CommonRoute: FC<PropsWithChildren> = ({
 }) => {
 	const location = useLocation();
 
-	const isUserLoggedIn = true;
+	const isUserLoggedIn = useTypedSelector(store => store.userSlice.isLoggedIn);
 
 	if (isUserLoggedIn) {
 		return (

@@ -1,6 +1,31 @@
-export const SendMessageForm = () => {
+import {
+	Form,
+	Formik
+} from "formik";
+import { FC } from "react";
+import { Field } from "../../common";
+import { validationSchema } from "./SendMessageForm.schema";
+import { SendMessageFormProps } from "./SendMessageForm.types";
+
+export const SendMessageForm: FC<SendMessageFormProps> = ({
+	onSubmit,
+	initState
+}) => {
+
 	return (
-        <div>SendMessageForm</div>
+        <Formik
+            initialValues={initState}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
+        >
+            {() => (
+                <Form>
+                    <Field
+                        name="field"
+                    />
+                </Form>
+            )}
+        </Formik>
 	);
 };
 

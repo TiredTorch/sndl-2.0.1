@@ -5,7 +5,6 @@ export * from "./RegisterForm/RegisterForm";
 export * from "./ResetPasswordForm/ResetPasswordForm";
 export * from "./SearchMusicForm/SearchMusicForm";
 export * from "./SendMessageForm/SendMessageForm";
-export * from "./SettingItemForm/SettingItemForm";
 export * from "./SongCreationForm/SongCreationForm";
 export * from "./EditProfileForm/EditProfileForm";
 export * from "./SearchFriendForm/SearchFriendForm";

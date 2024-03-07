@@ -1,7 +1,19 @@
+import { FC } from "react";
+import {
+	Box,
+	Input
+} from "@mui/material";
+import { FieldProps } from "./Field.types";
 
-const Field = () => {
+export const Field: FC<FieldProps> = ({
+	...rest
+}) => {
 	return (
-        <div>Field</div>
+        <Box>
+            <Input
+                {...rest}
+            />
+        </Box>
 	);
 };
 

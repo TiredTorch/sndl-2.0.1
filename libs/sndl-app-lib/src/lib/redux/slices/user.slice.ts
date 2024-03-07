@@ -1,8 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: {
-	isOpenNavBar: boolean
+	isLoggedIn: boolean,
+	isOpenNavBar: boolean,
 } = {
+	isLoggedIn: true,
 	isOpenNavBar: false
 };
 

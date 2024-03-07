@@ -3,7 +3,7 @@ import { LoginForm } from "../../components";
 const LoginPage = () => {
 	return (
         <div>
-            <LoginForm/>
+            <LoginForm onSubmit={console.log}/>
         </div>
 	);
 };

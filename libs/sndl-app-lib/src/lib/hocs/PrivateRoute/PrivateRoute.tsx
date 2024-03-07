@@ -7,6 +7,7 @@ import {
 	useLocation
 } from "react-router-dom";
 import { PrivatePagesLayout } from "../../layouts";
+import { useTypedSelector } from "../../redux";
 import { PageRoutes } from "../../types";
 
 export const PrivateRoute: FC<PropsWithChildren> = ({
@@ -14,7 +15,7 @@ export const PrivateRoute: FC<PropsWithChildren> = ({
 }) => {
 	const location = useLocation();
 
-	const isUserLoggedIn = true;
+	const isUserLoggedIn = useTypedSelector(store => store.userSlice.isLoggedIn);
 
 	if (!isUserLoggedIn) {
 		return (

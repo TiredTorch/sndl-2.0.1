@@ -1,4 +1,4 @@
-import { SettingItemForm } from "../../components";
+import SettingItemForm from "./SettingItemForm/SettingItemForm";
 
 const SettingPage = () => {
 	return (
