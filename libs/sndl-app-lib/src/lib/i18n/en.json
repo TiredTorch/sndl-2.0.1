@@ -11,5 +11,8 @@
     "TXT_ENABLE_NOTIFICATIONS": "Enable notifications",
     "TXT_SHOW_HISTORY": "Show listening history",
     "TXT_BE_ADORABLE": "Be the most adorable person",
-    "TXT_ENABLE_VISUALISATOR": "Enable visualisator"
+    "TXT_ENABLE_VISUALISATOR": "Enable visualisator",
+
+    "TXT_WORKSHOP_CREATE": "Create song right here",
+    "TXT_WORKSHOP_UPLOAD": "Upload song"
 }

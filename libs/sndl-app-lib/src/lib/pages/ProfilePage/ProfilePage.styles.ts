@@ -50,7 +50,8 @@ export const profilePageStyles: StyleList = {
 		background: (theme: Theme) => theme.palette.sndlGray[200],
 		height: "2px",
 		width: "80%",
-		marginLeft: "3%"
+		marginLeft: "3%",
+		marginTop: "2%"
 	},
 	musicHistoryWrapper: {
 		minWidth: "320px",

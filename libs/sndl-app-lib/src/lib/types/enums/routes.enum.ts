@@ -9,5 +9,6 @@ export enum PageRoutes {
 	FRIENDS = "/friends",
 	WORKSHOP = "/workshop",
 	WORKSHOP_UPLOAD = "/workshop/upload",
+	WORKSHOP_CREATE = "/workshop/create",
 	SETTINGS = "/settings"
 }
