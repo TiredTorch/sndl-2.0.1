@@ -1,7 +1,20 @@
+import { FC } from "react";
+import { useIntl } from "react-intl";
+import { Divider } from "@mui/material";
+import { libraryPageStyles } from "../LibraryPage.styles";
+import { ZoneDividerProps } from "./ZoneDivider.types";
 
-const ZoneDivider = () => {
+const ZoneDivider: FC<ZoneDividerProps> = ({
+	title
+}) => {
+	const intl = useIntl();
+
 	return (
-        <div>ZoneDivider</div>
+        <Divider
+            sx={libraryPageStyles.divider}
+        >
+            {intl.formatMessage({ id: title })}
+        </Divider>
 	);
 };
 

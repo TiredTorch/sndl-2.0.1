@@ -14,5 +14,10 @@
     "TXT_ENABLE_VISUALISATOR": "Enable visualisator",
 
     "TXT_WORKSHOP_CREATE": "Create song right here",
-    "TXT_WORKSHOP_UPLOAD": "Upload song"
+    "TXT_WORKSHOP_UPLOAD": "Upload song",
+    
+    "TXT_SAVED_SONGS": "Saved Songs",
+    "TXT_FRENDS_FEATURED_SONGS": "Friends Featured",
+    "TXT_NEW_SONGS": "Discover Something New",
+    "TXT_LATEST_SONGS": "Latest Songs"
 }
