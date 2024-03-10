@@ -7,7 +7,8 @@ const LoginPage = () => {
             <LoginForm 
                 onSubmit={console.log} 
                 initState={{
-                    field: ""
+                    login: "",
+                    password: ""
                 }}
             />
         </PublicPagesLayout>

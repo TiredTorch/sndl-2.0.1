@@ -1,8 +1,9 @@
 import {
 	object,
 	string
-} from "yup";
+} from "../../../yup";
 
 export const validationSchema = object().shape({
-	field: string()
+	login: string().required(),
+	password: string().required()
 });

@@ -5,10 +5,11 @@ const RegisterPage = () => {
 	return (
         <PublicPagesLayout>
             <RegisterForm 
-            onSubmit={console.log} 
-            initState={{
-                field: ""
-            }}/>
+                onSubmit={console.log} 
+                initState={{
+                    field: ""
+                }}
+            />
         </PublicPagesLayout>
 	);
 };

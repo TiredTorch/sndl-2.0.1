@@ -4,5 +4,6 @@ export type LoginFormProps = {
 };
 
 export type LoginFormData = {
-	field: string
+	login: string
+	password: string
 };

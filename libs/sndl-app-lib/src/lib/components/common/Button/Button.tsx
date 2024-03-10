@@ -1,7 +1,41 @@
+import { FC } from "react";
+import {
+	Box,
+	Button as MUIButton,
+	SxProps,
+	Theme
+} from "@mui/material";
+import { buttonStyles } from "./Button.styles";
+import { ButtonProps } from "./Button.types";
 
-export const Button = () => {
+export const Button: FC<ButtonProps> = ({
+	children,
+	customVariant,
+	icon,
+	sx,
+	...rest
+}) => {
 	return (
-        <div>Button</div>
+        <MUIButton
+            disableElevation
+            disableFocusRipple
+            disableRipple
+            disableTouchRipple
+            sx={[
+                buttonStyles.root,
+                customVariant === "auth" && buttonStyles.auth,
+                sx
+            ] as SxProps<Theme>}
+            {...rest}
+        >
+            {icon && (
+                <Box
+                    component="img"
+                    src={icon}
+                />
+            )}
+            {children}
+        </MUIButton>
 	);
 };
 

@@ -20,7 +20,6 @@ export const publicPagesLayoutStyles: StyleList = {
 		top: "0px",
 		left: "0px",
 		zIndex: 5,
-		padding: "20px",
 		overflowX: "clip",
 		overflowY: "auto"
 	},

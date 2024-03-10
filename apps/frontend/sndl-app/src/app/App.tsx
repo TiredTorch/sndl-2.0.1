@@ -12,17 +12,18 @@ import {
 } from "@sndl-app-lib";
 
 const App = () => {
+
 	return (
-        <BrowserRouter>
-            <AppIntlProvider>
-                <Provider store={store}>
-                    <ThemeProvider theme={theme}>
-                        <CssBaseline/>
-                        <AppRoutes/>
-                    </ThemeProvider>
-                </Provider>
-            </AppIntlProvider>
-        </BrowserRouter>
+        <Provider store={store}>
+            <ThemeProvider theme={theme}>
+                <AppIntlProvider>
+                    <BrowserRouter>
+                            <AppRoutes/>
+                    </BrowserRouter>
+                </AppIntlProvider>
+                <CssBaseline/>
+            </ThemeProvider>
+        </Provider>
 	);
 };
 

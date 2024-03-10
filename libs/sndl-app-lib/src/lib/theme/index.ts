@@ -39,7 +39,10 @@ export const theme = createTheme({
 		},
 		sndlRed: {
 			"300": "#D11F25",
-			"700": "#800020"
+			"600": "#73001E",
+			"700": "#800020",
+			"800": "#6C001D",
+			"900": "#59001B"
 		}
 	}
 });
@@ -48,7 +51,7 @@ theme.components = {
 	MuiCssBaseline: {
 		styleOverrides: {
 			"*": {
-				fontFamily: "'Inria Serif', serif",
+				fontFamily: "'Inria Serif', serif !important",
 				fontWeight: 400,
 				fontStyle: "normal",
 			},

@@ -1,4 +1,9 @@
 {
+    "TXT_YUP_REQUIRED": "This field is required",
+    "TXT_YUP_EMAIL": "This field is required",
+    "TXT_YUP_MIN": "This field is required",
+    "TXT_YUP_MAX": "This field is required",
+
     "TXT_DASHBOARD_TITLE": "Dashboard",
     "TXT_PROFILE_TITLE": "Profile",
     "TXT_FRIENDS_TITLE": "Friends",
@@ -19,5 +24,11 @@
     "TXT_SAVED_SONGS": "Saved Songs",
     "TXT_FRENDS_FEATURED_SONGS": "Friends Featured",
     "TXT_NEW_SONGS": "Discover Something New",
-    "TXT_LATEST_SONGS": "Latest Songs"
+    "TXT_LATEST_SONGS": "Latest Songs",
+
+    "TXT_LOGIN_FORM_TITLE": "Log in your account",
+    "TXT_LOGIN_FORM_SUBMIT": "Log in",
+    "TXT_LOGIN_FORM_FIELD_LOGIN": "Login",
+    "TXT_LOGIN_FORM_FIELD_PASSOWORD": "Password",
+    "TXT_REGISTER_LINK": "Dont have an account? Create one!"
 }
