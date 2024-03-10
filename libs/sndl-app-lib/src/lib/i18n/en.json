@@ -1,7 +1,7 @@
 {
     "TXT_YUP_REQUIRED": "This field is required",
-    "TXT_YUP_EMAIL": "This field is required",
-    "TXT_YUP_MIN": "This field is required",
+    "TXT_YUP_EMAIL": "Field should be an email",
+    "TXT_YUP_MIN": "This field must be at least {min} characters",
     "TXT_YUP_MAX": "This field is required",
 
     "TXT_DASHBOARD_TITLE": "Dashboard",
@@ -30,5 +30,11 @@
     "TXT_LOGIN_FORM_SUBMIT": "Log in",
     "TXT_LOGIN_FORM_FIELD_LOGIN": "Login",
     "TXT_LOGIN_FORM_FIELD_PASSOWORD": "Password",
-    "TXT_REGISTER_LINK": "Dont have an account? Create one!"
+    "TXT_REGISTER_LINK": "Dont have an account? Create one!",
+    "TXT_REGISTER_FORM_FIELD_USERNAME": "Username",
+    "TXT_REGISTER_FORM_FIELD_EMAIL": "Email",
+    "TXT_REGISTER_FORM_FIELD_PASSWORD": "Password",
+    "TXT_REGISTER_FORM_TITLE": "Create personal account",
+    "TXT_REGISTER_FORM_SUBMIT": "Sign up",
+    "TXT_LOGIN_LINK": "Have an account? Log into it!"
 }

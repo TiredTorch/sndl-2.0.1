@@ -7,7 +7,9 @@ const RegisterPage = () => {
             <RegisterForm 
                 onSubmit={console.log} 
                 initState={{
-                    field: ""
+                    email: "",
+                    password: "",
+                    username: ""
                 }}
             />
         </PublicPagesLayout>

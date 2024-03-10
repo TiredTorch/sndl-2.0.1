@@ -1,5 +1,4 @@
 import { FC } from "react";
-import { useIntl } from "react-intl";
 import {
 	Box,
 	Input,
@@ -16,8 +15,6 @@ export const Field: FC<FieldProps> = ({
 	customError,
 	...rest
 }) => {
-	const intl = useIntl();
-
 	return (
         <Box>
             <Input
@@ -33,7 +30,7 @@ export const Field: FC<FieldProps> = ({
                 <Box
                     sx={fieldStyles.errorText}
                 >
-                    {intl.formatMessage({id: customError})}
+                    {customError}
                 </Box>
             )}
         </Box>

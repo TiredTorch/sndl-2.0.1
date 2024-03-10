@@ -4,5 +4,7 @@ export type RegisterFormProps = {
 };
 
 export type RegisterFormData = {
-	field: string
+	username: string;
+	email: string;
+	password: string;
 };
