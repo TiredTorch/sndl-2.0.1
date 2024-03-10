@@ -26,7 +26,7 @@ const initialState: {
 	userStatus: faker.lorem.paragraph(),
 
     //app state section
-	isLoggedIn: true,
+	isLoggedIn: false,
 	isOpenNavBar: false,
     
     //user config section

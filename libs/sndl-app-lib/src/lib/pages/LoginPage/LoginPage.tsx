@@ -1,10 +1,16 @@
 import { LoginForm } from "../../components";
+import { PublicPagesLayout } from "../../layouts";
 
 const LoginPage = () => {
 	return (
-        <div>
-            <LoginForm onSubmit={console.log}/>
-        </div>
+        <PublicPagesLayout>
+            <LoginForm 
+                onSubmit={console.log} 
+                initState={{
+                    field: ""
+                }}
+            />
+        </PublicPagesLayout>
 	);
 };
 
