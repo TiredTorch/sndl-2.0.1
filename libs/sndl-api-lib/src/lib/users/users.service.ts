@@ -1,31 +1,98 @@
 import {
+	ForbiddenException,
 	Injectable,
-	NotImplementedException
+	NotFoundException
 } from "@nestjs/common";
+import { JwtService } from "@nestjs/jwt";
+import { PrismaService } from "../prisma/prisma.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 
 @Injectable()
 export class UsersService {
-	async create(createUserDto: CreateUserDto) {
-		return "This action adds a new user";
+	constructor(
+		private readonly prismaService: PrismaService,
+		private readonly jwtService: JwtService
+	) {}
+
+	public async getUserByEmail(email: string) {
+		const user = await this.prismaService.user.findFirst({
+			where: {
+				email
+			}
+		});
+
+		if (!user) throw new NotFoundException("TXT_USER_NOT_FOUND");
+
+		return user;
 	}
 
-	async findAll() {
-		throw new NotImplementedException();
+	public async getUserById(id: number) {
+		const user = await this.prismaService.user.findFirst({ 
+			where: { id }
+		});
+
+		if (!user) throw new NotFoundException("TXT_USER_NOT_FOUND");
+
+		return user;
 	}
 
-	async findOne(id: number) {
-		return `This action returns a #${id} user`;
+	public async createUser(createUserDto: CreateUserDto) {
+		const response = await this.prismaService.user.create({
+			data: createUserDto
+		});
+
+		return response;
 	}
 
-	async update(
-		id: number, updateUserDto: UpdateUserDto
+	public async getAllUsers() {
+		const response = await this.prismaService.user.findMany();
+
+		return response ?? [];
+	}
+
+	public async changePassword(
+		userId: number, newPassword: string
 	) {
-		return `This action updates a #${id} user`;
+		const user = await this.prismaService.user.update({
+			where: {
+				id: userId
+			},
+			data: {
+				password: newPassword
+			}
+		});
+		
+		if (!user) throw new NotFoundException("TXT_USER_NOT_FOUND");
+
+		return user;
 	}
 
-	async remove(id: number) {
-		return `This action removes a #${id} user`;
+	public async changeUserData(updateUserDto: UpdateUserDto) {
+		const user = await this.prismaService.user.update({
+			where: {
+				id: updateUserDto.id
+			},
+			data: updateUserDto
+		});
+
+		if (!user) throw new NotFoundException("TXT_USER_NOT_FOUND");
+		
+	}
+
+	public async changePersonalUserData(
+		token: string, updateUserDto: UpdateUserDto
+	) {
+		try {
+			const { userId } = await this.jwtService.verifyAsync(token);
+
+			await this.changeUserData({
+				...updateUserDto,
+				id: userId
+			});
+		} catch (error) {
+			throw new ForbiddenException(error);
+		}
+
 	}
 }

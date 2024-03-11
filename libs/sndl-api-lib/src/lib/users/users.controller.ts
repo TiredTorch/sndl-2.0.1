@@ -1,48 +1,56 @@
 import {
 	Body,
 	Controller,
-	Delete,
 	Get,
+	HttpCode,
 	Param,
-	Patch,
-	Post
+	Patch
 } from "@nestjs/common";
-import { CreateUserDto } from "./dto/create-user.dto";
+import {
+	ApiBearerAuth,
+	ApiTags
+} from "@nestjs/swagger";
+import { Token } from "../utils";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { UsersService } from "./users.service";
 
+@ApiBearerAuth("Auth")
+@ApiTags("Users")
 @Controller("users")
 export class UsersController {
 	constructor(private readonly usersService: UsersService) {}
 
-	@Post()
-	async create(@Body() createUserDto: CreateUserDto) {
-		return this.usersService.create(createUserDto);
+	@HttpCode(200)
+	@Get("/all")
+	getAllUsers () {
+		try {
+			return this.usersService.getAllUsers();
+		} catch (error) {
+			return error;
+		}
 	}
 
-	@Get()
-	async findAll() {
-		return this.usersService.findAll();
-	}
-
+	@HttpCode(200)
 	@Get(":id")
-	async findOne(@Param("id") id: string) {
-		return this.usersService.findOne(+id);
+	async findOneUserById(@Param("id") id: number) {
+		return this.usersService.getUserById(id);
 	}
 
-	@Patch(":id")
-	async update(
-        @Param("id") id: string, 
-        @Body() updateUserDto: UpdateUserDto
+	@HttpCode(201)
+	@Patch()
+	editProfile(@Body() updateUserDto: UpdateUserDto) {
+		return this.usersService.changeUserData(updateUserDto);
+	}
+
+	@HttpCode(201)
+	@Patch("me")
+	editMe(
+        @Body() userDto: UpdateUserDto,
+		@Token() token: string
 	) {
-		return this.usersService.update(
-			+id,
-			updateUserDto
+		return this.usersService.changePersonalUserData(
+			token,
+			userDto
 		);
-	}
-
-	@Delete(":id")
-	async remove(@Param("id") id: string) {
-		return this.usersService.remove(+id);
 	}
 }

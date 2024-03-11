@@ -1,47 +1,48 @@
 import {
 	Body,
 	Controller,
-	Delete,
-	Get,
+	HttpCode,
 	Param,
-	Patch,
 	Post
 } from "@nestjs/common";
+import { Prisma } from "@prisma/client";
 import { AuthService } from "./auth.service";
-import { CreateAuthDto } from "./dto/create-auth.dto";
-import { UpdateAuthDto } from "./dto/update-auth.dto";
+import { LoginDto } from "./dto/login.dto";
+import { ResetPasswordDto } from "./dto/reset-password.dto";
+import { Public } from "./guards";
 
 @Controller("auth")
 export class AuthController {
 	constructor(private readonly authService: AuthService) {}
 
-	@Post()
-	async create(@Body() createAuthDto: CreateAuthDto) {
-		return this.authService.create(createAuthDto);
+	@HttpCode(200)
+	@Public()
+	@Post("register")
+	async register(@Body() registerDto: Prisma.UserCreateInput) {
+		return this.authService.createUserAndGetToken(registerDto);
+
+	}
+    
+	@HttpCode(200)
+	@Public()
+	@Post("login")
+	async login(@Body() loginDto: LoginDto) {
+		return this.authService.getTokenFromUser(loginDto);
 	}
 
-	@Get()
-	async findAll() {
-		return this.authService.findAll();
+	@HttpCode(201)
+	@Public()
+	@Post("forgot-password/:email")
+	forgotPassword(@Param("email") email: string) {
+		return this.authService.sendTokenToResetPassword(email);
+
 	}
 
-	@Get(":id")
-	async findOne(@Param("id") id: string) {
-		return this.authService.findOne(+id);
-	}
+	@HttpCode(201)
+	@Public()
+	@Post("reset-password")
+	resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
+		return this.authService.resetPasswordWithResetToken(resetPasswordDto);
 
-	@Patch(":id")
-	async update(
-@Param("id") id: string, @Body() updateAuthDto: UpdateAuthDto
-	) {
-		return this.authService.update(
-			+id,
-			updateAuthDto
-		);
-	}
-
-	@Delete(":id")
-	remove(@Param("id") id: string) {
-		return this.authService.remove(+id);
 	}
 }

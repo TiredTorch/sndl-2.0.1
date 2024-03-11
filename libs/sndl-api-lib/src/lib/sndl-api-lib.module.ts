@@ -1,9 +1,22 @@
 import { Module } from "@nestjs/common";
-import { APP_FILTER } from "@nestjs/core";
+import {
+	ConfigModule,
+	ConfigService
+} from "@nestjs/config";
+import {
+	APP_FILTER,
+	APP_GUARD
+} from "@nestjs/core";
+import { JwtModule } from "@nestjs/jwt";
 import { AlbumsModule } from "./albums/albums.module";
 import { AuthModule } from "./auth/auth.module";
+import { JwtAuthGuard } from "./auth/guards";
 import { ChatsModule } from "./chats/chats.module";
 import { CommentsModule } from "./comments/comments.module";
+import {
+	configConfig,
+	jwtConfig
+} from "./config";
 import { AllExceptionFilter } from "./exception";
 import { MessagesModule } from "./messages/messages.module";
 import { PostsModule } from "./posts/posts.module";
@@ -13,6 +26,8 @@ import { UsersModule } from "./users/users.module";
 
 @Module({
 	imports: [
+		ConfigModule.forRoot(configConfig),
+		JwtModule.registerAsync(jwtConfig),
 		{
 			global: true,
 			module: PrismaModule
@@ -27,10 +42,15 @@ import { UsersModule } from "./users/users.module";
 		AlbumsModule
 	],
 	providers: [
+		ConfigService,
 		{
 			provide: APP_FILTER,
 			useClass: AllExceptionFilter
-		}
+		},
+		{
+			provide: APP_GUARD,
+			useClass: JwtAuthGuard
+		},
 	]
 })
 export class SndlApiLibModule {}
