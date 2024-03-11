@@ -5,12 +5,14 @@ import {
 	Param,
 	Post
 } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 import { Prisma } from "@prisma/client";
 import { AuthService } from "./auth.service";
 import { LoginDto } from "./dto/login.dto";
 import { ResetPasswordDto } from "./dto/reset-password.dto";
 import { Public } from "./guards";
 
+@ApiTags("Auth")
 @Controller("auth")
 export class AuthController {
 	constructor(private readonly authService: AuthService) {}

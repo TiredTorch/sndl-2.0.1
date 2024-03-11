@@ -47,7 +47,7 @@ export class AuthService {
 		};
 	}
 
-	public async createUserAndGetToken (registerDto: Prisma.UserCreateInput) {
+	public async createUserAndGetToken(registerDto: Prisma.UserCreateInput) {
 		const hashedPassword = await bcryptHash(
 			registerDto.password,
 			10
