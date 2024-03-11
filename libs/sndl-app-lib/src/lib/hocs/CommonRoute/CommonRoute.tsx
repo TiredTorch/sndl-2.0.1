@@ -14,7 +14,7 @@ export const CommonRoute: FC<PropsWithChildren> = ({
 }) => {
 	const location = useLocation();
 
-	const isUserLoggedIn = useTypedSelector(store => store.userSlice.isLoggedIn);
+	const isUserLoggedIn = useTypedSelector(store => store.authSlice.isLoggedIn);
 
 	if (isUserLoggedIn) {
 		return (

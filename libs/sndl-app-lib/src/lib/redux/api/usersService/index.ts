@@ -4,10 +4,10 @@ import { axiosBaseQuery } from "../../axios/baseQuery/baseQuery";
 export const usersService = createApi({
 	reducerPath: "usersService",
 	baseQuery: axiosBaseQuery({
-		baseUrl: "/users"
+		baseUrl: "api/users"
 	}),
 	endpoints: (builder) => ({
-		login: builder.mutation({
+		getFriends: builder.mutation({
 			query: (body) => ({
 				url: "/login",
 				method: "POST",

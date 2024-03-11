@@ -16,7 +16,11 @@ import logoutIcon from "../../../assets/icons/logoutLinkIcon.png";
 import profileIcon from "../../../assets/icons/profileLinkIcon.png";
 import settingsIcon from "../../../assets/icons/settingsLinkIcon.png";
 import workshopIcon from "../../../assets/icons/workshopLinkIcon.png";
-import { useTypedSelector } from "../../../redux";
+import {
+	clearUserData,
+	useTypedDispatch,
+	useTypedSelector
+} from "../../../redux";
 import {
 	PageRoutes,
 	StyleList
@@ -27,14 +31,15 @@ import SidebarListItem from "./SidebarListItem/SidebarListItem";
 export const Sidebar = () => {
 	const intl = useIntl();
 	const navigate = useNavigate();
+	const dispatch = useTypedDispatch();
 	const isOpenSidebar = useTypedSelector(store => store.userSlice.isOpenNavBar);
 	const userId = useTypedSelector(store => store.userSlice.userId);
 
 	const handleLogout = useCallback(
 		() => {
-			console.log("a");
+			dispatch(clearUserData());
 		},
-		[],
+		[dispatch],
 	);
 
 	const navbarItem = useMemo(
