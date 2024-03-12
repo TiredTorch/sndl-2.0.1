@@ -1,10 +1,11 @@
 import {
 	Body,
 	Controller,
+	Delete,
 	Get,
 	HttpCode,
-	Param,
-	Patch
+	Patch,
+	Post
 } from "@nestjs/common";
 import {
 	ApiBearerAuth,
@@ -20,37 +21,42 @@ import { UsersService } from "./users.service";
 export class UsersController {
 	constructor(private readonly usersService: UsersService) {}
 
-	@HttpCode(200)
-	@Get("/all")
-	getAllUsers () {
-		try {
-			return this.usersService.getAllUsers();
-		} catch (error) {
-			return error;
-		}
-	}
-
-	@HttpCode(200)
-	@Get(":id")
-	async findOneUserById(@Param("id") id: number) {
-		return this.usersService.getUserById(id);
-	}
-
-	@HttpCode(201)
-	@Patch()
-	editProfile(@Body() updateUserDto: UpdateUserDto) {
-		return this.usersService.changeUserData(updateUserDto);
-	}
-
 	@HttpCode(201)
 	@Patch("me")
-	editMe(
+	public async editProfile(
         @Body() userDto: UpdateUserDto,
 		@Token() token: string
 	) {
-		return this.usersService.changePersonalUserData(
-			token,
-			userDto
-		);
+		return await this.usersService.editProfile();
+	}
+
+	@Get()
+	public async getAllUsers() {
+		return await this.usersService.getAllUsers();
+
+	}
+    
+	@Get()
+	public async getAllFriends() {
+		return await this.usersService.getAllFriends();
+        
+	}
+    
+	@Post()
+	public async addFriend() {
+		return await this.usersService.addFriend();
+        
+	}
+    
+	@Delete()
+	public async removeFriend() {
+		return await this.usersService.removeFriend();
+        
+	}
+
+	@Patch()
+	public async setConfigProfile() {
+		return await this.usersService.setConfigProfile();
+        
 	}
 }

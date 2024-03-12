@@ -1,28 +1,41 @@
-import { Injectable } from "@nestjs/common";
-import { CreatePostDto } from "./dto/create-post.dto";
-import { UpdatePostDto } from "./dto/update-post.dto";
+import {
+	Injectable,
+	NotImplementedException
+} from "@nestjs/common";
 
 @Injectable()
 export class PostsService {
-	async create(createPostDto: CreatePostDto) {
-		return "This action adds a new post";
+	
+	public async getPosts() {
+		throw new NotImplementedException();
 	}
 
-	async findAll() {
-		return `This action returns all posts`;
+	public async getPost() {
+		throw new NotImplementedException();
+        
 	}
 
-	async findOne(id: number) {
-		return `This action returns a #${id} post`;
+	public async addComment() {
+		throw new NotImplementedException();
+        
 	}
 
-	async update(
-		id: number, updatePostDto: UpdatePostDto
-	) {
-		return `This action updates a #${id} post`;
+	public async toggleLike() {
+		throw new NotImplementedException();
 	}
-
-	async remove(id: number) {
-		return `This action removes a #${id} post`;
+    
+	public async sharePost() {
+		throw new NotImplementedException();
+        
+	}
+    
+	public async createPost() {
+		throw new NotImplementedException();
+        
+	}
+    
+	public async removePost() {
+		throw new NotImplementedException();
+        
 	}
 }

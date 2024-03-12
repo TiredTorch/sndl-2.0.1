@@ -1,47 +1,48 @@
 import {
-	Body,
 	Controller,
 	Delete,
 	Get,
-	Param,
 	Patch,
 	Post
 } from "@nestjs/common";
-import { CreatePostDto } from "./dto/create-post.dto";
-import { UpdatePostDto } from "./dto/update-post.dto";
 import { PostsService } from "./posts.service";
 
 @Controller("posts")
 export class PostsController {
 	constructor(private readonly postsService: PostsService) {}
 
-	@Post()
-	async create(@Body() createPostDto: CreatePostDto) {
-		return this.postsService.create(createPostDto);
+	@Get()
+	public async getPosts() {
+		return await this.postsService.getPosts();
 	}
 
 	@Get()
-	async findAll() {
-		return this.postsService.findAll();
+	public async getPost() {
+		return await this.postsService.getPost();
 	}
 
-	@Get(":id")
-	async findOne(@Param("id") id: string) {
-		return this.postsService.findOne(+id);
+	@Post()
+	public async addComment() {
+		return await this.postsService.addComment();
 	}
 
-	@Patch(":id")
-	async update(
-@Param("id") id: string, @Body() updatePostDto: UpdatePostDto
-	) {
-		return this.postsService.update(
-			+id,
-			updatePostDto
-		);
+	@Patch()
+	public async toggleLike() {
+		return await this.postsService.toggleLike();
 	}
-
-	@Delete(":id")
-	async remove(@Param("id") id: string) {
-		return this.postsService.remove(+id);
+    
+	@Post()
+	public async sharePost() {
+		return await this.postsService.sharePost();
+	}
+    
+	@Post()
+	public async createPost() {
+		return await this.postsService.createPost();
+	}
+    
+	@Delete()
+	public async removePost() {
+		return await this.postsService.removePost();
 	}
 }

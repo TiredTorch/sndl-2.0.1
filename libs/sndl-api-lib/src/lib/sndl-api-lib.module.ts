@@ -12,16 +12,13 @@ import { AlbumsModule } from "./albums/albums.module";
 import { AuthModule } from "./auth/auth.module";
 import { JwtAuthGuard } from "./auth/guards";
 import { ChatsModule } from "./chats/chats.module";
-import { CommentsModule } from "./comments/comments.module";
 import {
 	configConfig,
 	jwtConfig
 } from "./config";
 import { AllExceptionFilter } from "./exception";
-import { MessagesModule } from "./messages/messages.module";
 import { PostsModule } from "./posts/posts.module";
 import { PrismaModule } from "./prisma/prisma.module";
-import { SongsModule } from "./songs/songs.module";
 import { UsersModule } from "./users/users.module";
 
 @Module({
@@ -33,13 +30,10 @@ import { UsersModule } from "./users/users.module";
 			module: PrismaModule
 		},
 		AuthModule,
+		AlbumsModule,
 		PostsModule,
-		CommentsModule,
 		UsersModule,
 		ChatsModule,
-		MessagesModule,
-		SongsModule,
-		AlbumsModule
 	],
 	providers: [
 		ConfigService,

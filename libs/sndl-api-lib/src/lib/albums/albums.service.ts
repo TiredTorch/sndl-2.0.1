@@ -1,28 +1,32 @@
-import { Injectable } from "@nestjs/common";
-import { CreateAlbumDto } from "./dto/create-album.dto";
-import { UpdateAlbumDto } from "./dto/update-album.dto";
+import {
+	Injectable,
+	NotImplementedException
+} from "@nestjs/common";
 
 @Injectable()
 export class AlbumsService {
-	async create(createAlbumDto: CreateAlbumDto) {
-		return "This action adds a new album";
+	public async getAlbums() {
+        
+		throw new NotImplementedException();
 	}
 
-	async findAll() {
-		return `This action returns all albums`;
+	public async getAlbum() {
+        
+		throw new NotImplementedException();
 	}
 
-	async findOne(id: number) {
-		return `This action returns a #${id} album`;
+	public async getUserAlbums() {
+		throw new NotImplementedException();
+
 	}
 
-	async update(
-		id: number, updateAlbumDto: UpdateAlbumDto
-	) {
-		return `This action updates a #${id} album`;
+	public async createAlbum() {
+		throw new NotImplementedException();
+
 	}
 
-	async remove(id: number) {
-		return `This action removes a #${id} album`;
+	public async addSongToAlbum() {
+		throw new NotImplementedException();
+
 	}
 }

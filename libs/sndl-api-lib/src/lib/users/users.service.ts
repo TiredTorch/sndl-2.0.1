@@ -1,12 +1,11 @@
 import {
-	ForbiddenException,
 	Injectable,
-	NotFoundException
+	NotFoundException,
+	NotImplementedException
 } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { PrismaService } from "../prisma/prisma.service";
 import { CreateUserDto } from "./dto/create-user.dto";
-import { UpdateUserDto } from "./dto/update-user.dto";
 
 @Injectable()
 export class UsersService {
@@ -15,6 +14,7 @@ export class UsersService {
 		private readonly jwtService: JwtService
 	) {}
 
+    //auth
 	public async getUserByEmail(email: string) {
 		const user = await this.prismaService.user.findFirst({
 			where: {
@@ -45,12 +45,6 @@ export class UsersService {
 		return response;
 	}
 
-	public async getAllUsers() {
-		const response = await this.prismaService.user.findMany();
-
-		return response ?? [];
-	}
-
 	public async changePassword(
 		userId: number, newPassword: string
 	) {
@@ -68,31 +62,32 @@ export class UsersService {
 		return user;
 	}
 
-	public async changeUserData(updateUserDto: UpdateUserDto) {
-		const user = await this.prismaService.user.update({
-			where: {
-				id: updateUserDto.id
-			},
-			data: updateUserDto
-		});
-
-		if (!user) throw new NotFoundException("TXT_USER_NOT_FOUND");
-		
+    //users
+	public async editProfile() {
+		throw new NotImplementedException();
 	}
 
-	public async changePersonalUserData(
-		token: string, updateUserDto: UpdateUserDto
-	) {
-		try {
-			const { userId } = await this.jwtService.verifyAsync(token);
+	public async getAllUsers() {
+		throw new NotImplementedException();
 
-			await this.changeUserData({
-				...updateUserDto,
-				id: userId
-			});
-		} catch (error) {
-			throw new ForbiddenException(error);
-		}
+	}
+    
+	public async getAllFriends() {
+		throw new NotImplementedException();
+        
+	}
+    
+	public async addFriend() {
+		throw new NotImplementedException();
+        
+	}
+    
+	public async removeFriend() {
+		throw new NotImplementedException();
+        
+	}
 
+	public async setConfigProfile() {
+		throw new NotImplementedException();
 	}
 }
