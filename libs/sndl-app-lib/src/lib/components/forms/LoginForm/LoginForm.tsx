@@ -42,15 +42,15 @@ export const LoginForm: FC<LoginFormProps> = ({
                         {intl.formatMessage({ id: "TXT_LOGIN_FORM_TITLE" })}
                     </Box>
                     <Field
-                        placeholder={intl.formatMessage({ id: "TXT_LOGIN_FORM_FIELD_LOGIN" })}
+                        placeholder={intl.formatMessage({ id: "TXT_LOGIN_FORM_FIELD_EMAIL" })}
                         customVariant="auth"
-                        name="login"
-                        id="login"
-                        customError={formik.errors.login && intl.formatMessage({ id: formik.errors.login })}
-                        value={formik.values.login}
+                        name="email"
+                        id="email"
+                        customError={formik.errors.email && intl.formatMessage({ id: formik.errors.email })}
+                        value={formik.values.email}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        error={formik.touched.login && Boolean(formik.errors.login)}
+                        error={formik.touched.email && Boolean(formik.errors.email)}
                     />
                     <Field
                         placeholder={intl.formatMessage({ id: "TXT_LOGIN_FORM_FIELD_PASSOWORD" })}

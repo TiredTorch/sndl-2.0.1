@@ -4,6 +4,10 @@ import { LoginForm } from "../../components";
 import { useShowSnackbarError } from "../../hooks";
 import { PublicPagesLayout } from "../../layouts";
 import { useLoginMutation } from "../../redux";
+import {
+	CommonErrorType,
+	LoginFormData
+} from "../../types";
 
 const LoginPage = () => {
 	const [
@@ -22,24 +26,23 @@ const LoginPage = () => {
 
 	useShowSnackbarError(
 		isError,
-		"aaa"
+		error as CommonErrorType
 	);
 
-    const handleSubmit = useCallback(
-      (data) => {
-        first
-      },
-      [second],
-    )
-    
+	const handleSubmit = useCallback(
+		(data: LoginFormData) => {
+			logIn(data);
+		},
+		[logIn],
+	);
 
 	return (
         <PublicPagesLayout>
             <LoginForm 
                 isLoading={isLoading}
-                onSubmit={console.log} 
+                onSubmit={handleSubmit} 
                 initState={{
-                    login: "",
+                    email: "",
                     password: ""
                 }}
             />

@@ -7,8 +7,8 @@ import {
 } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { Prisma } from "@prisma/client";
+import { LoginDto } from "@shared";
 import { AuthService } from "./auth.service";
-import { LoginDto } from "./dto/login.dto";
 import { ResetPasswordDto } from "./dto/reset-password.dto";
 import { Public } from "./guards";
 

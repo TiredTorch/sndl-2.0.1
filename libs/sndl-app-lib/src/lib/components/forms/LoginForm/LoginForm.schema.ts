@@ -4,6 +4,6 @@ import {
 } from "../../../yup";
 
 export const validationSchema = object().shape({
-	login: string().required(),
+	email: string().email().required(),
 	password: string().required()
 });

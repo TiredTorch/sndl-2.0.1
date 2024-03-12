@@ -2,10 +2,11 @@ import axios, {
 	AxiosError,
 	AxiosRequestConfig
 } from "axios";
+import { CommonErrorType } from "../../../types";
 import { AxiosBaseQueryFn } from "./baseQuery.types";
 
 export const configuration: AxiosRequestConfig = {
-	baseURL: `${import.meta.env.NX_BACKEND_URL}`,
+	baseURL: `${import.meta.env.VITE_BACKEND_URL}`,
 	headers: {
 		Accept: "application/json",
 		"Content-Type": "application/json",
@@ -42,12 +43,12 @@ export const axiosBaseQuery =
 
 				return { data: result.data };
 			} catch (axiosError) {
-				const error = axiosError as AxiosError;
+				const error = axiosError as AxiosError<CommonErrorType>;
 
 				return {
 					error: {
 						status: error?.response?.status,
-						data: error?.response?.data
+						message: error?.response?.data.message
 					}
 				};
 			}

@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@shared": ["libs/shared/src/index.ts"],
       "@sndl-api-lib": ["libs/sndl-api-lib/src/index.ts"],
       "@sndl-app-lib": ["libs/sndl-app-lib/src/index.ts"]
     }

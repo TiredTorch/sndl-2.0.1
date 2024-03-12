@@ -28,7 +28,7 @@
 
     "TXT_LOGIN_FORM_TITLE": "Log in your account",
     "TXT_LOGIN_FORM_SUBMIT": "Log in",
-    "TXT_LOGIN_FORM_FIELD_LOGIN": "Login",
+    "TXT_LOGIN_FORM_FIELD_EMAIL": "Email",
     "TXT_LOGIN_FORM_FIELD_PASSOWORD": "Password",
     "TXT_REGISTER_LINK": "Dont have an account? Create one!",
     "TXT_REGISTER_FORM_FIELD_USERNAME": "Username",
@@ -36,5 +36,7 @@
     "TXT_REGISTER_FORM_FIELD_PASSWORD": "Password",
     "TXT_REGISTER_FORM_TITLE": "Create personal account",
     "TXT_REGISTER_FORM_SUBMIT": "Sign up",
-    "TXT_LOGIN_LINK": "Have an account? Log into it!"
+    "TXT_LOGIN_LINK": "Have an account? Log into it!",
+
+    "TXT_USER_NOT_FOUND": "User not found"
 }

@@ -1,4 +1,8 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
+import {
+	LoginDto,
+	TokenResponse
+} from "@shared";
 import { axiosBaseQuery } from "../../axios/baseQuery/baseQuery";
 
 export const authService = createApi({
@@ -7,7 +11,7 @@ export const authService = createApi({
 		baseUrl: "api/auth"
 	}),
 	endpoints: (builder) => ({
-		login: builder.mutation<any, void>({
+		login: builder.mutation<TokenResponse, LoginDto>({
 			query: (body) => ({
 				url: "/login",
 				method: "POST",

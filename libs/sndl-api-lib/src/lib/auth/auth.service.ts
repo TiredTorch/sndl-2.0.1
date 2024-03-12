@@ -11,9 +11,9 @@ import {
 import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
 import { Prisma } from "@prisma/client";
+import { LoginDto } from "@shared";
 import { UsersService } from "../users/users.service";
 import { createTokenPayload } from "../utils";
-import { LoginDto } from "./dto/login.dto";
 import { ResetPasswordDto } from "./dto/reset-password.dto";
 
 @Injectable()
