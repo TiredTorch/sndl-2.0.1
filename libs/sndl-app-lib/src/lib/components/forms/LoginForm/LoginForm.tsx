@@ -21,6 +21,7 @@ import { LoginFormProps } from "./LoginForm.types";
 
 export const LoginForm: FC<LoginFormProps> = ({
 	onSubmit,
+	isLoading,
 	initState
 }) => {
 	const intl = useIntl();
@@ -69,6 +70,7 @@ export const LoginForm: FC<LoginFormProps> = ({
                         <Button
                             type="submit"
                             customVariant="auth"
+                            disabled={isLoading}
                         >
                             {intl.formatMessage({ id: "TXT_LOGIN_FORM_SUBMIT" })}
                         </Button>

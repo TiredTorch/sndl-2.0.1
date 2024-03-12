@@ -1,6 +1,7 @@
 export type LoginFormProps = {
 	onSubmit: (data: LoginFormData) => void;
-	initState: LoginFormData
+	initState: LoginFormData;
+	isLoading: boolean;
 };
 
 export type LoginFormData = {
