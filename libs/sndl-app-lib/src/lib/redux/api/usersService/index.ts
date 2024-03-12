@@ -7,12 +7,47 @@ export const usersService = createApi({
 		baseUrl: "api/users"
 	}),
 	endpoints: (builder) => ({
-		getFriends: builder.mutation({
+		editProfile: builder.mutation({
 			query: (body) => ({
-				url: "/login",
+				url: "/me",
+				method: "PATCH",
+				data: body
+			})
+		}),
+		getAllUsers: builder.query({
+			query: (params) => ({
+				url: "/all",
+				method: "GET",
+				params
+			})
+		}),
+		getAllFriends: builder.query({
+			query: (params) => ({
+				url: "/friends",
+				method: "GET",
+				params
+			})
+		}),
+		addFriend: builder.mutation({
+			query: (body) => ({
+				url: "/add",
 				method: "POST",
 				data: body
 			})
-		})
+		}),
+		removeFriend: builder.mutation({
+			query: (body) => ({
+				url: "/remove",
+				method: "DELETE",
+				data: body
+			})
+		}),
+		setConfigProfile: builder.mutation({
+			query: (body) => ({
+				url: "/config",
+				method: "PATCH",
+				data: body
+			})
+		}),
 	})
 });

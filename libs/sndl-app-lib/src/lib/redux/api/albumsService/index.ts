@@ -7,38 +7,38 @@ export const albumsService = createApi({
 		baseUrl: "api/albums"
 	}),
 	endpoints: (builder) => ({
-		deleteAlbum: builder.mutation({
-			query: (body) => ({
-				url: "/deleteAlbum",
-				method: "DELETE",
-				data: body
+		getAlbums: builder.query({
+			query: (params) => ({
+				url: "/all",
+				method: "GET",
+				params
+			})
+		}),
+		getAlbum: builder.query({
+			query: (params) => ({
+				url: "/",
+				method: "GET",
+				params
+			})
+		}),
+		getUserAlbums: builder.query({
+			query: (params) => ({
+				url: "/saved",
+				method: "GET",
+				params
 			})
 		}),
 		createAlbum: builder.mutation({
 			query: (body) => ({
-				url: "/createAlbum",
+				url: "/create",
 				method: "POST",
 				data: body
 			})
 		}),
-		updateAlbum: builder.mutation({
+		addSongToAlbum: builder.mutation({
 			query: (body) => ({
-				url: "/updateAlbum",
-				method: "PATCH",
-				data: body
-			})
-		}),
-		getAlbums: builder.query({
-			query: (body) => ({
-				url: "/getAlbums",
-				method: "GET",
-				data: body
-			})
-		}),
-		getAlbum: builder.query({
-			query: (body) => ({
-				url: "/getAlbum",
-				method: "GET",
+				url: "/addSong",
+				method: "POST",
 				data: body
 			})
 		}),
@@ -46,17 +46,17 @@ export const albumsService = createApi({
 });
 
 export const {
-	createAlbum,
-	deleteAlbum,
-	getAlbum,
 	getAlbums,
-	updateAlbum
+	getAlbum,
+	getUserAlbums,
+	createAlbum,
+	addSongToAlbum
 } = albumsService.endpoints;
 
 export const {
-	useCreateAlbumMutation,
-	useDeleteAlbumMutation,
-	useGetAlbumQuery,
 	useGetAlbumsQuery,
-	useUpdateAlbumMutation
+	useGetAlbumQuery,
+	useGetUserAlbumsQuery,
+	useCreateAlbumMutation,
+	useAddSongToAlbumMutation
 } = albumsService;

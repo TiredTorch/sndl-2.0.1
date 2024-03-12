@@ -1,3 +1,4 @@
+import { SnackbarProvider } from "notistack";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { PersistGate } from "reduxjs-toolkit-persist/integration/react";
@@ -21,10 +22,19 @@ const App = () => {
                 <PersistGate
                     persistor={persistor}
                 >
-                    <AppIntlProvider>   
-                        <BrowserRouter>
-                                <AppRoutes/>
-                        </BrowserRouter>
+                    <AppIntlProvider>  
+                        <SnackbarProvider
+                            anchorOrigin={{
+                                vertical: "bottom",
+                                horizontal: "left"
+                            }}
+                            maxSnack={5}
+                            autoHideDuration={3500}
+                        >
+                            <BrowserRouter>
+                                    <AppRoutes/>
+                            </BrowserRouter>
+                        </SnackbarProvider> 
                     </AppIntlProvider>
                     <CssBaseline/>
                 </PersistGate>

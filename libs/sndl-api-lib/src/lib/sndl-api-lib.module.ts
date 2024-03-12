@@ -29,11 +29,11 @@ import { UsersModule } from "./users/users.module";
 			global: true,
 			module: PrismaModule
 		},
-		AuthModule,
 		AlbumsModule,
+		AuthModule,
+		ChatsModule,
 		PostsModule,
 		UsersModule,
-		ChatsModule,
 	],
 	providers: [
 		ConfigService,

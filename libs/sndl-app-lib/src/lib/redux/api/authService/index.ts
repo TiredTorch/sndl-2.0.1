@@ -22,10 +22,10 @@ export const authService = createApi({
 			})
 		}),
 		forgotPassword: builder.mutation({
-			query: (body) => ({
+			query: (params) => ({
 				url: "/forgotPassword",
 				method: "POST",
-				data: body
+				params
 			})
 		}),
 		resetPassword: builder.mutation({

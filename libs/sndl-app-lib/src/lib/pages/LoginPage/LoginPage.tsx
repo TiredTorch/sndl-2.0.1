@@ -1,7 +1,9 @@
+
 import { LoginForm } from "../../components";
 import { PublicPagesLayout } from "../../layouts";
 
 const LoginPage = () => {
+
 	return (
         <PublicPagesLayout>
             <LoginForm 

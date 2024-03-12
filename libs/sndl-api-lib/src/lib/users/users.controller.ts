@@ -1,5 +1,4 @@
 import {
-	Body,
 	Controller,
 	Delete,
 	Get,
@@ -11,8 +10,6 @@ import {
 	ApiBearerAuth,
 	ApiTags
 } from "@nestjs/swagger";
-import { Token } from "../utils";
-import { UpdateUserDto } from "./dto/update-user.dto";
 import { UsersService } from "./users.service";
 
 @ApiBearerAuth("Auth")
@@ -23,40 +20,32 @@ export class UsersController {
 
 	@HttpCode(201)
 	@Patch("me")
-	public async editProfile(
-        @Body() userDto: UpdateUserDto,
-		@Token() token: string
-	) {
+	public async editProfile() {
 		return await this.usersService.editProfile();
 	}
 
-	@Get()
+	@Get("all")
 	public async getAllUsers() {
 		return await this.usersService.getAllUsers();
-
 	}
     
-	@Get()
+	@Get("friends")
 	public async getAllFriends() {
 		return await this.usersService.getAllFriends();
-        
 	}
     
-	@Post()
+	@Post("add")
 	public async addFriend() {
 		return await this.usersService.addFriend();
-        
 	}
     
-	@Delete()
+	@Delete("remove")
 	public async removeFriend() {
 		return await this.usersService.removeFriend();
-        
 	}
 
-	@Patch()
+	@Patch("config")
 	public async setConfigProfile() {
 		return await this.usersService.setConfigProfile();
-        
 	}
 }
