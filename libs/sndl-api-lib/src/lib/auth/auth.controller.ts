@@ -6,10 +6,13 @@ import {
 	Post
 } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
-import { Prisma } from "@prisma/client";
-import { LoginDto } from "@shared";
+import {
+	ForgotPasswordDto,
+	LoginDto,
+	RegisterDto,
+	ResetPasswordDto
+} from "@shared";
 import { AuthService } from "./auth.service";
-import { ResetPasswordDto } from "./dto/reset-password.dto";
 import { Public } from "./guards";
 
 @ApiTags("Auth")
@@ -17,30 +20,29 @@ import { Public } from "./guards";
 export class AuthController {
 	constructor(private readonly authService: AuthService) {}
 
-	@HttpCode(200)
+	@HttpCode(201)
 	@Public()
 	@Post("register")
-	async register(@Body() registerDto: Prisma.UserCreateInput) {
+	async register(@Body() registerDto: RegisterDto) {
 		return this.authService.createUserAndGetToken(registerDto);
-
 	}
     
-	@HttpCode(200)
+	@HttpCode(202)
 	@Public()
 	@Post("login")
 	async login(@Body() loginDto: LoginDto) {
 		return this.authService.getTokenFromUser(loginDto);
 	}
 
-	@HttpCode(201)
+	@HttpCode(202)
 	@Public()
 	@Post("forgot-password/:email")
-	forgotPassword(@Param("email") email: string) {
-		return this.authService.sendTokenToResetPassword(email);
+	forgotPassword(@Param() params: ForgotPasswordDto) {
+		return this.authService.sendTokenToResetPassword(params.email);
 
 	}
 
-	@HttpCode(201)
+	@HttpCode(202)
 	@Public()
 	@Post("reset-password")
 	resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
