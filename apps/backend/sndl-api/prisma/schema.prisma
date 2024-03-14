@@ -49,6 +49,7 @@ model ChatRoom {
 model Post {
     id      Int    @id @default(autoincrement())
     content String
+    authorid Int
 
     createdPosts  User[] @relation("post-creator")
     followedPosts User[] @relation("post-follower")

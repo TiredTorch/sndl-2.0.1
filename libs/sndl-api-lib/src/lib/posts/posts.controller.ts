@@ -1,10 +1,19 @@
 import {
+	Body,
 	Controller,
 	Delete,
 	Get,
+	Param,
 	Patch,
 	Post
 } from "@nestjs/common";
+import {
+	AddCommentDto,
+	CreatePostDto,
+	RemovePostDto,
+	SharedPostDto
+} from "@shared";
+import { Token } from "../utils";
 import { PostsService } from "./posts.service";
 
 @Controller("posts")
@@ -17,13 +26,13 @@ export class PostsController {
 	}
 
 	@Get(":id")
-	public async getPost() {
-		return await this.postsService.getPost();
+	public async getPost(@Param("id") id: number) {
+		return await this.postsService.getPost(id);
 	}
 
 	@Post("addComment")
-	public async addComment() {
-		return await this.postsService.addComment();
+	public async addComment(@Body() addCommentDto: AddCommentDto) {
+		return await this.postsService.addComment(addCommentDto);
 	}
 
 	@Patch("toggleLike")
@@ -32,17 +41,35 @@ export class PostsController {
 	}
     
 	@Post("sharePost")
-	public async sharePost() {
-		return await this.postsService.sharePost();
+	public async sharePost(
+        @Token() token: string,
+        @Body() sharedPostDto: SharedPostDto
+	) {
+		return await this.postsService.sharePost(
+			token,
+			sharedPostDto
+		);
 	}
     
 	@Post("createPost")
-	public async createPost() {
-		return await this.postsService.createPost();
+	public async createPost(
+        @Token() token: string,
+        @Body() createPostDto: CreatePostDto
+	) {
+		return await this.postsService.createPost(
+			token,
+			createPostDto
+		);
 	}
     
 	@Delete("removePost")
-	public async removePost() {
-		return await this.postsService.removePost();
+	public async removePost(
+        @Token() token: string,
+        @Body() removePostDto: RemovePostDto
+	) {
+		return await this.postsService.removePost(
+			token,
+			removePostDto
+		);
 	}
 }
