@@ -3,12 +3,22 @@ import {
 	NotFoundException,
 	NotImplementedException
 } from "@nestjs/common";
+import { JwtService } from "@nestjs/jwt";
+import {
+	AddFriendDto,
+	CreateUserDto,
+	EditProfileDto,
+	RemoveFriendDto
+} from "@shared";
 import { PrismaService } from "../prisma/prisma.service";
-import { CreateUserDto } from "./dto/create-user.dto";
+import { getUserIdFromToken } from "../utils";
 
 @Injectable()
 export class UsersService {
-	constructor(private readonly prismaService: PrismaService,) {}
+	constructor(
+		private readonly prismaService: PrismaService,
+		private readonly jwtService: JwtService
+	) {}
 
     //auth
 	public async getUserByEmail(email: string) {
@@ -59,31 +69,95 @@ export class UsersService {
 	}
 
     //users
-	public async editProfile() {
-		throw new NotImplementedException();
+	public async editProfile(
+		token: string, editProfileDto: EditProfileDto
+	) {
+		const userId = await getUserIdFromToken(
+			token,
+			this.jwtService
+		);
+
+		await this.prismaService.user.update({
+			where: {
+				id: userId
+			},
+			data: editProfileDto
+		});
 	}
 
 	public async getAllUsers() {
-		throw new NotImplementedException();
+		const users = await this.prismaService.user.findMany();
 
+		return users;
 	}
     
-	public async getAllFriends() {
-		throw new NotImplementedException();
+	public async getAllFriends(token: string) {
+		const userId = await getUserIdFromToken(
+			token,
+			this.jwtService
+		);
+
+		const user = await this.prismaService.user.findUnique({
+			where: {
+				id: userId
+			},
+			include: {
+				friendUsers: true
+			}
+		});
+        
+		if (!user) throw new NotFoundException("TXT_USER_NOT_FOUND");
+
+		return user.friendUsers;
+	}
+    
+	public async addFriend(
+		token: string, addFriendDto: AddFriendDto
+	) {
+		const userId = await getUserIdFromToken(
+			token,
+			this.jwtService
+		);
+
+		await this.prismaService.user.update({
+			where: {
+				id: userId
+			},
+			data:{
+				friendUsers: {
+					connect: {
+						id: addFriendDto.friendId
+					}
+				}
+			}
+		});
         
 	}
     
-	public async addFriend() {
-		throw new NotImplementedException();
-        
-	}
-    
-	public async removeFriend() {
-		throw new NotImplementedException();
+	public async removeFriend(
+		token: string, removeFriendDto: RemoveFriendDto
+	) {
+		const userId = await getUserIdFromToken(
+			token,
+			this.jwtService
+		);
+
+		await this.prismaService.user.update({
+			where: {
+				id: userId
+			},
+			data:{
+				friendUsers: {
+					disconnect: {
+						id: removeFriendDto.friendId
+					}
+				}
+			}
+		});
         
 	}
 
-	public async setConfigProfile() {
+	public async setConfigProfile(token: string) {
 		throw new NotImplementedException();
 	}
 }

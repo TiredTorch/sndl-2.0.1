@@ -1,4 +1,5 @@
 import {
+	Body,
 	Controller,
 	Delete,
 	Get,
@@ -10,6 +11,12 @@ import {
 	ApiBearerAuth,
 	ApiTags
 } from "@nestjs/swagger";
+import {
+	AddFriendDto,
+	EditProfileDto,
+	RemoveFriendDto
+} from "@shared";
+import { Token } from "../utils";
 import { UsersService } from "./users.service";
 
 @ApiBearerAuth("Auth")
@@ -20,8 +27,14 @@ export class UsersController {
 
 	@HttpCode(201)
 	@Patch("me")
-	public async editProfile() {
-		return await this.usersService.editProfile();
+	public async editProfile(
+        @Token() token: string,
+        @Body() editProfileDto: EditProfileDto
+	) {
+		return await this.usersService.editProfile(
+			token,
+			editProfileDto
+		);
 	}
 
 	@Get("all")
@@ -30,22 +43,34 @@ export class UsersController {
 	}
     
 	@Get("friends")
-	public async getAllFriends() {
-		return await this.usersService.getAllFriends();
+	public async getAllFriends(@Token() token: string) {
+		return await this.usersService.getAllFriends(token);
 	}
     
 	@Post("add")
-	public async addFriend() {
-		return await this.usersService.addFriend();
+	public async addFriend(
+        @Token() token: string,
+        @Body() addFriendDto: AddFriendDto
+	) {
+		return await this.usersService.addFriend(
+			token,
+			addFriendDto
+		);
 	}
     
 	@Delete("remove")
-	public async removeFriend() {
-		return await this.usersService.removeFriend();
+	public async removeFriend(
+        @Token() token: string,
+        @Body() removeFriendDto: RemoveFriendDto
+	) {
+		return await this.usersService.removeFriend(
+			token,
+			removeFriendDto
+		);
 	}
 
 	@Patch("config")
-	public async setConfigProfile() {
-		return await this.usersService.setConfigProfile();
+	public async setConfigProfile(@Token() token: string) {
+		return await this.usersService.setConfigProfile(token);
 	}
 }
