@@ -5,5 +5,5 @@ export const getUserIdFromToken = async (
 ) => {
 	const { userId } = await jwtService.verifyAsync(token);
 
-	return userId;
+	return userId as number;
 };

@@ -3,16 +3,12 @@ import {
 	NotFoundException,
 	NotImplementedException
 } from "@nestjs/common";
-import { JwtService } from "@nestjs/jwt";
 import { PrismaService } from "../prisma/prisma.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 
 @Injectable()
 export class UsersService {
-	constructor(
-		private readonly prismaService: PrismaService,
-		private readonly jwtService: JwtService
-	) {}
+	constructor(private readonly prismaService: PrismaService,) {}
 
     //auth
 	public async getUserByEmail(email: string) {
