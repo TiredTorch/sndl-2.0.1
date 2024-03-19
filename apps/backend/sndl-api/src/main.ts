@@ -37,7 +37,6 @@ async function bootstrap() {
 		);
 
 		await app.register(multiPart as any);
-
 		const globalPrefix = "api";
 		const globalDocsPrefix = "docs";
 

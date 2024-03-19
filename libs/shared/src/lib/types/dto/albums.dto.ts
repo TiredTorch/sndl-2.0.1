@@ -20,3 +20,13 @@ export interface UploadSongToAlbumDto {
 	albumImage?: File;
 	songFile: File;
 }
+
+export interface UploadSongToAlbumPreparedDto {
+	imageBuffer?: File;
+	songBuffer: File;
+	data: {
+		author: string;
+		songName: string;
+		albumName: string;
+	}
+}

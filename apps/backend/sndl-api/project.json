@@ -8,11 +8,11 @@
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "sndl-api:build"
+        "buildTarget": "sndl-api:build --skip-nx-cache"
       },
       "configurations": {
         "development": {
-          "buildTarget": "sndl-api:build:development"
+          "buildTarget": "sndl-api:build:development --skip-nx-cache"
         },
         "production": {
           "buildTarget": "sndl-api:build:production"

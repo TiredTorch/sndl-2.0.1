@@ -29,21 +29,25 @@ const WorkshopPageUpload = () => {
 			if (!data.songFile) return;
 			const formData = new FormData();
 
-			data.albumImage && formData.append(
-				"files.albumImage",
-				data.albumImage
-			);
 			formData.append(
-				"files.songFile",
+				"songFile",
 				data.songFile
 			);
+            
+			data.albumImage && formData.append(
+				"albumImage",
+				data.albumImage
+			);
+
+			const jsonData = JSON.stringify({
+				albumName: data.albumName,
+				author: data.author,
+				songName: data.songName
+			});
+
 			formData.append(
 				"data",
-				JSON.stringify({
-					albumName: data.albumName,
-					author: data.author,
-					songName: data.songName, 
-				})
+				jsonData
 			);
 
 			uploadSongToAlbum(formData);

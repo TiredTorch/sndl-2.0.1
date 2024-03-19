@@ -7,7 +7,7 @@ import { JwtService } from "@nestjs/jwt";
 import {
 	AddSongToAlbumDto,
 	CreateAlbumDto,
-	UploadSongToAlbumDto
+	UploadSongToAlbumPreparedDto
 } from "@shared";
 import { StorageClient } from "@supabase/storage-js";
 import { PrismaService } from "../prisma/prisma.service";
@@ -21,7 +21,12 @@ export class AlbumsService {
     	private readonly prismaService: PrismaService,
     	private readonly jwtService: JwtService
     ) {
-    	this.supabaseStorage = new StorageClient("https://adsbxalznzhqyedfglws.supabase.co/storage/v1");
+    	this.supabaseStorage = new StorageClient(
+    		"https://adsbxalznzhqyedfglws.supabase.co/storage/v1",
+    		{
+    		    authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFkc2J4YWx6bnpocXllZGZnbHdzIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcwOTA2MTczOSwiZXhwIjoyMDI0NjM3NzM5fQ.B7H5VF2vLk5UCvVCGaFd6OZgexacEZyuqNMxRkhk42I"
+    	    }
+    	);
     }
     
     public async getAlbums() {
@@ -89,11 +94,30 @@ export class AlbumsService {
 
     }
 
-    public async uploadSong(uploadSongToAlbumDto: UploadSongToAlbumDto) {
-    	console.log(
-    		"uploadSongToAlbumDto",
-    		uploadSongToAlbumDto 
-    	);
+    public async uploadSong(uploadSongToAlbumDto: UploadSongToAlbumPreparedDto) {
+    	if (uploadSongToAlbumDto.imageBuffer) {
+    		const {
+    			data,
+    			error
+    		} = await this.supabaseStorage.from("images").upload(
+    			`avatar/${new Date().toUTCString()}-${uploadSongToAlbumDto.imageBuffer.name}`,
+    			uploadSongToAlbumDto.imageBuffer,
+    			{
+    				upsert: true
+    			}
+    		);
+
+    		console.log(
+    			"data",
+    			data
+    		);
+
+    		console.log(
+    			"error",
+    			error
+    		);
+    	}
+
     	return {a: 1};
     }
 }
