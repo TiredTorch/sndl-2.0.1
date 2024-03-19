@@ -11,10 +11,12 @@ import {
 import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
 import { Prisma } from "@prisma/client";
-import { LoginDto } from "@shared";
+import {
+	LoginDto,
+	ResetPasswordDto
+} from "@shared";
 import { UsersService } from "../users/users.service";
 import { createTokenPayload } from "../utils";
-import { ResetPasswordDto } from "./dto/reset-password.dto";
 
 @Injectable()
 export class AuthService {
@@ -71,7 +73,7 @@ export class AuthService {
 
 		const token = this.jwtService.sign(createTokenPayload(data.id));
             
-		return { token };
+		return { token, userName: data.username };
 	}
 
 	public async sendTokenToResetPassword(email: string) {

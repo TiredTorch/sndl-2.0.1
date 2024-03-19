@@ -11,14 +11,14 @@ export const useShowSnackbarError = (
 	useEffect(
 		() => {
 			show && enqueueSnackbar(
-				`${message.status}: ${intl.formatMessage({ id: message.message ?? "" })}`,
+				`${message.status}: ${intl.formatMessage({ id: `${message.message}`}) ?? message.message}`,
 				{
 					variant: "error",
 					hideIconVariant: true
 				}
 			);
 		},
-		[message, show]
+		[intl, message, show]
 	);
     
 };

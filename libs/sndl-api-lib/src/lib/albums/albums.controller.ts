@@ -7,8 +7,9 @@ import {
 	Post
 } from "@nestjs/common";
 import {
-	AddSongToAlbum,
-	CreateAlbumDto
+	AddSongToAlbumDto,
+	CreateAlbumDto,
+	UploadSongToAlbumDto
 } from "@shared";
 import { Token } from "../utils";
 import { AlbumsService } from "./albums.service";
@@ -40,7 +41,12 @@ export class AlbumsController {
 	}
 
 	@Post("addSong")
-	public async addSongToAlbum(addSongToAlbum: AddSongToAlbum) {
+	public async addSongToAlbum(addSongToAlbum: AddSongToAlbumDto) {
 		return await this.albumsService.addSongToAlbum(addSongToAlbum);
+	}
+
+	@Post("uploadSong")
+	public async uploadSong(@Body() uploadSongToAlbumDto: UploadSongToAlbumDto) {
+		return await this.albumsService.uploadSong(uploadSongToAlbumDto);
 	}
 }

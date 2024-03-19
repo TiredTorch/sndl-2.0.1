@@ -22,5 +22,12 @@ export interface ResetPasswordDto {
 }
 
 export interface TokenResponse {
-	token: string
+	token: string;
+	userName: string;
+}
+
+export interface ResetPasswordDto {
+	token: string;
+	password: string;
+	confirmPassword: string;
 }

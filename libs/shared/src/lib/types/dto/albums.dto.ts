@@ -3,7 +3,7 @@ export interface CreateAlbumDto {
 	name: string;
 }
 
-export interface AddSongToAlbum {
+export interface AddSongToAlbumDto {
 	albumId: number;
 	song: CreateSongDto;
 }
@@ -11,4 +11,12 @@ export interface AddSongToAlbum {
 export interface CreateSongDto {
 	name: string;
 	sourse: string;
+}
+
+export interface UploadSongToAlbumDto {
+	author: string;
+	songName: string;
+	albumName: string;
+	albumImage?: File;
+	songFile: File;
 }

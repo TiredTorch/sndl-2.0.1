@@ -12,6 +12,7 @@ export const KEY = import.meta.env.VITE_CRYPTO_JS_KEY ?? "crypto";
  * @return encrypted token
  */
 export const encryptUserInfo = (authData: string) => {
+
 	if (authData) {
 		const authDataForLocalStorage = encrypt(
 			JSON.stringify(authData),
@@ -35,6 +36,7 @@ export const decryptUserInfo = (authData: string): string | null => {
 			authData,
 			KEY
 		);
+
 		return JSON.parse(decryptedAuthData.toString(enc.Utf8));
 	}
 

@@ -19,11 +19,6 @@ const LoginPage = () => {
 		}
 	] = useLoginMutation();
 
-	console.log(
-		"error",
-		error
-	);
-
 	useShowSnackbarError(
 		isError,
 		error as CommonErrorType

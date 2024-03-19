@@ -3,6 +3,7 @@ import {
 	LoginDto,
 	TokenResponse
 } from "@shared";
+import { encryptUserInfo } from "../../../utils";
 import { axiosBaseQuery } from "../../axios/baseQuery/baseQuery";
 
 export const authService = createApi({
@@ -16,6 +17,10 @@ export const authService = createApi({
 				url: "/login",
 				method: "POST",
 				data: body
+			}),
+			transformResponse: (response: TokenResponse) => ({
+				...response,
+				token: encryptUserInfo(response.token),
 			})
 		}),
 		register: builder.mutation({

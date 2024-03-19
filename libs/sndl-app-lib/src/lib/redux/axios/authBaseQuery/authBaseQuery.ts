@@ -1,4 +1,5 @@
 import axios, { AxiosError } from "axios";
+import { CommonErrorType } from "../../../types";
 import { decryptUserInfo } from "../../../utils";
 import { configuration } from "../baseQuery/baseQuery";
 import { AxiosBaseQueryFn } from "../baseQuery/baseQuery.types";
@@ -36,13 +37,12 @@ export const authAxiosBaseQuery =
 
 				return { data: result.data };
 			} catch (axiosError) {
-				const error = axiosError as AxiosError;
-				const status = error?.response?.status as number;
+				const error = axiosError as AxiosError<CommonErrorType>;
 
 				return {
 					error: {
-						status: status,
-						data: error?.response?.data
+						status: error?.response?.status,
+						message: error?.response?.data.message
 					}
 				};
 			}

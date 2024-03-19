@@ -41,6 +41,17 @@ export const albumsService = createApi({
 				method: "POST",
 				data: body
 			})
+		}), //UploadSongToAlbumDto
+		uploadSongToAlbum: builder.mutation<void, FormData>({
+			query: (body) => ({
+				url: "/uploadSong",
+				method: "POST",
+				data: body,
+				headers: {
+					"Content-Type": "multipart/form-data"
+				},
+			}),
+            
 		}),
 	})
 });
@@ -50,7 +61,8 @@ export const {
 	getAlbum,
 	getUserAlbums,
 	createAlbum,
-	addSongToAlbum
+	addSongToAlbum,
+	uploadSongToAlbum
 } = albumsService.endpoints;
 
 export const {
@@ -58,5 +70,6 @@ export const {
 	useGetAlbumQuery,
 	useGetUserAlbumsQuery,
 	useCreateAlbumMutation,
-	useAddSongToAlbumMutation
+	useAddSongToAlbumMutation,
+	useUploadSongToAlbumMutation
 } = albumsService;

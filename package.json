@@ -74,8 +74,10 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
+    "@blazity/nest-file-fastify": "^1.0.0",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
+    "@fastify/multipart": "^8.1.0",
     "@fastify/static": "^7.0.1",
     "@mui/material": "^5.15.11",
     "@nestjs/common": "^10.0.2",
@@ -89,6 +91,7 @@
     "@nestjs/swagger": "^7.3.0",
     "@prisma/client": "^5.10.2",
     "@reduxjs/toolkit": "^2.2.1",
+    "@supabase/storage-js": "^2.5.5",
     "axios": "^1.6.0",
     "bcrypt": "^5.1.1",
     "crypto-js": "^4.2.0",

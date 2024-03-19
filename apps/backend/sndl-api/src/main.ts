@@ -1,3 +1,4 @@
+import multiPart from "@fastify/multipart";
 import { Logger } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import {
@@ -14,7 +15,8 @@ async function bootstrap() {
 		const app = await NestFactory.create<NestFastifyApplication>(
 			SndlApiLibModule,
 			new FastifyAdapter({
-				maxParamLength: 1000
+				maxParamLength: 1000,
+				logger: true
 			}),
 			{
 				cors: {
@@ -33,6 +35,8 @@ async function bootstrap() {
 				bufferLogs: true
 			}  
 		);
+
+		await app.register(multiPart as any);
 
 		const globalPrefix = "api";
 		const globalDocsPrefix = "docs";

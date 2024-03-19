@@ -19,6 +19,7 @@ import {
 	configureStore
 } from "@reduxjs/toolkit";
 import {
+	albumsService,
 	authService,
 	usersService
 } from "../api";
@@ -63,7 +64,8 @@ export const store = configureStore({
 			}
 		}).concat([
 			authService.middleware,
-			usersService.middleware
+			usersService.middleware,
+			albumsService.middleware
 		])
 });
 
