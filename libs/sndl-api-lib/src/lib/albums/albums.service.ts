@@ -96,26 +96,31 @@ export class AlbumsService {
 
     public async uploadSong(uploadSongToAlbumDto: UploadSongToAlbumPreparedDto) {
     	if (uploadSongToAlbumDto.imageBuffer) {
-    		const {
-    			data,
-    			error
-    		} = await this.supabaseStorage.from("images").upload(
-    			`avatar/${new Date().toUTCString()}-${uploadSongToAlbumDto.imageBuffer.name}`,
-    			uploadSongToAlbumDto.imageBuffer,
-    			{
-    				upsert: true
-    			}
+    		console.log(
+    			"uploadSongToAlbumDto.imageBuffer",
+    			uploadSongToAlbumDto.imageBuffer
     		);
 
-    		console.log(
-    			"data",
-    			data
-    		);
+    		// const {
+    		// 	data,
+    		// 	error
+    		// } = await this.supabaseStorage.from("images").upload(
+    		// 	`avatar/${new Date().toUTCString()}-${uploadSongToAlbumDto.imageBuffer.fieldname}`,
+    		// 	"",
+    		// 	{
+    		// 		upsert: true
+    		// 	}
+    		// );
 
-    		console.log(
-    			"error",
-    			error
-    		);
+    		// console.log(
+    		// 	"data",
+    		// 	data
+    		// );
+
+    		// console.log(
+    		// 	"error",
+    		// 	error
+    		// );
     	}
 
     	return {a: 1};

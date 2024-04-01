@@ -18,10 +18,10 @@ model User {
 
     password String
 
-    createdAlbums  Album[] @relation("album-creator")
+    createdAlbums  Album[]
     followedAlbums Album[] @relation("album-follower")
 
-    createdPosts  Post[] @relation("post-creator")
+    createdPosts  Post[]
     followedPosts Post[] @relation("post-follower")
 
     friendUsers User[] @relation("friends")
@@ -29,7 +29,7 @@ model User {
 
     chats ChatRoom[] @relation("participants")
 
-    messages Message[] @relation("sender")
+    messages Message[]
     
     created_at DateTime? @default(now())
     deletedAt DateTime?
@@ -51,7 +51,8 @@ model Post {
     content String
     authorid Int
 
-    createdPosts  User[] @relation("post-creator")
+    creatorId Int
+    creator User @relation(fields: [creatorId], references: [id])
     followedPosts User[] @relation("post-follower")
 
     comments Comment[]
@@ -76,7 +77,8 @@ model Album {
     name String @unique
     image String
 
-    createdAlbums  User[] @relation("album-creator")
+    creatorId Int
+    creator User @relation(fields: [creatorId], references: [id])
     followedAlbums User[] @relation("album-follower")
 
     songs Song[]
@@ -102,7 +104,7 @@ model Message {
     id      Int    @id @default(autoincrement())
     content String
 
-    sender   User @relation("sender", fields: [senderId], references: [id])
+    sender   User @relation(fields: [senderId], references: [id])
     senderId Int
 
     chatRoom   ChatRoom @relation(fields: [chatRoomId], references: [id])

@@ -1,5 +1,9 @@
-import { FastifyRequest } from "fastify";
-import { FilesInterceptor } from "@blazity/nest-file-fastify";
+
+import {
+	AnyFilesInterceptor,
+	StorageFile,
+	UploadedFiles
+} from "@blazity/nest-file-fastify";
 import {
 	Body,
 	Controller,
@@ -7,7 +11,6 @@ import {
 	HttpCode,
 	Param,
 	Post,
-	Req,
 	UseInterceptors
 } from "@nestjs/common";
 import {
@@ -49,20 +52,12 @@ export class AlbumsController {
 	}
 
 	@Post("uploadSong")
-	@UseInterceptors(FilesInterceptor("files"))
-	public async uploadSong(@Req() req: FastifyRequest) {
-		const files = await req.files({limits: {fileSize: 1024*1024*40}, throwFileSizeLimit: false});
+	@UseInterceptors(AnyFilesInterceptor())
+	public async uploadSong(@UploadedFiles() files: StorageFile[]) {
 
-		const filesBuffer = [];
-
-		for await (const part of files) {
-			console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-			console.log(part);
-			filesBuffer.push(part);
-		}
 		console.log(
-			"filesBuffer",
-			filesBuffer
+			"files",
+			files
 		);
 
 		return await this.albumsService.uploadSong({
@@ -71,8 +66,8 @@ export class AlbumsController {
 				author: "2",
 				songName: "3"
 			},
-			songBuffer: filesBuffer[0],
-			imageBuffer: filesBuffer?.[1]
+			songBuffer: files[0],
+			imageBuffer: files?.[1]
 		});
 	}
 }

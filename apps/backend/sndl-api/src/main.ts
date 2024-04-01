@@ -1,4 +1,4 @@
-import multiPart from "@fastify/multipart";
+import multipart from "@fastify/multipart";
 import { Logger } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import {
@@ -36,7 +36,6 @@ async function bootstrap() {
 			}  
 		);
 
-		await app.register(multiPart as any);
 		const globalPrefix = "api";
 		const globalDocsPrefix = "docs";
 
@@ -68,6 +67,14 @@ async function bootstrap() {
 
 		const port = process.env.PORT || 3000;
 
+		await app.register(
+			multipart as never,
+			{
+				limits: {
+					fileSize: 1000000000000000,
+				}
+			}
+		);
 		await app.listen(port);
 
 		Logger.log(`🚀 Application is running on: http://localhost:${port}/${globalDocsPrefix}`);
