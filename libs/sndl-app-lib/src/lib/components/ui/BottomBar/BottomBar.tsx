@@ -1,20 +1,15 @@
 import { useCallback } from "react";
-import {
-	AppBar,
-	Button
-} from "@mui/material";
+import { Box } from "@mui/material";
 import {
 	toggleNavBar,
-	useTypedDispatch,
-	useTypedSelector
+	useTypedDispatch
 } from "../../../redux";
+import { Button } from "../../common";
+import AudioPlayer from "./AudioPlayer/AudioPlayer";
 import { bottomBarStyles } from "./BottomBar.styles";
 
 export const BottomBar = () => {
-
 	const dispatch = useTypedDispatch();
-
-	const isToggleSidebar = useTypedSelector(store => store.userSlice.isOpenNavBar);
 
 	const toggleSidebar = useCallback(
 		() => {
@@ -22,17 +17,22 @@ export const BottomBar = () => {
 		},
 		[dispatch],
 	);
-    
+
 	return (
-        <AppBar
+        <Box
             sx={bottomBarStyles.root}
         >
+            <Box>
+                <Box>Author</Box>
+                <Box>Song name</Box>
+            </Box>
+            <AudioPlayer/>
             <Button
                 onClick={toggleSidebar}
             >
                 as
             </Button>
-        </AppBar>
+        </Box>
 	);
 };
 

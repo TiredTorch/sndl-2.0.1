@@ -1,5 +1,8 @@
 import { faker } from "@faker-js/faker";
-import { createSlice } from "@reduxjs/toolkit";
+import {
+	createSlice,
+	PayloadAction
+} from "@reduxjs/toolkit";
 
 const initialState: {
     //user data section
@@ -17,6 +20,12 @@ const initialState: {
 	isListenHistoryPublic: boolean,
 	isAdorable: boolean,
 	isVisualizerEnabled: boolean,
+
+    //audio and song data
+	currentPlaylist: null,
+	songPlaylistIndex: number,
+	currentSongTime: number,
+	currentVolumeLevel: number
 } = {
     //user data section
 	userId: 1,
@@ -33,14 +42,33 @@ const initialState: {
 	isListenHistoryPublic: true,
 	isAdorable: true,
 	isVisualizerEnabled: true,
+    
+    //audio and song data
+	currentPlaylist: null,
+	songPlaylistIndex: 0,
+	currentSongTime: 0,
+	currentVolumeLevel: 1
 };
 
 export const userSlice = createSlice({
 	name: "userSlice",
 	initialState,
 	reducers: {
+		clearUserSliceState(state) {
+			state = initialState;  
+		},
 		toggleNavBar(state) {
 			state.isOpenNavBar = !state.isOpenNavBar;
+		},
+		setVolumeLevel(
+			state, value: PayloadAction<number>
+		) {
+			state.currentVolumeLevel = value.payload;
+		},
+		setSongTime(
+			state, value: PayloadAction<number>
+		) {
+			state.currentSongTime = value.payload;
 		}
 	}
 });
@@ -48,5 +76,8 @@ export const userSlice = createSlice({
 export const userReducer = userSlice.reducer;
 
 export const {
-	toggleNavBar
+	toggleNavBar,
+	setVolumeLevel,
+	setSongTime,
+	clearUserSliceState
 } = userSlice.actions;

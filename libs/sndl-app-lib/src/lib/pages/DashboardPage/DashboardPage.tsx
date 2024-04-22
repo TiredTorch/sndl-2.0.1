@@ -26,11 +26,6 @@ const DashboardPage = () => {
 		},
 		[setSelectedPost],
 	);
-    
-	console.log(
-		"a",
-		import.meta.env.VITE_BACKEND_URL
-	);
 
 	const mock: DashboardPost[] = useMemo(
 		() => [
