@@ -90,7 +90,7 @@ const ExpandedPostModal: FC<ExpandedPostModalProps> = ({
                 <PostCommentForm 
                     onSubmit={console.log} 
                     initState={{
-                        field: ""
+                        message: ""
                     }}
                 />
                 <Box

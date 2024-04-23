@@ -4,5 +4,5 @@ export type PostCommentFormProps = {
 };
 
 export type PostCommentFormData = {
-	field: string
+	message: string
 };

@@ -4,5 +4,5 @@ export type PostFormProps = {
 };
 
 export type PostFormData = {
-	field: string
+	message: string
 };

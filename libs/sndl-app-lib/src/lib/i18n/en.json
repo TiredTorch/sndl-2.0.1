@@ -38,6 +38,17 @@
     "TXT_REGISTER_FORM_SUBMIT": "Sign up",
     "TXT_LOGIN_LINK": "Have an account? Log into it!",
 
+    "TXT_SEND_MESSAGE_FORM": "Write your message",
+    "TXT_SEND_MESSAGE_SUBMIT": "Send",
+    
+    "TXT_SEARCH_MUSIC_FORM": "Search song with name or tag",
+    "TXT_SEARCH_MUSIC_SUBMIT": "Search",
+
+    "TXT_SEARCH_FRIEND_FORM": "Friends...",
+    
+    "TXT_POST_PROFILE_FORM": "Write something new about yourself...",
+    "TXT_POST_PROFILE_SUBMIT": "Share",
+
     "TXT_UPLOAD_SONG_FORM_AUTHOR": "Author name",
     "TXT_UPLOAD_SONG_FORM_SONG": "Song name",
     "TXT_UPLOAD_SONG_FORM_ALBUM": "Album name",

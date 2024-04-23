@@ -14,5 +14,14 @@ export const buttonStyles: StyleList = {
 		"&:hover": {
 			background: (theme: Theme) => theme.palette.sndlRed[600],
 		}
+	},
+	sendMessageForm: {
+		border: (theme: Theme) => `1px solid ${theme.palette.sndlGray[500]}`,
+		background: (theme: Theme) => theme.palette.sndlGray[400],
+		color: (theme: Theme) => theme.palette.sndlGray[100],
+		textTransform: "capitalize",
+		"&:hover": {
+			background: (theme: Theme) => theme.palette.sndlGray[500],
+		}
 	}
 };

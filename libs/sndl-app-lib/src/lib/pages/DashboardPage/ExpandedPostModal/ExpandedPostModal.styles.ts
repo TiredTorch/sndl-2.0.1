@@ -40,7 +40,7 @@ export const expandedPostModalStyles: StyleList = {
 		overflowY: "auto"
 	},
 	commentWrapper: {
-		maxHeight: "20%",
+		maxHeight: "30%",
 		display: "flex",
 		flexDirection: "column",
 		gap: "20px",

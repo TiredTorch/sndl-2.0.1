@@ -129,7 +129,12 @@ const LibraryPage = () => {
         <Box
             sx={libraryPageStyles.root}
         >
-            <SearchMusicForm/>
+            <SearchMusicForm 
+                onSubmit={console.log} 
+                initState={{
+                    tag: ""
+                }}
+            />
             <Box
                 sx={libraryPageStyles.albumWrapper}
             >

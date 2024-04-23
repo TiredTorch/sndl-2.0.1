@@ -4,5 +4,5 @@ export type SendMessageFormProps = {
 };
 
 export type SendMessageFormData = {
-	field: string
+	message: string
 };

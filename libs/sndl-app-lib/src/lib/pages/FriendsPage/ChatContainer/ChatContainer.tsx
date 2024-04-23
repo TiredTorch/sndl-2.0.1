@@ -169,7 +169,7 @@ const ChatContainer: FC<ChatContainerProps> = ({
             <SendMessageForm 
                 onSubmit={console.log} 
                 initState={{
-                    field: ""
+                    message: ""
                 }}
             />
         </Box>

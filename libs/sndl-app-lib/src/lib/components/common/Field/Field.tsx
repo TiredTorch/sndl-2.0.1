@@ -25,6 +25,7 @@ export const Field: FC<FieldProps> = ({
             sx={[
                 customVariant === "uploadSong" &&
                 type === "file" && fieldStyles.uploadSongLabel,
+                customVariant === "sendChatMessage" && fieldStyles.sendChatMessage
             ] as SxProps<Theme>}
         >
             <InputLabel
@@ -49,6 +50,7 @@ export const Field: FC<FieldProps> = ({
                     fieldStyles.root,
                     customVariant === "auth" && fieldStyles.auth,
                     customVariant === "uploadSong" && fieldStyles.uploadSong,
+                    customVariant === "sendChatMessage" && fieldStyles.sendChatMessageInput,
                     type === "file" && fieldStyles.fileInput,
                     sx
                 ] as SxProps<Theme>}

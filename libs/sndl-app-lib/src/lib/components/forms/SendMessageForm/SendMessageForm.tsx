@@ -2,15 +2,24 @@ import {
 	Form,
 	Formik
 } from "formik";
-import { FC } from "react";
-import { Field } from "../../common";
+import {
+	CSSProperties,
+	FC
+} from "react";
+import { useIntl } from "react-intl";
+import {
+	Button,
+	Field
+} from "../../common";
 import { validationSchema } from "./SendMessageForm.schema";
+import { sendMessageFormStyles } from "./SendMessageForm.styles";
 import { SendMessageFormProps } from "./SendMessageForm.types";
 
 export const SendMessageForm: FC<SendMessageFormProps> = ({
 	onSubmit,
 	initState
 }) => {
+	const intl = useIntl();
 
 	return (
         <Formik
@@ -18,11 +27,25 @@ export const SendMessageForm: FC<SendMessageFormProps> = ({
             validationSchema={validationSchema}
             onSubmit={onSubmit}
         >
-            {() => (
-                <Form>
+            {(formik) => (
+                <Form
+                    style={sendMessageFormStyles.root as CSSProperties}
+                >
                     <Field
-                        name="field"
+                        placeholder={intl.formatMessage({ id: "TXT_SEND_MESSAGE_FORM" })}
+                        id="message"
+                        customVariant="sendChatMessage"
+                        value={formik.values.message}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        name="message"
                     />
+                    <Button
+                        customVariant="sendMessageForm"
+                        type="submit"
+                    >
+                        {intl.formatMessage({ id: "TXT_SEND_MESSAGE_SUBMIT" })}
+                    </Button>
                 </Form>
             )}
         </Formik>

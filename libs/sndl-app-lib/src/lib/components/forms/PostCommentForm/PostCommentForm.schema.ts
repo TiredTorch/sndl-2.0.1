@@ -4,5 +4,5 @@ import {
 } from "yup";
 
 export const validationSchema = object().shape({
-	field: string()
+	message: string()
 });
