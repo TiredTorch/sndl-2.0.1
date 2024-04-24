@@ -6,6 +6,15 @@ import {
 import { StyleList } from "../../../types";
 
 export const bottomBarStyles: StyleList = {
+	authorTitle: {
+		color: (theme: Theme) => theme.palette.sndlGray[100],
+		fontSize: "30px"
+	},
+	songTitle: {
+		color: (theme: Theme) => theme.palette.sndlGray[200],
+		fontSize: "24px"
+
+	},
 	root: {
 		background: (theme: Theme) => `linear-gradient(0deg, ${theme.palette.sndlGray[500]} 0%, ${alpha(
 			theme.palette.sndlGray[500] ?? "",
@@ -24,7 +33,7 @@ export const bottomBarStyles: StyleList = {
 		display: "flex",
 		justifyContent: "space-between",
 		alignItems: "center",
-		padding: "5px",
+		padding: "0 50px",
 		top: "auto"
 	},
 	audioWrapper: {
@@ -34,19 +43,22 @@ export const bottomBarStyles: StyleList = {
 	},
 	innerSoundWrapper: {
 		display: "flex",
-		gap: "5px"
+		gap: "25px",
+		alignItems: "center"
 	},
 	sliderWrapper: {
 		display: "flex",
 		flexDirection: "column",
 		gap: "5px",
-		minWidth: "200px",
+		minWidth: "30dvw",
 	},
 	timeSlider: {
-		minWidth: "100%"
+		minWidth: "100%",
+		color: (theme: Theme) => theme.palette.sndlGray[200]
 	},
 	volumeSlider: {
-		maxWidth: "50%"
+		maxWidth: "50%",
+		color: (theme: Theme) => theme.palette.sndlGray[200]
 	},
 	timeCounter: {
 		color: (theme: Theme) => theme.palette.sndlGray[200]

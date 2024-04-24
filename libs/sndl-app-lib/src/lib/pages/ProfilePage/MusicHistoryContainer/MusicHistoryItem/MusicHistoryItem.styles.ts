@@ -3,8 +3,10 @@ import { StyleList } from "../../../../types";
 
 export const musicHistoryItemStyles: StyleList = {
 	root: {
+		borderRadius: "20px",
 		display: "flex",
-		background: (theme: Theme) => theme.palette.sndlGray[200],
+		background: (theme: Theme) => theme.palette.sndlGray[400],
+		color: (theme: Theme) => theme.palette.sndlGray[200],
 		overflowX: "clip",
 	},
 	image: {

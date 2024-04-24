@@ -58,7 +58,7 @@ const ProfilePage = () => {
                     <PostForm 
                         onSubmit={console.log}
                         initState={{
-                            field: ""
+                            message: ""
                         }}/>
                     <SavedPostsContainer/>
                 </Box>

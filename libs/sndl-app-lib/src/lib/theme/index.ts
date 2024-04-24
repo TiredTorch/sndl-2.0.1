@@ -57,5 +57,5 @@ theme.components = {
 			},
 			background: theme.palette.sndlGray[500]
 		}
-	}
+	},
 };

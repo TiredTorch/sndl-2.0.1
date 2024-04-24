@@ -64,6 +64,7 @@ const ExpandedPostModal: FC<ExpandedPostModalProps> = ({
             open={!!selectedPost}
             onClose={onClose}
             disableAutoFocus
+            disableEnforceFocus
         >
             <Box
                 sx={expandedPostModalStyles.root}
@@ -87,12 +88,6 @@ const ExpandedPostModal: FC<ExpandedPostModalProps> = ({
                 >
                     {selectedPost?.content}
                 </Box>
-                <PostCommentForm 
-                    onSubmit={console.log} 
-                    initState={{
-                        message: ""
-                    }}
-                />
                 <Box
                     sx={expandedPostModalStyles.commentWrapper}
                 >
@@ -106,6 +101,12 @@ const ExpandedPostModal: FC<ExpandedPostModalProps> = ({
                         ))
                     }
                 </Box>
+                <PostCommentForm 
+                    onSubmit={console.log} 
+                    initState={{
+                        message: ""
+                    }}
+                />
             </Box>
         </Modal>
 	);

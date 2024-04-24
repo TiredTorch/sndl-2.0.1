@@ -105,7 +105,9 @@ export const AudioPlayer = () => {
                     ref={audioRef}
                     onTimeUpdate={e => handleManualTimeUpdate((e.target as HTMLMediaElement).currentTime)}
                 />
-                <Button>
+                <Button
+                    customVariant="player"
+                >
                     prev
                 </Button>
                 <Box
@@ -140,12 +142,15 @@ export const AudioPlayer = () => {
                         />
                     </Box>
                     <Button
+                        customVariant="player"
                         onClick={handleTogglePlayPauseSong}
                     >
                         {isPlaying ? "pause" : "play"}
                     </Button>
                 </Box>
-                <Button>
+                <Button
+                    customVariant="player"
+                >
                     next
                 </Button>
             </Box>

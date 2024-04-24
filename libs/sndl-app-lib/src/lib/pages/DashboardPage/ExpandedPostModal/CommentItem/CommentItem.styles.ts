@@ -15,7 +15,7 @@ export const commentItemStyles: StyleList = {
 	right: {
 		maxHeight: "100px",
 		overflow: "auto",
-		fontSize: "16px",
+		fontSize: "1rem",
 		color: (theme: Theme) => theme.palette.sndlGray[300]
 	},
 	left: {
@@ -35,7 +35,7 @@ export const commentItemStyles: StyleList = {
 
 	},
 	title: {
-		fontSize: "20px",
+		fontSize: "1.2rem",
 		fontWeight: "700",
 		color: (theme: Theme) => theme.palette.sndlGray[200]
 	}

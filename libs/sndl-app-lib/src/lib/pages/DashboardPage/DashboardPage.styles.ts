@@ -9,7 +9,8 @@ export const dashboardPageStyles: StyleList = {
 		width: "100%",
 		maxHeight: "100dvh",
 		padding: "20px",
-		paddingLeft: "2%",
+		paddingLeft: "100px",
+		paddingBottom: "100px",
 		overflowY: "scroll",
 	}
 };

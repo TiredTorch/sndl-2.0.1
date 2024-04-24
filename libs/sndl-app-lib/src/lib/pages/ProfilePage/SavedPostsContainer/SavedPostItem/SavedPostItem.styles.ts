@@ -3,7 +3,8 @@ import { StyleList } from "../../../../types";
 
 export const savedPostItemStyles: StyleList = {
 	root: {
-		background: (theme: Theme) => theme.palette.sndlGray[400]
+		background: (theme: Theme) => theme.palette.sndlGray[400],
+		borderRadius: "10px"
 	},
 	author: {
 		fontSize: "28px",
@@ -15,7 +16,7 @@ export const savedPostItemStyles: StyleList = {
 		display: "flex",
 		justifyContent: "space-between",
 		alignItems: "center",
-		paddingLeft: "20px"
+		paddingLeft: "20px",
 	},
 	image: {
 		width: "100px",

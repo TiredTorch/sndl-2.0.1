@@ -1,4 +1,5 @@
 import { useCallback } from "react";
+import { useIntl } from "react-intl";
 import { Box } from "@mui/material";
 import {
 	toggleNavBar,
@@ -9,6 +10,7 @@ import AudioPlayer from "./AudioPlayer/AudioPlayer";
 import { bottomBarStyles } from "./BottomBar.styles";
 
 export const BottomBar = () => {
+	const intl = useIntl();
 	const dispatch = useTypedDispatch();
 
 	const toggleSidebar = useCallback(
@@ -23,14 +25,19 @@ export const BottomBar = () => {
             sx={bottomBarStyles.root}
         >
             <Box>
-                <Box>Author</Box>
-                <Box>Song name</Box>
+                <Box
+                    sx={bottomBarStyles.authorTitle}
+                >Author</Box>
+                <Box
+                    sx={bottomBarStyles.songTitle}
+                >Song name</Box>
             </Box>
             <AudioPlayer/>
             <Button
+                customVariant="player"
                 onClick={toggleSidebar}
             >
-                as
+                {intl.formatMessage({ id: "TXT_TOGGLE_NAVBAR" })}
             </Button>
         </Box>
 	);
