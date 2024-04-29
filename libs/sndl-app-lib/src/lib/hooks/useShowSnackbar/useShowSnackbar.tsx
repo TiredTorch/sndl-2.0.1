@@ -22,3 +22,23 @@ export const useShowSnackbarError = (
 	);
     
 };
+
+export const useShowSnackbarSuccess = (
+	show: boolean, message: string
+) => {
+	const intl = useIntl();
+
+	useEffect(
+		() => {
+			show && enqueueSnackbar(
+				intl.formatMessage({ id: `${message}`}),
+				{
+					variant: "success",
+					hideIconVariant: true
+				}
+			);
+		},
+		[intl, message, show]
+	);
+    
+};

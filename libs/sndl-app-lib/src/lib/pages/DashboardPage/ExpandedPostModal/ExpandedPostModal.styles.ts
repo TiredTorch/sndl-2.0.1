@@ -26,7 +26,8 @@ export const expandedPostModalStyles: StyleList = {
 		justifyContent: "flex-end",
 		alignItems: "flex-start",
 		gap: "30px",
-		maxHeight: "20%"
+		maxHeight: "20%",
+		minHeight: "20%",
 	},
 	text: {
 		fontWeight: "700",
@@ -37,11 +38,13 @@ export const expandedPostModalStyles: StyleList = {
 		fontWeight: "700",
 		fontSize: "1.2rem",
 		color: (theme: Theme) => theme.palette.sndlGray[300],
-		maxHeight: "50%",
+		maxHeight: "45%",
+		minHeight: "45%",
 		overflowY: "auto"
 	},
 	commentWrapper: {
-		maxHeight: "30%",
+		maxHeight: "20%",
+		minHeight: "20%",
 		display: "flex",
 		flexDirection: "column",
 		gap: "20px",

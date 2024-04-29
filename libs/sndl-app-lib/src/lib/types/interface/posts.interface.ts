@@ -1,7 +1,27 @@
 export type DashboardPost = {
-	creator: string;
+	creator: {
+		avatar: string;
+		id: number,
+		name: string;
+	};
+	id: number;
 	content: string;
-	imageUrl: string;
+	created_at: string;
+};
+
+export type DashboardDetailedPost = {
+	content: string;
+	created_at: string;
+	id: number;
+	comments: DetailedPostComment[]
+};
+
+export type DetailedPostComment = {
+	content: string;
+	author: {
+		avatar: string;
+		name: string
+	}
 };
 
 export type DashboardPostComment = {

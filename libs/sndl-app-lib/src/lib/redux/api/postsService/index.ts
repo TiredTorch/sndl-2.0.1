@@ -1,78 +1,84 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { axiosBaseQuery } from "../../axios/baseQuery/baseQuery";
+import {
+	AddCommentDto,
+	CreatePostDto,
+	SharedPostDto
+} from "@shared";
+import {
+	DashboardDetailedPost,
+	DashboardPost
+} from "../../../types";
+import { authAxiosBaseQuery } from "../../axios/authBaseQuery/authBaseQuery";
 
 export const postsService = createApi({
 	reducerPath: "postsService",
-	baseQuery: axiosBaseQuery({
-		baseUrl: "/posts"
+	baseQuery: authAxiosBaseQuery({
+		baseUrl: "api/posts"
 	}),
+	tagTypes: ["userPosts"],
 	endpoints: (builder) => ({
-		getPosts: builder.query({
-			query: (params) => ({
+		allShared: builder.query<void, void>({
+			query: () => ({
+				url: "/allShared",
+				method: "GET",
+			}),
+			providesTags: ["userPosts"]
+		}),
+		getPosts: builder.query<DashboardPost[], void>({
+			query: () => ({
 				url: "/all",
 				method: "GET",
-				params
-			})
+			}),
+			providesTags: ["userPosts"]
 		}),
-		getPost: builder.query({
-			query: (params) => ({
-				url: "/",
-				method: "GET",
-				params
-			})
-		}),
-		addComment: builder.mutation({
+		addComment: builder.mutation<void, AddCommentDto>({
 			query: (body) => ({
 				url: "/addComment",
 				method: "POST",
 				data: body
-			})
+			}),
+			invalidatesTags: ["userPosts"]
 		}),
-		toggleLike: builder.mutation({
-			query: (body) => ({
-				url: "/toggleLike",
-				method: "PATCH",
-				data: body
-			})
+		getPost: builder.query<DashboardDetailedPost, number>({
+			query: (id) => ({
+				url: `/${id}`,
+				method: "GET",
+			}),
+			providesTags: ["userPosts"]
 		}),
-		sharePost: builder.mutation({
+		sharePost: builder.mutation<void, SharedPostDto>({
 			query: (body) => ({
 				url: "/sharePost",
 				method: "POST",
 				data: body
-			})
+			}),
+			invalidatesTags: ["userPosts"]
 		}),
-		createPost: builder.mutation({
+		createPost: builder.mutation<void, CreatePostDto>({
 			query: (body) => ({
 				url: "/createPost",
 				method: "POST",
 				data: body
-			})
-		}),
-		removePost: builder.mutation({
-			query: (body) => ({
-				url: "/removePost",
-				method: "DELETE",
-				data: body
-			})
-		}),
+			}),
+			invalidatesTags: ["userPosts"]
+		})
 	})
 });
 
 export const {
+	allShared,
 	getPosts,
-	getPost,
 	addComment,
-	toggleLike,
+	getPost,
 	sharePost,
-	createPost,
-	removePost
+	createPost
 } = postsService.endpoints;
 
 export const {
+	useAllSharedQuery,
 	useGetPostsQuery,
-	useGetPostQuery,
 	useAddCommentMutation,
-	useToggleLikeMutation,
-	useSharePostMutation
+	useGetPostQuery,
+	useSharePostMutation,
+	useCreatePostMutation
 } = postsService;

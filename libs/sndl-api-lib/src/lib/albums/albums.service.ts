@@ -73,9 +73,19 @@ export class AlbumsService {
     	return userAlbums;
     }
 
-    public async createAlbum(createAlbumDto: CreateAlbumDto) {
+    public async createAlbum(
+    	token: string, createAlbumDto: CreateAlbumDto
+    ) {
+    	const userId = await getUserIdFromToken(
+    		token,
+    		this.jwtService
+    	);
+
     	await this.prismaService.album.create({
-    		data: createAlbumDto
+    		data: {
+    			...createAlbumDto,
+    			creatorId: userId
+    		}
     	});
 
     }

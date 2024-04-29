@@ -1,6 +1,6 @@
 export interface AddCommentDto {
 	postId: number;
-	comment: CommentDto
+	comment: string;
 }
 
 export interface SharedPostDto {
@@ -12,10 +12,5 @@ export interface RemovePostDto {
 }
 
 export interface CreatePostDto {
-	content: string;
-}
-
-export interface CommentDto {
-	author: string;
 	content: string;
 }

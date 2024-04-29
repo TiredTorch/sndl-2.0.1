@@ -49,11 +49,16 @@
     
     "TXT_POST_PROFILE_FORM": "Write something new about yourself...",
     "TXT_POST_PROFILE_SUBMIT": "Share",
+    "TXT_POST_COMMENT": "Comment",
 
     "TXT_UPLOAD_SONG_FORM_AUTHOR": "Author name",
     "TXT_UPLOAD_SONG_FORM_SONG": "Song name",
     "TXT_UPLOAD_SONG_FORM_ALBUM": "Album name",
     "TXT_UPLOAD_SONG_FORM_SUBMIT": "Publish",
 
-    "TXT_USER_NOT_FOUND": "User not found"
+    "TXT_USER_NOT_FOUND": "User not found",
+
+    "TXT_REQUEST_SUCCESS_POST_CREATE": "Post succsessfully created",
+    "TXT_REQUEST_SUCCESS_COMMENT_POST": "Post succsessfully commented",
+    "TXT_REQUEST_SUCCESS_SHARE_POST": "Post succsessfully shared"
 }

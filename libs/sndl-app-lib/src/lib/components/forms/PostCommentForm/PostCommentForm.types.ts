@@ -1,8 +1,7 @@
+import { PostCommentFormData } from "../../../types";
+
 export type PostCommentFormProps = {
 	onSubmit: (data: PostCommentFormData) => void;
-	initState: PostCommentFormData
-};
-
-export type PostCommentFormData = {
-	message: string
+	initState: PostCommentFormData;
+	sharePost: VoidFunction;
 };

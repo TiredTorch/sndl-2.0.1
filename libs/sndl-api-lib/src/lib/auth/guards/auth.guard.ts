@@ -1,7 +1,6 @@
 import { FastifyRequest } from "fastify";
 import {
 	ExecutionContext,
-	ForbiddenException,
 	Injectable,
 	SetMetadata
 } from "@nestjs/common";
@@ -45,7 +44,7 @@ export class JwtAuthGuard extends AuthGuard("jwt") {
 				this.jwtService.verify(token); 
 				return true;
 			} catch (error) {
-				throw new ForbiddenException(error);
+				// throw new ForbiddenException(error);
 			}
 		}
 		

@@ -1,9 +1,14 @@
 import {
 	Form,
-	Formik
+	Formik,
+	FormikHelpers
 } from "formik";
-import { FC } from "react";
+import {
+	FC,
+	useCallback
+} from "react";
 import { useIntl } from "react-intl";
+import { PostCommentFormData } from "../../../types";
 import {
 	Button,
 	Field
@@ -18,20 +23,29 @@ export const PostCommentForm: FC<PostCommentFormProps> = ({
 }) => {
 	const intl = useIntl();
 
+	const handleSubmit = useCallback(
+		(
+			values: PostCommentFormData, formikHelpers: FormikHelpers<PostCommentFormData>
+		) => {
+			onSubmit(values);
+			formikHelpers.resetForm();
+		},
+		[onSubmit],
+	);
+
 	return (
         <Formik
             initialValues={initState}
             validationSchema={validationSchema}
-            onSubmit={onSubmit}
+            onSubmit={handleSubmit}
         >
             {(formik) => (
                 <Form
                     style={postCommentFormStyles.root}
                 >
                     <Field
-                        placeholder={intl.formatMessage({ id: "TXT_POST_PROFILE_FORM" })}
                         id="message"
-                        customVariant="sendChatMessage"
+                        customVariant="sendComment"
                         value={formik.values.message}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
@@ -40,6 +54,11 @@ export const PostCommentForm: FC<PostCommentFormProps> = ({
                     <Button
                         customVariant="sendMessageForm"
                         type="submit"
+                    >
+                        {intl.formatMessage({ id: "TXT_POST_COMMENT" })}
+                    </Button>
+                    <Button
+                        customVariant="sendMessageForm"
                     >
                         {intl.formatMessage({ id: "TXT_POST_PROFILE_SUBMIT" })}
                     </Button>

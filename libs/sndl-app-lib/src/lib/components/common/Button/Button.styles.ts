@@ -16,6 +16,7 @@ export const buttonStyles: StyleList = {
 		}
 	},
 	sendMessageForm: {
+		padding: "0px 20px",
 		border: (theme: Theme) => `1px solid ${theme.palette.sndlGray[500]}`,
 		background: (theme: Theme) => theme.palette.sndlGray[400],
 		color: (theme: Theme) => theme.palette.sndlGray[100],

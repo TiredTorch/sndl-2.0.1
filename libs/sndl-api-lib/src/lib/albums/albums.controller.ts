@@ -42,8 +42,14 @@ export class AlbumsController {
 	}
 
 	@Post("create")
-	public async createAlbum(@Body() createAlbumDto: CreateAlbumDto) {
-		return await this.albumsService.createAlbum(createAlbumDto);
+	public async createAlbum(
+        @Token() token: string,
+        @Body() createAlbumDto: CreateAlbumDto
+	) {
+		return await this.albumsService.createAlbum(
+			token,
+			createAlbumDto
+		);
 	}
 
 	@Post("addSong")

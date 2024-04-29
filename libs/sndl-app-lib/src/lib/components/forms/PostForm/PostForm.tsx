@@ -1,9 +1,14 @@
 import {
 	Form,
-	Formik
+	Formik,
+	FormikHelpers
 } from "formik";
-import { FC } from "react";
+import {
+	FC,
+	useCallback
+} from "react";
 import { useIntl } from "react-intl";
+import { PostFormData } from "../../../types";
 import {
 	Button,
 	Field
@@ -18,11 +23,21 @@ export const PostForm: FC<PostFormProps> = ({
 }) => {
 	const intl = useIntl();
 
+	const handleSubmit = useCallback(
+		(
+			values: PostFormData, formikHelpers: FormikHelpers<PostFormData>
+		) => {
+			onSubmit(values);
+			formikHelpers.resetForm();
+		},
+		[onSubmit],
+	);
+
 	return (
         <Formik
             initialValues={initState}
             validationSchema={validationSchema}
-            onSubmit={onSubmit}
+            onSubmit={handleSubmit}
         >
             {(formik) => (
                 <Form

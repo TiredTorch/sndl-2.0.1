@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "sndl-api:serve": "npx nx run sndl-api:serve",
-    "sndl-app:serve": "npx nx run sndl-app:serve",
+    "sndl-api:serve": "npx nx run sndl-api:serve --configuration=development",
+    "sndl-app:serve": "npx nx run sndl-app:serve --configuration=development",
     "lint:api-lib": "npx nx run sndl-api-lib:lint",
     "lint:api-lib:fix": "npx nx run sndl-api-lib:lint --fix",
     "lint:api": "npx nx run sndl-api:lint",

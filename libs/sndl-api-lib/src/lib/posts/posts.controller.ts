@@ -3,8 +3,8 @@ import {
 	Controller,
 	Delete,
 	Get,
+	HttpCode,
 	Param,
-	Patch,
 	Post
 } from "@nestjs/common";
 import {
@@ -20,26 +20,37 @@ import { PostsService } from "./posts.service";
 export class PostsController {
 	constructor(private readonly postsService: PostsService) {}
 
+	@HttpCode(200)
+	@Get("allShared")
+	public async getSharedPosts(@Token() token: string) {
+		return await this.postsService.getSharedPosts(token);
+	}
+
+	@HttpCode(200)
 	@Get("all")
-	public async getPosts() {
-		return await this.postsService.getPosts();
-	}
-
-	@Get(":id")
-	public async getPost(@Param("id") id: number) {
-		return await this.postsService.getPost(id);
-	}
-
-	@Post("addComment")
-	public async addComment(@Body() addCommentDto: AddCommentDto) {
-		return await this.postsService.addComment(addCommentDto);
-	}
-
-	@Patch("toggleLike")
-	public async toggleLike() {
-		return await this.postsService.toggleLike();
+	public async getPosts(@Token() token: string) {
+		return await this.postsService.getPosts(token);
 	}
     
+	@HttpCode(202)
+	@Post("addComment")
+	public async addComment(
+        @Token() token: string, 
+        @Body() addCommentDto: AddCommentDto
+	) {
+		return await this.postsService.addComment(
+			token,
+			addCommentDto
+		);
+	}
+
+	@HttpCode(200)
+	@Get(":id")
+	public async getPostById(@Param("id") id: number) {
+		return await this.postsService.getPostById(id);
+	}
+    
+	@HttpCode(202)
 	@Post("sharePost")
 	public async sharePost(
         @Token() token: string,
@@ -51,6 +62,7 @@ export class PostsController {
 		);
 	}
     
+	@HttpCode(202)
 	@Post("createPost")
 	public async createPost(
         @Token() token: string,
@@ -62,6 +74,7 @@ export class PostsController {
 		);
 	}
     
+	@HttpCode(204)
 	@Delete("removePost")
 	public async removePost(
         @Token() token: string,

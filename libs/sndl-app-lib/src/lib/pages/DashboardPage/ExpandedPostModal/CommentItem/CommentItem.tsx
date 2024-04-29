@@ -3,13 +3,13 @@ import {
 	Box,
 	Divider
 } from "@mui/material";
+import { ANON_AVATAR } from "../../../../utils";
 import { commentItemStyles } from "./CommentItem.styles";
 import { CommentItemProps } from "./CommentItem.types";
 
 const CommentItem: FC<CommentItemProps> = ({
 	content,
-	creator,
-	imageUrl
+	author
 }) => {
 	return (
         <Box
@@ -21,12 +21,12 @@ const CommentItem: FC<CommentItemProps> = ({
                 <Box
                     sx={commentItemStyles.image}
                     component="img"
-                    src={imageUrl}
+                    src={author.avatar ? author.avatar : ANON_AVATAR}
                 />
                 <Box
                     sx={commentItemStyles.title}
                 >
-                    {creator}
+                    {author.name}
                 </Box>
             </Box>
             <Divider

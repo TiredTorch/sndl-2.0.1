@@ -21,6 +21,7 @@ import {
 import {
 	albumsService,
 	authService,
+	postsService,
 	usersService
 } from "../api";
 import { reducers } from "../reducers";
@@ -65,6 +66,7 @@ export const store = configureStore({
 		}).concat([
 			authService.middleware,
 			usersService.middleware,
+			postsService.middleware,
 			albumsService.middleware
 		])
 });

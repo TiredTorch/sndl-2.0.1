@@ -10,3 +10,11 @@ export type SongCreationFormData = {
 	albumImage?: File;
 	songFile?: File;
 };
+
+export type PostFormData = {
+	message: string
+};
+
+export type PostCommentFormData = {
+	message: string
+};

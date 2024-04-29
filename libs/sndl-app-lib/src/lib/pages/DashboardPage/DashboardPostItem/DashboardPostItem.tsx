@@ -1,12 +1,13 @@
 import { FC } from "react";
 import { Box } from "@mui/material";
+import { ANON_AVATAR } from "../../../utils";
 import { dashboardPostItemStyles } from "./DashboardPostItem.styles";
 import { DashboardPostItemProps } from "./DashboardPostItem.types";
 
 const DashboardPostItem: FC<DashboardPostItemProps> = ({
 	content,
 	creator,
-	imageUrl,
+	created_at,
 	onClick
 }) => {
 	return (
@@ -18,12 +19,12 @@ const DashboardPostItem: FC<DashboardPostItemProps> = ({
                 onClick={onClick}
             >
                 <Box>
-                    {creator}  
+                    {creator.name}  
                 </Box>
                 <Box
                     sx={dashboardPostItemStyles.image}
                     component="img"
-                    src={imageUrl}
+                    src={creator.avatar ? creator.avatar : ANON_AVATAR}
                 />
             </Box>
             <Box

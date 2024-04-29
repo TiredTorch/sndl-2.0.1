@@ -1,3 +1,3 @@
-import { DashboardPostComment } from "../../../../types";
+import { DetailedPostComment } from "../../../../types";
 
-export type CommentItemProps = DashboardPostComment;
+export type CommentItemProps = DetailedPostComment;

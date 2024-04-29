@@ -1,7 +1,6 @@
 import {
 	Injectable,
-	NotFoundException,
-	NotImplementedException
+	NotFoundException
 } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import {
@@ -20,42 +19,117 @@ export class PostsService {
 		private readonly jwtService: JwtService
 	) {}
 
-	public async getPosts() {
-		const posts = await this.prismaService.post.findMany();
+	public async getSharedPosts(token: string) {
+		const userId = await getUserIdFromToken(
+			token,
+			this.jwtService
+		); 
+		const user = await this.prismaService.user.findUnique({
+			where: {
+				id: userId
+			},
+			select: {
+				followedPosts: true
+			} 
+		});
+
+		if (!user) throw new NotFoundException("TXT_USER_NOT_FOUND");
+
+		return user.followedPosts;
+	}
+
+	public async getPosts(token: string) {
+		const userId = await getUserIdFromToken(
+			token,
+			this.jwtService
+		); 
+
+		const user = await this.prismaService.user.findUnique({
+			where: {
+				id: userId
+			},
+			select: {
+				friendUsers: true
+			} 
+		});
+
+		if (!user) throw new NotFoundException("TXT_USER_NOT_FOUND");
+
+		const friendsId = user.friendUsers.map(friend => friend.id);
+
+		const posts = await this.prismaService.post.findMany({
+			where: {
+				creatorId: {
+					in: [
+						...friendsId,
+						userId
+					]
+				}
+			},
+			select: {
+				content: true,
+				created_at: true,
+				id: true,
+				creator: {
+					select: {
+						id: true,
+						avatar: true,
+						name: true
+					}
+				}
+			}
+		});
 
 		return posts;
 	}
 
-	public async getPost(id: number) {
-		const post = await this.prismaService.post.findUnique({
-			where: {
-				id
-			}
-		});
+	public async addComment(
+		token: string, addCommentDto: AddCommentDto
+	) {
+		const userId = await getUserIdFromToken(
+			token,
+			this.jwtService
+		); 
 
-		if (!post) throw new NotFoundException("TXT_POST_NOT_FOUND");
-
-		return post;
-	}
-
-	public async addComment(addCommentDto: AddCommentDto) {
 		await this.prismaService.post.update({
 			where: {
 				id: addCommentDto.postId
 			},
 			data: {
 				comments: {
-					create: addCommentDto.comment
+					create: {
+						content: addCommentDto.comment,
+						authorId: userId
+					}
 				}
 			}
 		});
-        
-	}
-
-	public async toggleLike() {
-		throw new NotImplementedException();
 	}
     
+	public async getPostById(id: number) {
+		const post = await this.prismaService.post.findUnique({
+			where: {
+				id: Number(id)
+			},
+			include: {
+				comments: {
+					select: {
+						author: {
+							select: {
+								avatar: true,
+								name: true,
+								password: false
+							}
+						},
+						content: true,
+					}
+				}
+			}
+		});
+
+		return post;
+	}
+
 	public async sharePost(
 		token: string, sharedPostDto: SharedPostDto
 	) {
@@ -76,7 +150,6 @@ export class PostsService {
 				}
 			}
 		});
-        
 	}
     
 	public async createPost(
@@ -93,14 +166,10 @@ export class PostsService {
 			},
 			data: {
 				createdPosts: {
-					create: {
-						...createPostDto,
-						authorid: userId
-					}
+					create: createPostDto
 				}
 			}
 		});
-        
 	}
     
 	public async removePost(

@@ -63,5 +63,22 @@ export const fieldStyles: StyleList = {
 	},
 	stretch: {
 		height: "100%"
+	},
+	sendComment: {
+		width: "100%"
+	},
+	sendCommentInput: {
+		fontStyle: "italic",
+		color: (theme: Theme) => theme.palette.sndlGray[300],
+		fontWeight: "700",
+		fontSize: "20px",
+		"input": {
+			"&::placeholder": {
+				opacity: .9
+			},
+		},
+		":after": { 
+			borderBottomColor: (theme: Theme) => theme.palette.sndlRed[800] 
+		},
 	}
 };
