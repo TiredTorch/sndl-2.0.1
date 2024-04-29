@@ -1,51 +1,18 @@
-import { useMemo } from "react";
-import { faker } from "@faker-js/faker";
+import { FC } from "react";
 import { Box } from "@mui/material";
 import SavedPostItem from "./SavedPostItem/SavedPostItem";
 import { savedPostItemStyles } from "./SavedPostItem/SavedPostItem.styles";
+import { SavedPostsContainerProps } from "./SavedPostsContainer.types";
 
-const SavedPostsContainer = () => {
-	const mock = useMemo(
-		() => [
-			{
-				image: faker.image.url(),
-				content: faker.lorem.paragraphs(2),
-				author: faker.internet.userName()
-			},
-			{
-				image: faker.image.url(),
-				content: faker.lorem.paragraphs(2),
-				author: faker.internet.userName()
-			},
-			{
-				image: faker.image.url(),
-				content: faker.lorem.paragraphs(2),
-				author: faker.internet.userName()
-			},
-			{
-				image: faker.image.url(),
-				content: faker.lorem.paragraphs(2),
-				author: faker.internet.userName()
-			},
-			{
-				image: faker.image.url(),
-				content: faker.lorem.paragraphs(2),
-				author: faker.internet.userName()
-			},
-			{
-				image: faker.image.url(),
-				content: faker.lorem.paragraphs(2),
-				author: faker.internet.userName()
-			}
-		],
-		[]
-	);
+const SavedPostsContainer: FC<SavedPostsContainerProps> = ({
+	posts
+}) => {
 
 	return (
         <Box
             sx={savedPostItemStyles.rootWrapper}
         >
-            {mock.map((
+            {posts.map((
                 item, i
                 ) => (
                     <SavedPostItem

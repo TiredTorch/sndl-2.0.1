@@ -9,6 +9,7 @@ import {
 	useShowSnackbarSuccess
 } from "../../hooks";
 import {
+	useAllSharedQuery,
 	useCreatePostMutation,
 	useTypedSelector
 } from "../../redux";
@@ -34,6 +35,12 @@ const ProfilePage = () => {
 		}
 	] = useCreatePostMutation();
 
+	const {
+		data: sharedPostsData,
+		error: sharedPostsError,
+		isError: sharedPostsIsError
+	} = useAllSharedQuery();
+
 	useShowSnackbarSuccess(
 		isSuccess,
 		"TXT_REQUEST_SUCCESS_POST_CREATE"
@@ -42,6 +49,11 @@ const ProfilePage = () => {
 	useShowSnackbarError(
 		isError,
 		error as CommonErrorType
+	);
+
+	useShowSnackbarError(
+		sharedPostsIsError,
+		sharedPostsError as CommonErrorType
 	);
 
 	const handleCreatePost = useCallback(
@@ -100,7 +112,9 @@ const ProfilePage = () => {
                         initState={{
                             message: ""
                         }}/>
-                    <SavedPostsContainer/>
+                    <SavedPostsContainer
+                        posts={sharedPostsData ?? []}
+                    />
                 </Box>
 
             </Box>

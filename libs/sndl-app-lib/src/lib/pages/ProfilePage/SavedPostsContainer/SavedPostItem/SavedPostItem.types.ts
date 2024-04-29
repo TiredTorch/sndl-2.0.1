@@ -1,5 +1,3 @@
-export type SavedPostItemProps = {
-	author: string;
-	content: string;
-	image: string;
-};
+import { DashboardPost } from "../../../../types";
+
+export type SavedPostItemProps = DashboardPost;

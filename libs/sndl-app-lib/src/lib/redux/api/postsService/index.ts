@@ -17,7 +17,7 @@ export const postsService = createApi({
 	}),
 	tagTypes: ["userPosts"],
 	endpoints: (builder) => ({
-		allShared: builder.query<void, void>({
+		allShared: builder.query<DashboardPost[], void>({
 			query: () => ({
 				url: "/allShared",
 				method: "GET",

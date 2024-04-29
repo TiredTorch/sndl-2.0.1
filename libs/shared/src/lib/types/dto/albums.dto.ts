@@ -1,4 +1,4 @@
-import { StorageFile } from "@blazity/nest-file-fastify";
+import { MemoryStorageFile } from "@blazity/nest-file-fastify";
 
 export interface CreateAlbumDto {
 	image: string;
@@ -7,7 +7,7 @@ export interface CreateAlbumDto {
 
 export interface AddSongToAlbumDto {
 	albumId: number;
-	song: CreateSongDto;
+	songId: number;
 }
 
 export interface CreateSongDto {
@@ -24,8 +24,8 @@ export interface UploadSongToAlbumDto {
 }
 
 export interface UploadSongToAlbumPreparedDto {
-	imageBuffer?: StorageFile;
-	songBuffer: StorageFile;
+	imageBuffer?: MemoryStorageFile;
+	songBuffer: MemoryStorageFile;
 	data: {
 		author: string;
 		songName: string;

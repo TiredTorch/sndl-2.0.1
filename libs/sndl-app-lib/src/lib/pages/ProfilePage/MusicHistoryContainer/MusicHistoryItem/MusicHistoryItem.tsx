@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { Box } from "@mui/material";
+import { ANON_AVATAR } from "../../../../utils";
 import { musicHistoryItemStyles } from "./MusicHistoryItem.styles";
 import { MusicHistoryItemProps } from "./MusicHistoryItem.types";
 
@@ -15,7 +16,7 @@ const MusicHistoryItem: FC<MusicHistoryItemProps> = ({
             <Box
                 sx={musicHistoryItemStyles.image}
                 component="img"
-                src={image}
+                src={image ? image : ANON_AVATAR}
             />
             <Box
                 sx={musicHistoryItemStyles.textWrapper}

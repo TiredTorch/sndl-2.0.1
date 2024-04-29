@@ -1,22 +1,19 @@
 
 import {
 	AnyFilesInterceptor,
-	StorageFile,
+	MemoryStorageFile,
 	UploadedFiles
 } from "@blazity/nest-file-fastify";
 import {
-	Body,
 	Controller,
 	Get,
 	HttpCode,
 	Param,
 	Post,
+	Query,
 	UseInterceptors
 } from "@nestjs/common";
-import {
-	AddSongToAlbumDto,
-	CreateAlbumDto
-} from "@shared";
+import { AddSongToAlbumDto } from "@shared";
 import { Token } from "../utils";
 import { AlbumsService } from "./albums.service";
 
@@ -25,9 +22,47 @@ export class AlbumsController {
 	constructor(private readonly albumsService: AlbumsService) {}
 
 	@HttpCode(200)
-	@Get("all")
-	public async getAlbums() {
-		return await this.albumsService.getAlbums();
+	@Get("all/saved")
+	public async getSavedAlbums(@Token() token: string) {
+		return await this.albumsService.getSavedAlbums(token);
+	}
+
+	@HttpCode(200)
+	@Get("all/new")
+	public async getNewAlbums() {
+		return await this.albumsService.getNewAlbums();
+	}
+
+	@HttpCode(200)
+	@Get("all/friendsFeatured")
+	public async getFriendsFeaturedAlbums(@Token() token: string) {
+		return await this.albumsService.getFriendsFeaturedAlbums(token);
+	}
+
+	@Post("uploadSong")
+	@UseInterceptors(AnyFilesInterceptor())
+	public async uploadSong(
+        @Token() token: string, 
+        @UploadedFiles() files: MemoryStorageFile[],
+        @Query("albumName") albumName: string,
+        @Query("author") author: string,
+        @Query("songName") songName: string
+	) {
+
+		return await this.albumsService.uploadSong({
+			data: {
+				albumName: albumName,
+				author: author,
+				songName: songName
+			},
+			songBuffer: files[0],
+			imageBuffer: files?.[1]
+		});
+	}
+
+	@Post("addSongToAlbum")
+	public async addSongToAlbum(addSongToAlbum: AddSongToAlbumDto) {
+		return await this.albumsService.addSongToAlbum(addSongToAlbum);
 	}
 
 	@HttpCode(200)
@@ -36,44 +71,4 @@ export class AlbumsController {
 		return await this.albumsService.getAlbum(id);
 	}
 
-	@Get("saved")
-	public async getUserAlbums(@Token() token: string) {
-		return await this.albumsService.getUserAlbums(token);
-	}
-
-	@Post("create")
-	public async createAlbum(
-        @Token() token: string,
-        @Body() createAlbumDto: CreateAlbumDto
-	) {
-		return await this.albumsService.createAlbum(
-			token,
-			createAlbumDto
-		);
-	}
-
-	@Post("addSong")
-	public async addSongToAlbum(addSongToAlbum: AddSongToAlbumDto) {
-		return await this.albumsService.addSongToAlbum(addSongToAlbum);
-	}
-
-	@Post("uploadSong")
-	@UseInterceptors(AnyFilesInterceptor())
-	public async uploadSong(@UploadedFiles() files: StorageFile[]) {
-
-		console.log(
-			"files",
-			files
-		);
-
-		return await this.albumsService.uploadSong({
-			data: {
-				albumName: "1",
-				author: "2",
-				songName: "3"
-			},
-			songBuffer: files[0],
-			imageBuffer: files?.[1]
-		});
-	}
 }

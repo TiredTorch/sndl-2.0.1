@@ -16,7 +16,7 @@ export const albumsService = createApi({
 		}),
 		getAlbum: builder.query({
 			query: (params) => ({
-				url: "/",
+				url: "/",   
 				method: "GET",
 				params
 			})
@@ -41,15 +41,27 @@ export const albumsService = createApi({
 				method: "POST",
 				data: body
 			})
-		}), //UploadSongToAlbumDto
-		uploadSongToAlbum: builder.mutation<void, FormData>({
-			query: (body) => ({
+		}), 
+		uploadSongToAlbum: builder.mutation<void, {
+			formData: FormData,
+			paramsData: {
+				albumName: string,
+				author: string,
+				songName: string
+			}
+		}>({
+			query: ({formData, paramsData}) => ({
 				url: "/uploadSong",
 				method: "POST",
-				data: body,
+				data: formData,
 				headers: {
 					"Content-Type": "multipart/form-data"
 				},
+				params: {
+					albumName: paramsData.albumName,
+					author: paramsData.author,
+					songName: paramsData.songName
+				}
 			}),
             
 		}),

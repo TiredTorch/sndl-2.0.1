@@ -1,12 +1,12 @@
 import { FC } from "react";
 import { Box } from "@mui/material";
+import { ANON_AVATAR } from "../../../../utils";
 import { savedPostItemStyles } from "./SavedPostItem.styles";
 import { SavedPostItemProps } from "./SavedPostItem.types";
 
 const SavedPostItem: FC<SavedPostItemProps> = ({
-	content,
-	image,
-	author
+	creator,
+	content
 }) => {
 	return (
         <Box
@@ -18,12 +18,12 @@ const SavedPostItem: FC<SavedPostItemProps> = ({
                 <Box
                     sx={savedPostItemStyles.author}
                 >
-                    {author}
+                    {creator.name}
                 </Box>
                 <Box
                     sx={savedPostItemStyles.image}
                     component="img"
-                    src={image}
+                    src={creator.avatar ? creator.avatar : ANON_AVATAR}
                 />
             </Box>
             <Box

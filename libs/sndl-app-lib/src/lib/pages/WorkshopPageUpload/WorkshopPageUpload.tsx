@@ -39,18 +39,16 @@ const WorkshopPageUpload = () => {
 				data.albumImage
 			);
 
-			const jsonData = JSON.stringify({
+			const jsonData = {
 				albumName: data.albumName,
 				author: data.author,
 				songName: data.songName
+			};
+
+			uploadSongToAlbum({
+				formData: formData,
+				paramsData: jsonData
 			});
-
-			formData.append(
-				"data",
-				jsonData
-			);
-
-			uploadSongToAlbum(formData);
 		},
 		[uploadSongToAlbum],
 	);

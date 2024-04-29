@@ -26,6 +26,7 @@ export const Button: FC<ButtonProps> = ({
                 customVariant === "auth" && buttonStyles.auth,
                 customVariant === "sendMessageForm" && buttonStyles.sendMessageForm,
                 customVariant === "player" && buttonStyles.player,
+                customVariant === "uploadSong" && buttonStyles.uploadSong,
                 sx
             ] as SxProps<Theme>}
             {...rest}

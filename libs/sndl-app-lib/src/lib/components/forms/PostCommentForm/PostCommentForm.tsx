@@ -19,7 +19,8 @@ import { PostCommentFormProps } from "./PostCommentForm.types";
 
 export const PostCommentForm: FC<PostCommentFormProps> = ({
 	onSubmit,
-	initState
+	initState,
+	sharePost
 }) => {
 	const intl = useIntl();
 
@@ -59,6 +60,7 @@ export const PostCommentForm: FC<PostCommentFormProps> = ({
                     </Button>
                     <Button
                         customVariant="sendMessageForm"
+                        onClick={sharePost}
                     >
                         {intl.formatMessage({ id: "TXT_POST_PROFILE_SUBMIT" })}
                     </Button>

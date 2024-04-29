@@ -29,7 +29,20 @@ export class PostsService {
 				id: userId
 			},
 			select: {
-				followedPosts: true
+				followedPosts: {
+					select: {
+						content: true,
+						created_at: true,
+						id: true,
+						creator: {
+							select: {
+								id: true,
+								avatar: true,
+								name: true
+							}
+						}
+					}
+				}
 			} 
 		});
 
