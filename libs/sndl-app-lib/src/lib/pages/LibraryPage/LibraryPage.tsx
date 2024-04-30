@@ -1,130 +1,52 @@
-import { useMemo } from "react";
-import { faker } from "@faker-js/faker";
+
+import {
+	useCallback,
+	useState
+} from "react";
 import { Box } from "@mui/material";
 import { SearchMusicForm } from "../../components";
+import ExpandedAlbumModal from "../../components/modals/ExpandedAlbumModal/ExpandedAlbumModal";
 import {
-	LibraryAlbum,
-	LibrarySearchItem,
-	LibrarySong
-} from "../../types";
-import LibraryMusicItem from "./LibraryMusicItem/LibraryMusicItem";
+	useGetFriendsFeaturedAlbumsQuery,
+	useGetNewAlbumsQuery,
+	useGetSavedAlbumsQuery
+} from "../../redux";
+import { AlbumData } from "../../types";
 import { libraryPageStyles } from "./LibraryPage.styles";
-import ZoneDivider from "./ZoneDivider/ZoneDivider";
+import PaginatedMusicZone from "./PaginatedMusicZone/PaginatedMusicZone";
 
 const LibraryPage = () => {
-	const mockSongs = useMemo<LibrarySong[]>(
-		() => [
-			{
-				name: faker.music.songName(),
-				source: ""
-			},
-			{
-				name: faker.music.songName(),
-				source: ""
-			},
-			{
-				name: faker.music.songName(),
-				source: ""
-			},
-			{
-				name: faker.music.songName(),
-				source: ""
-			},
-			{
-				name: faker.music.songName(),
-				source: ""
-			},
-			{
-				name: faker.music.songName(),
-				source: ""
-			},
-			{
-				name: faker.music.songName(),
-				source: ""
-			},
-			{
-				name: faker.music.songName(),
-				source: ""
-			},
-			{
-				name: faker.music.songName(),
-				source: ""
-			},
-			{
-				name: faker.music.songName(),
-				source: ""
-			},
-			{
-				name: faker.music.songName(),
-				source: ""
-			},
-		],
-		[]
+	const [selectedAlbum, setSelectedAlbum] = useState<AlbumData | null>(null);
+
+	const handleCloseModal = useCallback(
+		() => {
+			setSelectedAlbum(null);
+		},
+		[setSelectedAlbum],
+	);
+    
+	const handleSelectAlbum = useCallback(
+		(album: AlbumData) => () => {
+			setSelectedAlbum(album);
+		},
+		[setSelectedAlbum],
 	);
 
-	const mockAlbums = useMemo<LibraryAlbum[]>(
-		() => [
-			{
-				albumName: faker.music.songName(),
-				image: faker.image.url(),
-				songs: mockSongs
-			},
-			{
-				albumName: faker.music.songName(),
-				image: faker.image.url(),
-				songs: mockSongs
-			},
-			{
-				albumName: faker.music.songName(),
-				image: faker.image.url(),
-				songs: mockSongs
-			},
-			{
-				albumName: faker.music.songName(),
-				image: faker.image.url(),
-				songs: mockSongs
-			},
-			{
-				albumName: faker.music.songName(),
-				image: faker.image.url(),
-				songs: mockSongs
-			},
-			{
-				albumName: faker.music.songName(),
-				image: faker.image.url(),
-				songs: mockSongs
-			},
-			{
-				albumName: faker.music.songName(),
-				image: faker.image.url(),
-				songs: mockSongs
-			}
-		],
-		[mockSongs]
-	);
-
-	const mock = useMemo<LibrarySearchItem[]>(
-		() => [
-			{
-				albums: mockAlbums,
-				categoryName: "TXT_SAVED_SONGS"
-			},
-			{
-				albums: mockAlbums,
-				categoryName: "TXT_LATEST_SONGS"
-			},
-			{
-				albums: mockAlbums,
-				categoryName: "TXT_NEW_SONGS"
-			},
-			{
-				albums: mockAlbums,
-				categoryName: "TXT_FRENDS_FEATURED_SONGS"
-			}
-		],
-		[mockAlbums]
-	);
-
+	const albumQueries = [
+		{
+			title: "TXT_SAVED_SONGS",
+			query: useGetSavedAlbumsQuery
+		},
+		{
+			title: "TXT_NEW_SONGS",
+			query: useGetNewAlbumsQuery
+		},
+		{
+			title: "TXT_FRENDS_FEATURED_SONGS",
+			query: useGetFriendsFeaturedAlbumsQuery
+		}
+	];
+    
 	return (
         <Box
             sx={libraryPageStyles.root}
@@ -138,32 +60,21 @@ const LibraryPage = () => {
             <Box
                 sx={libraryPageStyles.albumWrapper}
             >
-                {mock.map((
+                {albumQueries.map((
                     item, i
                     ) => (
-                        <Box
-                            key={i}
-                        >
-                            <ZoneDivider
-                                title={item.categoryName}
-                            />
-                            <Box
-                                sx={libraryPageStyles.albumWrapperWithNoDivider}
-                            >
-                                {item.albums.map((
-                                    album, j
-                                    ) => (
-                                        <LibraryMusicItem
-                                        key={j}
-                                        album={album}
-                                        />
-                                    ))
-                                }
-                            </Box>
-                        </Box>
-                    ))
-                }
+                    <PaginatedMusicZone
+                        handleChooseAlbum={handleSelectAlbum}
+                        query={item.query}
+                        title={item.title}
+                        key={i}
+                    />
+                ))}
             </Box>
+            <ExpandedAlbumModal
+                selectedAlbum={selectedAlbum}
+                onClose={handleCloseModal}
+            />
         </Box>
 	);
 };

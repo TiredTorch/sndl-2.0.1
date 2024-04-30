@@ -1,4 +1,9 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
+import {
+	AlbumData,
+	PaginatedData,
+	PaginationParams
+} from "../../../types";
 import { authAxiosBaseQuery } from "../../axios/authBaseQuery/authBaseQuery";
 
 export const albumsService = createApi({
@@ -7,41 +12,40 @@ export const albumsService = createApi({
 		baseUrl: "api/albums"
 	}),
 	endpoints: (builder) => ({
-		getAlbums: builder.query({
+		getSavedAlbums: builder.query<PaginatedData<AlbumData[]>, PaginationParams>({
 			query: (params) => ({
-				url: "/all",
+				url: "/all/saved",
 				method: "GET",
 				params
 			})
 		}),
-		getAlbum: builder.query({
+		getNewAlbums: builder.query<PaginatedData<AlbumData[]>, PaginationParams>({
 			query: (params) => ({
-				url: "/",   
+				url: "/all/new",
 				method: "GET",
 				params
 			})
 		}),
-		getUserAlbums: builder.query({
+		getFriendsFeaturedAlbums: builder.query<PaginatedData<AlbumData[]>, PaginationParams>({
 			query: (params) => ({
-				url: "/saved",
+				url: "/all/friendsFeatured",
 				method: "GET",
 				params
-			})
-		}),
-		createAlbum: builder.mutation({
-			query: (body) => ({
-				url: "/create",
-				method: "POST",
-				data: body
 			})
 		}),
 		addSongToAlbum: builder.mutation({
 			query: (body) => ({
-				url: "/addSong",
+				url: "/addSongToAlbum",
 				method: "POST",
 				data: body
 			})
-		}), 
+		}),
+		getAlbum: builder.query<void, number>({
+			query: (id) => ({
+				url: `/${id}`,   
+				method: "GET"
+			})
+		}),
 		uploadSongToAlbum: builder.mutation<void, {
 			formData: FormData,
 			paramsData: {
@@ -69,19 +73,19 @@ export const albumsService = createApi({
 });
 
 export const {
-	getAlbums,
+	getSavedAlbums,
+	getFriendsFeaturedAlbums,
 	getAlbum,
-	getUserAlbums,
-	createAlbum,
+	getNewAlbums,
 	addSongToAlbum,
 	uploadSongToAlbum
 } = albumsService.endpoints;
 
 export const {
-	useGetAlbumsQuery,
+	useGetSavedAlbumsQuery,
 	useGetAlbumQuery,
-	useGetUserAlbumsQuery,
-	useCreateAlbumMutation,
+	useGetFriendsFeaturedAlbumsQuery,
+	useGetNewAlbumsQuery,
 	useAddSongToAlbumMutation,
 	useUploadSongToAlbumMutation
 } = albumsService;

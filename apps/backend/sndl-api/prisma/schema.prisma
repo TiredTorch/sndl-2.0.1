@@ -80,6 +80,7 @@ model Album {
     id   Int    @id @default(autoincrement())
     name String @unique
     image String
+    pseudoAuthor String
 
     creatorId Int
     creator User @relation(fields: [creatorId], references: [id])

@@ -23,3 +23,8 @@ export class Pagination {
 	public pageCount: number;
 	public total: number;
 }
+
+export type PaginationParams = {
+	page: number;
+	limit: number;
+};

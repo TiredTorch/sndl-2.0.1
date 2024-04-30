@@ -13,3 +13,18 @@ export type CommonErrorType = {
 	message: string;
 	status: number;
 };
+
+export type PaginatedData<T> = {
+	pagination: {
+		page: number;
+		pageCount: number;
+		pageSize: number;
+		total: number;
+	},
+	data: T
+};
+
+export type PaginationParams = {
+	page: number;
+	limit: number;
+};

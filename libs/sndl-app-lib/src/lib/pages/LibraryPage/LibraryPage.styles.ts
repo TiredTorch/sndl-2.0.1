@@ -68,6 +68,7 @@ export const libraryPageStyles: StyleList = {
 	divider: {
 		fontSize: "36px",
 		fontWeight: "700",
+		width: "100%",
 		color: (theme: Theme) => theme.palette.sndlGray[700]
 	}
 };

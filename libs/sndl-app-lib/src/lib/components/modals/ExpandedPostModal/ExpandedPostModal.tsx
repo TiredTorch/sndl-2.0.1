@@ -25,7 +25,7 @@ import CommentItem from "./CommentItem/CommentItem";
 import { expandedPostModalStyles } from "./ExpandedPostModal.styles";
 import { ExpandedPostModalProps } from "./ExpandedPostModal.types";
 
-const ExpandedPostModal: FC<ExpandedPostModalProps> = ({
+export const ExpandedPostModal: FC<ExpandedPostModalProps> = ({
 	onClose,
 	selectedPost
 }) => {

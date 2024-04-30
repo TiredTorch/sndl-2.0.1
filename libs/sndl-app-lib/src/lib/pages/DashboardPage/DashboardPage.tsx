@@ -3,6 +3,7 @@ import {
 	useState
 } from "react";
 import { Box } from "@mui/material";
+import { ExpandedPostModal } from "../../components";
 import { useShowSnackbarError } from "../../hooks";
 import { useGetPostsQuery } from "../../redux";
 import {
@@ -11,7 +12,6 @@ import {
 } from "../../types";
 import { dashboardPageStyles } from "./DashboardPage.styles";
 import DashboardPostItem from "./DashboardPostItem/DashboardPostItem";
-import ExpandedPostModal from "./ExpandedPostModal/ExpandedPostModal";
 
 const DashboardPage = () => {
 	const [selectedPost, setSelectedPost] = useState<DashboardPost | null>(null);
@@ -55,7 +55,7 @@ const DashboardPage = () => {
                     />
                 ))
             }
-            <ExpandedPostModal 
+            <ExpandedPostModal
                 selectedPost={selectedPost} 
                 onClose={handleDeselectPost}
             />

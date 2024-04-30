@@ -14,7 +14,11 @@ import {
 	UseInterceptors
 } from "@nestjs/common";
 import { AddSongToAlbumDto } from "@shared";
-import { Token } from "../utils";
+import { Pagination } from "../pagination";
+import {
+	PaginationParams,
+	Token
+} from "../utils";
 import { AlbumsService } from "./albums.service";
 
 @Controller("albums")
@@ -23,20 +27,32 @@ export class AlbumsController {
 
 	@HttpCode(200)
 	@Get("all/saved")
-	public async getSavedAlbums(@Token() token: string) {
-		return await this.albumsService.getSavedAlbums(token);
+	public async getSavedAlbums(
+        @Token() token: string,
+        @Pagination() paginationParams: PaginationParams
+	) {
+		return await this.albumsService.getSavedAlbums(
+			paginationParams,
+			token
+		);
 	}
 
 	@HttpCode(200)
 	@Get("all/new")
-	public async getNewAlbums() {
-		return await this.albumsService.getNewAlbums();
+	public async getNewAlbums(@Pagination() paginationParams: PaginationParams) {
+		return await this.albumsService.getNewAlbums(paginationParams);
 	}
 
 	@HttpCode(200)
 	@Get("all/friendsFeatured")
-	public async getFriendsFeaturedAlbums(@Token() token: string) {
-		return await this.albumsService.getFriendsFeaturedAlbums(token);
+	public async getFriendsFeaturedAlbums(
+        @Pagination() paginationParams: PaginationParams,
+        @Token() token: string
+	) {
+		return await this.albumsService.getFriendsFeaturedAlbums(
+			paginationParams,
+			token
+		);
 	}
 
 	@Post("uploadSong")
@@ -49,15 +65,18 @@ export class AlbumsController {
         @Query("songName") songName: string
 	) {
 
-		return await this.albumsService.uploadSong({
-			data: {
-				albumName: albumName,
-				author: author,
-				songName: songName
-			},
-			songBuffer: files[0],
-			imageBuffer: files?.[1]
-		});
+		return await this.albumsService.uploadSong(
+			token,
+			{
+				data: {
+					albumName: albumName,
+					author: author,
+					songName: songName
+				},
+				songBuffer: files[0],
+				imageBuffer: files?.[1]
+			}
+		);
 	}
 
 	@Post("addSongToAlbum")

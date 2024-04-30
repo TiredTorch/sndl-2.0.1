@@ -2,6 +2,7 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import {
 	Injectable,
+	InternalServerErrorException,
 	NotFoundException
 } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
@@ -11,7 +12,10 @@ import {
 } from "@shared";
 import { StorageClient } from "@supabase/storage-js";
 import { PrismaService } from "../prisma/prisma.service";
-import { getUserIdFromToken } from "../utils";
+import {
+	getUserIdFromToken,
+	PaginationParams
+} from "../utils";
 
 @Injectable()
 export class AlbumsService {
@@ -29,31 +33,94 @@ export class AlbumsService {
     	);
     }
     
-    public async getSavedAlbums(token: string) {
+    public async getSavedAlbums(
+    	paginationParams: PaginationParams, token: string
+    ) {
+    	const offset = (paginationParams.page - 1) * paginationParams.limit;
+
     	const userId = await getUserIdFromToken(
     		token,
     		this.jwtService
     	); 
 
-    	const user = await this.prismaService.user.findUnique({
+    	const total = await this.prismaService.album.count({
     		where: {
-    			id: userId
-    		},
-    		select: {
-    			createdAlbums: true
+    			creatorId: userId
     		}
     	});
 
-    	return user?.createdAlbums ?? [];
+    	const albums = await this.prismaService.album.findMany({
+    		where: {
+    			creatorId: userId
+    		},
+    		skip: offset,
+    		take: paginationParams.limit,
+    		select: {
+    			id: true,
+    			image: true,
+    			name: true,
+    			pseudoAuthor: true,
+    			songs: {
+    				select: {
+    					name: true,
+    					sourse: true
+    				}
+    			}
+    		}
+    	});
+
+    	return {
+    		pagination: {
+    			page: paginationParams.page,
+    			pageCount: Math.ceil(total / paginationParams.limit),
+    			pageSize: paginationParams.limit,
+    			total: total
+    		},
+    		data: albums
+    	};
     }
 
-    public async getNewAlbums() {
-    	const albums = await this.prismaService.album.findMany();
+    public async getNewAlbums(paginationParams: PaginationParams) {
+    	const offset = (paginationParams.page - 1) * paginationParams.limit;
 
-    	return albums ?? [];
+    	const total = await this.prismaService.album.count();
+
+    	const albums = await this.prismaService.album.findMany({
+    		orderBy: {
+    			created_at: "asc"
+    		},
+    		skip: offset,
+    		take: paginationParams.limit,
+    		select: {
+    			id: true,
+    			image: true,
+    			name: true,
+    			pseudoAuthor: true,
+    			songs: {
+    				select: {
+    					name: true,
+    					sourse: true
+    				}
+    			}
+    		}
+    	});
+
+    	return {
+    		pagination: {
+    			page: paginationParams.page,
+    			pageCount: Math.ceil(total / paginationParams.limit),
+    			pageSize: paginationParams.limit,
+    			total: total
+    		},
+    		data: albums
+    	};
     }
     
-    public async getFriendsFeaturedAlbums(token: string) {
+    public async getFriendsFeaturedAlbums(
+    	paginationParams: PaginationParams, token: string
+    ) {
+    	const offset = (paginationParams.page - 1) * paginationParams.limit;
+
     	const userId = await getUserIdFromToken(
     		token,
     		this.jwtService
@@ -68,29 +135,62 @@ export class AlbumsService {
     		}
     	});
 
+    	const total = await this.prismaService.album.count({
+    		where: {
+    			creatorId: {
+    				in: user?.friendUsers.map(item => item.id) ?? []
+    			}
+    		},
+    	});
+
     	const albums = await this.prismaService.album.findMany({
+    		skip: offset,
+    		take: paginationParams.limit,
     		where: {
     			creatorId: {
     				in: user?.friendUsers.map(item => item.id) ?? []
     			}
     		},
     		select: {
-    			songs: true,
     			id: true,
     			image: true,
-    			name: true
+    			name: true,
+    			pseudoAuthor: true,
+    			songs: {
+    				select: {
+    					name: true,
+    					sourse: true
+    				}
+    			}
     		}
     	});
 
-    	return albums ?? [];
+    	return {
+    		pagination: {
+    			page: paginationParams.page,
+    			pageCount: Math.ceil(total / paginationParams.limit),
+    			pageSize: paginationParams.limit,
+    			total: total
+    		},
+    		data: albums
+    	};
     }
     
-    public async uploadSong(uploadSongToAlbumDto: UploadSongToAlbumPreparedDto) {
+    public async uploadSong(
+    	token: string, uploadSongToAlbumDto: UploadSongToAlbumPreparedDto
+    ) {
+    	let image: string | undefined = "";
+
+    	const userId = await getUserIdFromToken(
+    		token,
+    		this.jwtService
+    	); 
+
     	const {
     		data,
     		error
     	} = await this.supabaseStorage.from("songs").upload(
-    		`${new Date().toString()}-${uploadSongToAlbumDto.songBuffer.fieldname}`,
+    		`${new Date().toString().split(" ").join("")}-${uploadSongToAlbumDto.songBuffer.fieldname}`,
     		uploadSongToAlbumDto.songBuffer.buffer,
     		{
     			upsert: true,
@@ -98,15 +198,7 @@ export class AlbumsService {
     		}
     	);
 
-    	console.log(
-    		"data",
-    		data
-    	);
-
-    	console.log(
-    		"error",
-    		error
-    	);
+    	if (error) throw new InternalServerErrorException(error);
 
     	if (uploadSongToAlbumDto.imageBuffer) {
 
@@ -114,7 +206,7 @@ export class AlbumsService {
     			data: imageBufferData,
     			error: imageBufferError
     		} = await this.supabaseStorage.from("images").upload(
-    			`albumImages/${new Date().toString().trim}-${uploadSongToAlbumDto.imageBuffer.fieldname}`,
+    			`albumImages/${new Date().toString().split(" ").join("")}-${uploadSongToAlbumDto.imageBuffer.fieldname}`,
     			uploadSongToAlbumDto.imageBuffer.buffer,
     			{
     				upsert: true,
@@ -122,16 +214,34 @@ export class AlbumsService {
     			}
     		);
 
-    		console.log(
-    			"imageBufferData",
-    			imageBufferData
-    		);
+    		image = imageBufferData?.path;
 
-    		console.log(
-    			"imageBufferError",
-    			imageBufferError
-    		);
+    		if (imageBufferError) throw new InternalServerErrorException(imageBufferError);
     	}
+
+    	await this.prismaService.song.create({
+    		data: {
+    			name: uploadSongToAlbumDto.data.songName,
+    			sourse: `https://adsbxalznzhqyedfglws.supabase.co/storage/v1/object/public/songs/${data.path}`,
+    			album: {
+    				connectOrCreate: {
+    					where: {
+    						name: uploadSongToAlbumDto.data.albumName
+    					},
+    					create: {
+    						image: image ? `https://adsbxalznzhqyedfglws.supabase.co/storage/v1/object/public/images/${image}` : "",
+    						pseudoAuthor: uploadSongToAlbumDto.data.author,
+    						name: uploadSongToAlbumDto.data.albumName,
+    						creator: {
+    							connect: {
+    								id: userId
+    							}
+    						}
+    					}
+    				}
+    			}
+    		}
+    	});
 
     }
 
