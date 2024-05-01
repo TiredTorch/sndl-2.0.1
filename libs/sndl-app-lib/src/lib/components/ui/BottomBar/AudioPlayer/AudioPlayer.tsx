@@ -14,15 +14,24 @@ import {
 	useTypedDispatch,
 	useTypedSelector
 } from "../../../../redux";
+import { SongData } from "../../../../types";
 import { Button } from "../../../common";
 import { bottomBarStyles } from "../BottomBar.styles";
 
 export const AudioPlayer = () => {
 	const dispatch = useTypedDispatch();
 	const [isPlaying, setIsPlaying] = useState(false);
+	const [currentPlaylistAudio, setCurrentPlaylistAudio] = useState<SongData>();
 	
+	console.log(
+		"currentPlaylistAudio",
+		currentPlaylistAudio?.sourse
+	);
+
 	const volume = useTypedSelector(store => store.userSlice.currentVolumeLevel);
 	const currentTime = useTypedSelector(store => store.userSlice.currentSongTime);
+	const currentPlaylist = useTypedSelector(store => store.userSlice.currentPlaylist);
+	const songPlaylistIndex = useTypedSelector(store => store.userSlice.songPlaylistIndex);
 
 	const [formatedCurrentTime, setFormatedCurrentTime] = useState("");
 
@@ -49,6 +58,17 @@ export const AudioPlayer = () => {
 			setFormatedCurrentTime(`${minutes < 10 ? `0${minutes}` : minutes}:${secs < 10 ? `0${secs}` : secs}`);
 		},
 		[currentTime]
+	);
+
+	useEffect(
+		() => {
+			if (!audioRef.current) return;
+			if (!currentPlaylist) return;
+			setCurrentPlaylistAudio(currentPlaylist.songs[songPlaylistIndex]);
+			setIsPlaying(true);
+			audioRef.current.play();
+		},
+		[songPlaylistIndex, currentPlaylist]
 	);
     
 	useEffect(
@@ -78,22 +98,22 @@ export const AudioPlayer = () => {
 		[dispatch],
 	);
 
-	const handleSeekDuration = useCallback(
-		(
-			_: Event | null, value: number | number[]
-		) => {
-			if (!audioRef.current) return;
-			dispatch(setSongTime(value as number));
-			audioRef.current.currentTime = value as number;
-		},
-		[dispatch, audioRef],
-	);
-
 	const handleManualTimeUpdate = useCallback(
 		(value: number | number[]) => {
 			dispatch(setSongTime(value as number));
 		},
 		[dispatch],
+	);
+    
+	const handleSeekDuration = useCallback(
+		(
+			_: Event | null, value: number | number[]
+		) => {
+			if (!audioRef.current) return;
+			handleManualTimeUpdate(value);
+			audioRef.current.currentTime = value as number;
+		},
+		[handleManualTimeUpdate],
 	);
 
 	return (
@@ -101,7 +121,7 @@ export const AudioPlayer = () => {
                 sx={bottomBarStyles.audioWrapper}
             >
                 <audio
-                    src={"https://adsbxalznzhqyedfglws.supabase.co/storage/v1/object/public/songs/1.mp3"}
+                    src={currentPlaylistAudio?.sourse}
                     ref={audioRef}
                     onTimeUpdate={e => handleManualTimeUpdate((e.target as HTMLMediaElement).currentTime)}
                 />

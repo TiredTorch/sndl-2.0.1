@@ -62,7 +62,7 @@ export class AuthService {
 		
 		const token = this.jwtService.sign(createTokenPayload(createdUser.id,));
 
-		return { token };
+		return { token, userName: createdUser.name };
 	}
 
 	public async getTokenFromUser(user: LoginDto) {

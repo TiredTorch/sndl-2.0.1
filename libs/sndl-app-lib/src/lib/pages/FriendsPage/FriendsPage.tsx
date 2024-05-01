@@ -3,9 +3,9 @@ import {
 	useState
 } from "react";
 import { Box } from "@mui/material";
+import { ExpandedUserModal } from "../../components";
 import { FriendsPageUser } from "../../types";
 import ChatContainer from "./ChatContainer/ChatContainer";
-import ExpandedUserModal from "./ExpandedUserModal/ExpandedUserModal";
 import FriendsListContainer from "./FriendsListContainer/FriendsListContainer";
 import { friendsPageStyles } from "./FriendsPage.styles";
 import UserSearchContainer from "./UserSearchContainer/UserSearchContainer";
@@ -52,7 +52,7 @@ const FriendsPage = () => {
                     onUserSelect={handleSelectUser}
                 />
             )}
-            <ExpandedUserModal 
+            <ExpandedUserModal
                 selectedUser={selectedUser} 
                 onClose={handleDeselectUser}
             />

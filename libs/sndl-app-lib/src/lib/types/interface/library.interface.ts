@@ -9,5 +9,5 @@ export type AlbumData = {
 
 export type SongData = {
 	name: string;
-	source: string;
+	sourse: string;
 };

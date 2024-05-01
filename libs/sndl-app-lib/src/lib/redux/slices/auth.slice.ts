@@ -55,7 +55,7 @@ export const authSlice = createSlice({
 				state, { payload }
 			) => {
 				state.isLoggedIn = true;
-				state.jwt = payload.jwt;
+				state.jwt = payload.token;
 			}
 		);
 		builder.addMatcher(
@@ -64,7 +64,7 @@ export const authSlice = createSlice({
 				state, { payload }
 			) => {
 				state.isLoggedIn = true;
-				state.jwt = payload.jwt;
+				state.jwt = payload.token;
 			}
 		);
 	}

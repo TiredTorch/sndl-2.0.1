@@ -70,5 +70,10 @@ export const libraryPageStyles: StyleList = {
 		fontWeight: "700",
 		width: "100%",
 		color: (theme: Theme) => theme.palette.sndlGray[700]
+	},
+	albumZoneWrapper: {
+		display: "flex",
+		flexWrap: "wrap",
+		gap: "30px"
 	}
 };

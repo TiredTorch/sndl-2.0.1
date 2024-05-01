@@ -3,6 +3,7 @@ import {
 	createSlice,
 	PayloadAction
 } from "@reduxjs/toolkit";
+import { AlbumData } from "../../types";
 
 const initialState: {
     //user data section
@@ -22,7 +23,7 @@ const initialState: {
 	isVisualizerEnabled: boolean,
 
     //audio and song data
-	currentPlaylist: null,
+	currentPlaylist: AlbumData | null,
 	songPlaylistIndex: number,
 	currentSongTime: number,
 	currentVolumeLevel: number
@@ -69,6 +70,16 @@ export const userSlice = createSlice({
 			state, value: PayloadAction<number>
 		) {
 			state.currentSongTime = value.payload;
+		},
+		setSongIndex(
+			state, value: PayloadAction<number>
+		) {
+			state.songPlaylistIndex = value.payload;
+		},
+		setCurrentPlaylist(
+			state, value: PayloadAction<AlbumData>
+		) {
+			state.currentPlaylist = value.payload;
 		}
 	}
 });
@@ -79,5 +90,7 @@ export const {
 	toggleNavBar,
 	setVolumeLevel,
 	setSongTime,
-	clearUserSliceState
+	clearUserSliceState,
+	setSongIndex,
+	setCurrentPlaylist
 } = userSlice.actions;

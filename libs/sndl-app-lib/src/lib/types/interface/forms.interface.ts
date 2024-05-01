@@ -18,3 +18,9 @@ export type PostFormData = {
 export type PostCommentFormData = {
 	message: string
 };
+
+export type RegisterFormData = {
+	username: string;
+	email: string;
+	password: string;
+};

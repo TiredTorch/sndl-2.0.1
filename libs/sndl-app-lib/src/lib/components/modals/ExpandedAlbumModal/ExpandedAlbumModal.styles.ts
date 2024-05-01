@@ -17,7 +17,11 @@ export const expandedAlbumModalStyles: StyleList = {
 	},
 	contentWrapper: {
 		minHeight: "70dvh",
-		padding: "0px 10%"
+		padding: "0px 10%",
+		display: "flex",
+		flexDirection: "column",
+		gap: "10px",
+		overflowY: "auto"
 	},
 	backdrop: {
 		backdropFilter: "blur(10px)",

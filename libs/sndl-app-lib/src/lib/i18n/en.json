@@ -60,5 +60,8 @@
 
     "TXT_REQUEST_SUCCESS_POST_CREATE": "Post succsessfully created",
     "TXT_REQUEST_SUCCESS_COMMENT_POST": "Post succsessfully commented",
-    "TXT_REQUEST_SUCCESS_SHARE_POST": "Post succsessfully shared"
+    "TXT_REQUEST_SUCCESS_SHARE_POST": "Post succsessfully shared",
+
+    "TXT_MODAL_USERS_ADD_FRIEND": "Add Friend",
+    "TXT_MODAL_USERS_TEXT_FRIEND": "Chat"
 }

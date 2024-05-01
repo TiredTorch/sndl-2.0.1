@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { useShowSnackbarError } from "../../../hooks";
 import { CommonErrorType } from "../../../types";
+import { libraryPageStyles } from "../LibraryPage.styles";
 import ZoneDivider from "../ZoneDivider/ZoneDivider";
 import AlbumItem from "./AlbumItem/AlbumItem";
 import { paginatedMusicZoneStyles } from "./PaginatedMusicZone.styles";
@@ -41,7 +42,9 @@ const PaginatedMusicZone: FC<PaginatedMusicZoneProps> = ({
             sx={paginatedMusicZoneStyles.root}
         >
             <ZoneDivider title={title}/>
-            <Box>
+            <Box
+                sx={libraryPageStyles.albumZoneWrapper}
+            >
                 {data.data.map((
                 item, i
                 ) => (

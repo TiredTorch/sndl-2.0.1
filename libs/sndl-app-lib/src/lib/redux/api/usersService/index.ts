@@ -1,9 +1,11 @@
-import { createApi } from "@reduxjs/toolkit/query";
-import { axiosBaseQuery } from "../../axios/baseQuery/baseQuery";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import { AddFriendDto } from "@shared";
+import { FriendsPageUser } from "../../../types";
+import { authAxiosBaseQuery } from "../../axios/authBaseQuery/authBaseQuery";
 
 export const usersService = createApi({
 	reducerPath: "usersService",
-	baseQuery: axiosBaseQuery({
+	baseQuery: authAxiosBaseQuery({
 		baseUrl: "api/users"
 	}),
 	endpoints: (builder) => ({
@@ -14,11 +16,10 @@ export const usersService = createApi({
 				data: body
 			})
 		}),
-		getAllUsers: builder.query({
-			query: (params) => ({
+		getAllUsers: builder.query<FriendsPageUser[], void>({
+			query: () => ({
 				url: "/all",
 				method: "GET",
-				params
 			})
 		}),
 		getAllFriends: builder.query({
@@ -28,7 +29,7 @@ export const usersService = createApi({
 				params
 			})
 		}),
-		addFriend: builder.mutation({
+		addFriend: builder.mutation<void, AddFriendDto>({
 			query: (body) => ({
 				url: "/add",
 				method: "POST",
@@ -51,3 +52,21 @@ export const usersService = createApi({
 		}),
 	})
 });
+
+export const {
+	addFriend,
+	editProfile,
+	getAllFriends,
+	getAllUsers,
+	removeFriend,
+	setConfigProfile
+} = usersService.endpoints;
+
+export const {
+	useAddFriendMutation,
+	useEditProfileMutation,
+	useGetAllFriendsQuery,
+	useGetAllUsersQuery,
+	useRemoveFriendMutation,
+	useSetConfigProfileMutation
+} = usersService;

@@ -8,10 +8,6 @@ import {
 	Post
 } from "@nestjs/common";
 import {
-	ApiBearerAuth,
-	ApiTags
-} from "@nestjs/swagger";
-import {
 	AddFriendDto,
 	EditProfileDto,
 	RemoveFriendDto
@@ -19,8 +15,6 @@ import {
 import { Token } from "../utils";
 import { UsersService } from "./users.service";
 
-@ApiBearerAuth("Auth")
-@ApiTags("Users")
 @Controller("users")
 export class UsersController {
 	constructor(private readonly usersService: UsersService) {}

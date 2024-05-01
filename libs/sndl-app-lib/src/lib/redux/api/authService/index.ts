@@ -1,6 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import {
 	LoginDto,
+	RegisterDto,
 	TokenResponse
 } from "@shared";
 import { encryptUserInfo } from "../../../utils";
@@ -23,11 +24,15 @@ export const authService = createApi({
 				token: encryptUserInfo(response.token),
 			})
 		}),
-		register: builder.mutation({
+		register: builder.mutation<TokenResponse, RegisterDto>({
 			query: (body) => ({
 				url: "/register",
 				method: "POST",
 				data: body
+			}),
+			transformResponse: (response: TokenResponse) => ({
+				...response,
+				token: encryptUserInfo(response.token),
 			})
 		}),
 		forgotPassword: builder.mutation({

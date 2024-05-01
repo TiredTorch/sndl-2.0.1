@@ -1,8 +1,17 @@
-import { FC } from "react";
+import {
+	FC,
+	useCallback
+} from "react";
 import {
 	Box,
 	Modal
 } from "@mui/material";
+import {
+	setCurrentPlaylist,
+	setSongIndex,
+	setSongTime,
+	useTypedDispatch
+} from "../../../redux";
 import {
 	expandedAlbumModalStyles,
 	headerStyle
@@ -14,6 +23,19 @@ const ExpandedAlbumModal: FC<ExpandedAlbumModalProps> = ({
 	onClose,
 	selectedAlbum
 }) => {
+	const dispatch = useTypedDispatch();
+
+	const handlePlayAlbumFromSong = useCallback(
+		(songId: number) => () => {
+			if (!selectedAlbum) return;
+
+			dispatch(setCurrentPlaylist(selectedAlbum));
+			dispatch(setSongIndex(songId));
+			dispatch(setSongTime(0));
+		},
+		[dispatch, selectedAlbum],
+	);
+
 	return (
         <Modal
             open={!!selectedAlbum}
@@ -49,7 +71,7 @@ const ExpandedAlbumModal: FC<ExpandedAlbumModalProps> = ({
                     item, i
                     ) => (
                         <SongItem
-                            handlePlay={console.log}
+                            handlePlay={handlePlayAlbumFromSong(i)}
                             index={i + 1}
                             song={item}
                             key={i}

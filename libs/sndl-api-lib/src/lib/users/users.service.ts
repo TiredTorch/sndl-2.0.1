@@ -86,7 +86,13 @@ export class UsersService {
 	}
 
 	public async getAllUsers() {
-		const users = await this.prismaService.user.findMany();
+		const users = await this.prismaService.user.findMany({
+			select: {
+				avatar: true,
+				id: true,
+				name: true
+			}
+		});
 
 		return users;
 	}

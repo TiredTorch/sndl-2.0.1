@@ -1,11 +1,12 @@
 import { FC } from "react";
 import { Box } from "@mui/material";
+import { ANON_AVATAR } from "../../../../utils";
 import { userSearchItemStyles } from "./UserSearchItem.styles";
 import { UserSearchItemProps } from "./UserSearchItem.types";
 
 const UserSearchItem: FC<UserSearchItemProps> = ({
 	id,
-	imageUrl,
+	avatar,
 	name,
 	onUserSelect
 }) => {
@@ -17,7 +18,7 @@ const UserSearchItem: FC<UserSearchItemProps> = ({
             <Box
                 sx={userSearchItemStyles.image}
                 component="img"
-                src={imageUrl}
+                src={avatar ? avatar : ANON_AVATAR}
             />
             <Box
                 sx={userSearchItemStyles.text}

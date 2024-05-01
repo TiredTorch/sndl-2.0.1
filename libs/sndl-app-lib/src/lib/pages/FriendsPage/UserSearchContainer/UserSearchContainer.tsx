@@ -1,10 +1,8 @@
-import {
-	FC,
-	useMemo
-} from "react";
-import { faker } from "@faker-js/faker";
+import { FC } from "react";
 import { Box } from "@mui/material";
-import { FriendsPageUser } from "../../../types";
+import { useShowSnackbarError } from "../../../hooks";
+import { useGetAllUsersQuery } from "../../../redux";
+import { CommonErrorType } from "../../../types";
 import { userSearchContainer } from "./UserSearchContainer.styles";
 import { UserSearchContainerProps } from "./UserSearchContainer.types";
 import UserSearchItem from "./UserSearchItem/UserSearchItem";
@@ -12,227 +10,22 @@ import UserSearchItem from "./UserSearchItem/UserSearchItem";
 const UserSearchContainer: FC<UserSearchContainerProps> = ({
 	onUserSelect
 }) => {
-	const mock = useMemo<FriendsPageUser[]>(
-		() => [
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			}
-		],
-		[]
+	const {
+		data,
+		isError,
+		error
+	} = useGetAllUsersQuery();
+
+	useShowSnackbarError(
+		isError,
+		error as CommonErrorType
 	);
 
 	return (
         <Box
             sx={userSearchContainer.root}
         >
-            {mock.map((
+            {data?.map((
                 item, i
                 ) => (
                     <UserSearchItem
