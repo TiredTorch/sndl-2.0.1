@@ -16,6 +16,7 @@ const initialState: {
 	isVisualizerEnabled: boolean,
 
     //audio and song data
+	isMusicPlaying: boolean;
 	currentPlaylist: AlbumData | null,
 	songPlaylistIndex: number,
 	currentSongTime: number,
@@ -32,6 +33,7 @@ const initialState: {
 	isVisualizerEnabled: true,
     
     //audio and song data
+	isMusicPlaying: false,
 	currentPlaylist: null,
 	songPlaylistIndex: 0,
 	currentSongTime: 0,
@@ -58,6 +60,11 @@ export const userSlice = createSlice({
 		) {
 			state.currentSongTime = value.payload;
 		},
+		setIsMusicPlaying(
+			state, value: PayloadAction<boolean>
+		) {
+			state.isMusicPlaying = value.payload;
+		},
 		setSongIndex(
 			state, value: PayloadAction<number>
 		) {
@@ -79,5 +86,6 @@ export const {
 	setSongTime,
 	clearUserSliceState,
 	setSongIndex,
-	setCurrentPlaylist
+	setCurrentPlaylist,
+	setIsMusicPlaying
 } = userSlice.actions;

@@ -8,12 +8,13 @@ import { StyleList } from "../../../types";
 export const bottomBarStyles: StyleList = {
 	authorTitle: {
 		color: (theme: Theme) => theme.palette.sndlGray[100],
-		fontSize: "30px"
+		fontSize: "30px",
+		whiteSpace: "nowrap"
 	},
 	songTitle: {
 		color: (theme: Theme) => theme.palette.sndlGray[200],
-		fontSize: "24px"
-
+		fontSize: "24px",
+		whiteSpace: "nowrap"
 	},
 	root: {
 		background: (theme: Theme) => `linear-gradient(0deg, ${theme.palette.sndlGray[500]} 0%, ${alpha(
@@ -35,6 +36,10 @@ export const bottomBarStyles: StyleList = {
 		alignItems: "center",
 		padding: "0 50px",
 		top: "auto"
+	},
+	titleWrapper: {
+		minWidth: "12dvw",
+		maxWidth: "12dvw",
 	},
 	audioWrapper: {
 		display: "flex",

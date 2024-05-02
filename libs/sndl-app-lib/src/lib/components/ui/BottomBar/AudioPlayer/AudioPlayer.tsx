@@ -9,6 +9,8 @@ import {
 	Slider
 } from "@mui/material";
 import {
+	setIsMusicPlaying,
+	setSongIndex,
 	setSongTime,
 	setVolumeLevel,
 	useTypedDispatch,
@@ -20,15 +22,10 @@ import { bottomBarStyles } from "../BottomBar.styles";
 
 export const AudioPlayer = () => {
 	const dispatch = useTypedDispatch();
-	const [isPlaying, setIsPlaying] = useState(false);
 	const [currentPlaylistAudio, setCurrentPlaylistAudio] = useState<SongData>();
-	
-	console.log(
-		"currentPlaylistAudio",
-		currentPlaylistAudio?.sourse
-	);
 
 	const volume = useTypedSelector(store => store.userSlice.currentVolumeLevel);
+	const isMusicPlaying = useTypedSelector(store => store.userSlice.isMusicPlaying);
 	const currentTime = useTypedSelector(store => store.userSlice.currentSongTime);
 	const currentPlaylist = useTypedSelector(store => store.userSlice.currentPlaylist);
 	const songPlaylistIndex = useTypedSelector(store => store.userSlice.songPlaylistIndex);
@@ -36,20 +33,8 @@ export const AudioPlayer = () => {
 	const [formatedCurrentTime, setFormatedCurrentTime] = useState("");
 
 	const audioRef = useRef<HTMLAudioElement>(null);
-    
-	const handleTogglePlayPauseSong = useCallback(
-		() => {
-			if (!audioRef.current) return;
-			if (isPlaying) {
-				audioRef.current.pause();
-			} else {
-				audioRef.current.play();
-			}
-			setIsPlaying(prevState => !prevState);
-		},
-		[isPlaying],
-	);
 
+    //time showcase
 	useEffect(
 		() => {
 			const minutes = Math.floor(currentTime / 60);
@@ -60,17 +45,17 @@ export const AudioPlayer = () => {
 		[currentTime]
 	);
 
+    //song change on users music change
 	useEffect(
 		() => {
 			if (!audioRef.current) return;
 			if (!currentPlaylist) return;
 			setCurrentPlaylistAudio(currentPlaylist.songs[songPlaylistIndex]);
-			setIsPlaying(true);
-			audioRef.current.play();
 		},
 		[songPlaylistIndex, currentPlaylist]
 	);
     
+    // audio element change from user input
 	useEffect(
 		() => {
 			if (!audioRef.current) return;
@@ -82,11 +67,40 @@ export const AudioPlayer = () => {
 	useEffect(
 		() => {
 			if (!audioRef.current) return;
+            
+			if (isMusicPlaying) {
+				audioRef.current.play();
+			} else {
+				audioRef.current.pause();
+			}
+		},
+		[dispatch, isMusicPlaying]
+	);
+
+	useEffect(
+		() => {
+			if (!audioRef.current) return;
 			audioRef.current.currentTime = currentTime;
-    
 		},
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[audioRef]
+	);
+
+	useEffect(
+		() => {
+			if (!audioRef.current) return;
+			if (!currentPlaylistAudio?.sourse) return;
+            
+			audioRef.current.src = currentPlaylistAudio.sourse;
+		},
+		[audioRef, currentPlaylistAudio]
+	);
+
+	const handleTogglePlayPauseSong = useCallback(
+		() => {
+			dispatch(setIsMusicPlaying(!isMusicPlaying));
+		},
+		[isMusicPlaying, dispatch],
 	);
 
 	const handleVolume = useCallback(
@@ -96,6 +110,34 @@ export const AudioPlayer = () => {
 			dispatch(setVolumeLevel(value as number));
 		},
 		[dispatch],
+	);
+
+	const handleCanPlay = useCallback(
+		() => {
+			if (!audioRef.current) return;
+			dispatch(setIsMusicPlaying(true));
+			audioRef.current.play();
+		},
+		[dispatch],
+	);
+
+	const handleNextSong = useCallback(
+		() => {
+			if (!currentPlaylist) return;
+			if (songPlaylistIndex === currentPlaylist.songs.length - 1) return;
+			dispatch(setSongTime(0));
+			dispatch(setSongIndex(songPlaylistIndex + 1));
+		},
+		[currentPlaylist, dispatch, songPlaylistIndex],
+	);
+
+	const handlePrevSong = useCallback(
+		() => {
+			if (songPlaylistIndex === 0) return;
+			dispatch(setSongTime(0));
+			dispatch(setSongIndex(songPlaylistIndex - 1));
+		},
+		[dispatch, songPlaylistIndex],
 	);
 
 	const handleManualTimeUpdate = useCallback(
@@ -121,11 +163,14 @@ export const AudioPlayer = () => {
                 sx={bottomBarStyles.audioWrapper}
             >
                 <audio
-                    src={currentPlaylistAudio?.sourse}
+                    onCanPlay={handleCanPlay}
+                    onEnded={handleNextSong}
+                    preload="metadata"
                     ref={audioRef}
                     onTimeUpdate={e => handleManualTimeUpdate((e.target as HTMLMediaElement).currentTime)}
                 />
                 <Button
+                    onClick={handlePrevSong}
                     customVariant="player"
                 >
                     prev
@@ -155,7 +200,7 @@ export const AudioPlayer = () => {
                         </Box>
                         <Slider
                             min={0}
-                            max={isNaN(audioRef?.current?.duration ?? 0) ? 0 : audioRef?.current?.duration ?? 0}
+                            max={isNaN(audioRef?.current?.duration ?? 0) ? 100 : audioRef?.current?.duration ?? 100}
                             value={currentTime}
                             onChange={handleSeekDuration}
                             sx={bottomBarStyles.timeSlider}
@@ -165,10 +210,11 @@ export const AudioPlayer = () => {
                         customVariant="player"
                         onClick={handleTogglePlayPauseSong}
                     >
-                        {isPlaying ? "pause" : "play"}
+                        {isMusicPlaying ? "pause" : "play"}
                     </Button>
                 </Box>
                 <Button
+                    onClick={handleNextSong}
                     customVariant="player"
                 >
                     next

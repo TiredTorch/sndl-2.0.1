@@ -189,13 +189,20 @@ export class UsersService {
     					name: true,
     					avatar: true
     				}
+    			},
+    			friendOf: {
+    				select: {
+    					id: true,
+    					name: true,
+    					avatar: true
+    				}
     			}
     		}
     	});
         
     	if (!user) throw new NotFoundException("TXT_USER_NOT_FOUND");
 
-    	return user.friendUsers;
+    	return [...user.friendOf, ...user.friendUsers];
     }
     
     public async addFriend(

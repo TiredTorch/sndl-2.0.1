@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import {
 	setCurrentPlaylist,
+	setIsMusicPlaying,
 	setSongIndex,
 	setSongTime,
 	useTypedDispatch
@@ -32,6 +33,7 @@ const ExpandedAlbumModal: FC<ExpandedAlbumModalProps> = ({
 			dispatch(setCurrentPlaylist(selectedAlbum));
 			dispatch(setSongIndex(songId));
 			dispatch(setSongTime(0));
+			dispatch(setIsMusicPlaying(true));
 		},
 		[dispatch, selectedAlbum],
 	);

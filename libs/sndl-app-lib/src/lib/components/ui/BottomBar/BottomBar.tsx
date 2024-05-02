@@ -1,10 +1,16 @@
-import { useCallback } from "react";
+import {
+	useCallback,
+	useEffect,
+	useState
+} from "react";
 import { useIntl } from "react-intl";
 import { Box } from "@mui/material";
 import {
 	toggleNavBar,
-	useTypedDispatch
+	useTypedDispatch,
+	useTypedSelector
 } from "../../../redux";
+import { SongData } from "../../../types";
 import { Button } from "../../common";
 import AudioPlayer from "./AudioPlayer/AudioPlayer";
 import { bottomBarStyles } from "./BottomBar.styles";
@@ -12,6 +18,18 @@ import { bottomBarStyles } from "./BottomBar.styles";
 export const BottomBar = () => {
 	const intl = useIntl();
 	const dispatch = useTypedDispatch();
+	const [currentPlaylistAudio, setCurrentPlaylistAudio] = useState<SongData>();
+
+	const currentPlaylist = useTypedSelector(store => store.userSlice.currentPlaylist);
+	const songPlaylistIndex = useTypedSelector(store => store.userSlice.songPlaylistIndex);
+
+	useEffect(
+		() => {
+			if (!currentPlaylist) return;
+			setCurrentPlaylistAudio(currentPlaylist.songs[songPlaylistIndex]);
+		},
+		[songPlaylistIndex, currentPlaylist]
+	);
 
 	const toggleSidebar = useCallback(
 		() => {
@@ -24,13 +42,19 @@ export const BottomBar = () => {
         <Box
             sx={bottomBarStyles.root}
         >
-            <Box>
+            <Box
+                sx={bottomBarStyles.titleWrapper}
+            >
                 <Box
                     sx={bottomBarStyles.authorTitle}
-                >Author</Box>
+                >
+                    {currentPlaylistAudio?.name}
+                </Box>
                 <Box
                     sx={bottomBarStyles.songTitle}
-                >Song name</Box>
+                >
+                    {currentPlaylist?.pseudoAuthor}
+                </Box>
             </Box>
             <AudioPlayer/>
             <Button
