@@ -11,11 +11,11 @@ import {
 const initialState: {
 	isLoggedIn: boolean;
 	jwt: string;
-	userName: string;
+	id: number | null;
 } = {
 	isLoggedIn: false,
 	jwt: "",
-	userName: ""
+	id: null
 };
 
 export const authSlice = createSlice({
@@ -46,7 +46,7 @@ export const authSlice = createSlice({
 			) => {
 				state.isLoggedIn = true;
 				state.jwt = payload.token;
-				state.userName = payload.userName;
+				state.id = payload.id;
 			}
 		);
 		builder.addMatcher(
@@ -56,6 +56,7 @@ export const authSlice = createSlice({
 			) => {
 				state.isLoggedIn = true;
 				state.jwt = payload.token;
+				state.id = payload.id;
 			}
 		);
 		builder.addMatcher(

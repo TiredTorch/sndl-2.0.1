@@ -1,11 +1,9 @@
-import {
-	FC,
-	useMemo
-} from "react";
-import { faker } from "@faker-js/faker";
+import { FC } from "react";
 import { Box } from "@mui/material";
 import { SearchFriendForm } from "../../../components";
-import { FriendsPageUser } from "../../../types";
+import { useShowSnackbarError } from "../../../hooks";
+import { useGetAllFriendsQuery } from "../../../redux";
+import { CommonErrorType } from "../../../types";
 import { friendsListContainer } from "./FriendsListContainer.styles";
 import { FriendsListContainerProps } from "./FriendsListContainer.types";
 import FriendsListItem from "./FriendsListItem/FriendsListItem";
@@ -13,115 +11,15 @@ import FriendsListItem from "./FriendsListItem/FriendsListItem";
 const FriendsListContainer: FC<FriendsListContainerProps> = ({
 	onUserSelect
 }) => {
-	const mock = useMemo<FriendsPageUser[]>(
-		() => [
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			},
-			{
-				id: faker.number.int(),
-				imageUrl: faker.image.url(),
-				name: faker.internet.displayName()
-			}
-		],
-		[]
+	const {
+		data,
+		error,
+		isError
+	} = useGetAllFriendsQuery();
+
+	useShowSnackbarError(
+		isError,
+		error as CommonErrorType
 	);
 
 	return (
@@ -134,7 +32,7 @@ const FriendsListContainer: FC<FriendsListContainerProps> = ({
                     field: ""
                 }}
             />
-            {mock.map((
+            {data?.map((
                 item, i
                 ) => (
                     <FriendsListItem

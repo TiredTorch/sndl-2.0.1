@@ -1,11 +1,12 @@
 import { FC } from "react";
 import { Box } from "@mui/material";
+import { ANON_AVATAR } from "../../../../utils";
 import { friendsListItemStyles } from "./FriendsListItem.styles";
 import { FriendsListItemProps } from "./FriendsListItem.types";
 
 const FriendsListItem: FC<FriendsListItemProps> = ({
 	id,
-	imageUrl,
+	avatar,
 	name,
 	onUserSelect
 }) => {
@@ -17,7 +18,7 @@ const FriendsListItem: FC<FriendsListItemProps> = ({
             <Box
                 sx={friendsListItemStyles.image}
                 component="img"
-                src={imageUrl}
+                src={avatar ? avatar : ANON_AVATAR}
             />
             <Box
                 sx={friendsListItemStyles.text}

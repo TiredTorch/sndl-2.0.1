@@ -1,4 +1,8 @@
-import { useCallback } from "react";
+import {
+	useCallback,
+	useEffect
+} from "react";
+import { useParams } from "react-router-dom";
 import {
 	Box,
 	Divider
@@ -9,51 +13,55 @@ import {
 	useShowSnackbarSuccess
 } from "../../hooks";
 import {
-	useAllSharedQuery,
 	useCreatePostMutation,
-	useTypedSelector
+	useGetOneUserQuery
 } from "../../redux";
 import {
 	CommonErrorType,
 	PostFormData
 } from "../../types";
+import { ANON_AVATAR } from "../../utils";
 import MusicHistoryContainer from "./MusicHistoryContainer/MusicHistoryContainer";
 import { profilePageStyles } from "./ProfilePage.styles";
 import SavedPostsContainer from "./SavedPostsContainer/SavedPostsContainer";
 
 const ProfilePage = () => {
-	const userImage = useTypedSelector(store => store.userSlice.userImage);
-	const userName = useTypedSelector(store => store.userSlice.userName);
-	const userStatus = useTypedSelector(store => store.userSlice.userStatus);
+	const { id: userId } = useParams();
+
+	const {
+		data: userData,
+		isError: userIsError,
+		error: userError,
+		refetch: refetchUser
+	} = useGetOneUserQuery(
+		Number(userId) ?? 0,
+		{
+			skip: !userId
+		}
+	);
 
 	const [
 		createPost,
 		{
-			isError,
-			error,
-			isSuccess
+			isError: createPostIsError,
+			error: createPostError,
+			isSuccess: createPostSuccess
 		}
 	] = useCreatePostMutation();
 
-	const {
-		data: sharedPostsData,
-		error: sharedPostsError,
-		isError: sharedPostsIsError
-	} = useAllSharedQuery();
-
 	useShowSnackbarSuccess(
-		isSuccess,
+		createPostSuccess,
 		"TXT_REQUEST_SUCCESS_POST_CREATE"
 	);
 
 	useShowSnackbarError(
-		isError,
-		error as CommonErrorType
+		createPostIsError,
+		createPostError as CommonErrorType
 	);
 
 	useShowSnackbarError(
-		sharedPostsIsError,
-		sharedPostsError as CommonErrorType
+		userIsError,
+		userError as CommonErrorType
 	);
 
 	const handleCreatePost = useCallback(
@@ -63,6 +71,13 @@ const ProfilePage = () => {
 			});
 		},
 		[createPost],
+	);
+
+	useEffect(
+		() => {
+			refetchUser();
+		},
+		[refetchUser]
 	);
 
 	return (
@@ -75,30 +90,24 @@ const ProfilePage = () => {
                 <Box
                     sx={profilePageStyles.profile}
                 >
-                    {(userImage && 
-                        <Box
-                            component="img"
-                            src={userImage}
-                            sx={profilePageStyles.image}
-                        />
-                    )}
+                    <Box
+                        component="img"
+                        src={userData?.avatar ? userData.avatar : ANON_AVATAR}
+                        sx={profilePageStyles.image}
+                    />
                     <Box
                         sx={profilePageStyles.textWrapper}
                     >
-                        {userName && (
-                            <Box
-                                sx={profilePageStyles.name}
-                            >
-                                {userName}
-                            </Box>
-                        )}
-                        {userStatus && (
-                            <Box
-                                sx={profilePageStyles.status}
-                            >
-                                {userStatus}
-                            </Box>
-                        )}
+                        <Box
+                            sx={profilePageStyles.name}
+                        >
+                            {userData?.name}
+                        </Box>
+                        <Box
+                            sx={profilePageStyles.status}
+                        >
+                            {userData?.status}
+                        </Box>
                     </Box>
                 </Box>
                 <Divider
@@ -113,7 +122,7 @@ const ProfilePage = () => {
                             message: ""
                         }}/>
                     <SavedPostsContainer
-                        posts={sharedPostsData ?? []}
+                        posts={userData?.followedPosts ?? []}
                     />
                 </Box>
 

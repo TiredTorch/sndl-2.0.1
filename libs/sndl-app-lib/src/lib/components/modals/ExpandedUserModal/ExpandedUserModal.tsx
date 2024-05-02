@@ -3,6 +3,7 @@ import {
 	useCallback
 } from "react";
 import { useIntl } from "react-intl";
+import { useNavigate } from "react-router-dom";
 import {
 	Box,
 	Modal
@@ -23,6 +24,7 @@ export const ExpandedUserModal: FC<ExpandedUserModalProps> = ({
 	selectedUser
 }) => {
 	const intl = useIntl();
+	const navigate = useNavigate();
 
 	const [
 		addFriend,
@@ -41,6 +43,14 @@ export const ExpandedUserModal: FC<ExpandedUserModalProps> = ({
 			});
 		},
 		[addFriend, selectedUser],
+	);
+
+	const handleNavigateUser = useCallback(
+		() => {
+			if (!selectedUser) return;
+			navigate(`/profile/${selectedUser.id}`);
+		},
+		[navigate, selectedUser],
 	);
 
 	useShowSnackbarError(
@@ -85,6 +95,12 @@ export const ExpandedUserModal: FC<ExpandedUserModalProps> = ({
                         customVariant="sendMessageForm"
                     >
                         {intl.formatMessage({ id: "TXT_MODAL_USERS_TEXT_FRIEND" })}
+                    </Button>
+                    <Button
+                        customVariant="sendMessageForm"
+                        onClick={handleNavigateUser}
+                    >
+                        {intl.formatMessage({ id: "TXT_MODAL_USERS_CHECK_PAGE" })}
                     </Button>
                 </Box>
             </Box>

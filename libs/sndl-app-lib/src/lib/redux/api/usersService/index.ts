@@ -1,6 +1,9 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { AddFriendDto } from "@shared";
-import { FriendsPageUser } from "../../../types";
+import {
+	FriendsPageUser,
+	OneUserResponse
+} from "../../../types";
 import { authAxiosBaseQuery } from "../../axios/authBaseQuery/authBaseQuery";
 
 export const usersService = createApi({
@@ -8,12 +11,26 @@ export const usersService = createApi({
 	baseQuery: authAxiosBaseQuery({
 		baseUrl: "api/users"
 	}),
+	tagTypes: ["friends", "users"],
 	endpoints: (builder) => ({
-		editProfile: builder.mutation({
-			query: (body) => ({
+		editProfile: builder.mutation<void, {
+			formData: FormData,
+			paramsData: {
+				status: string,
+				userName: string
+			}
+		}>({
+			query: ({ formData, paramsData }) => ({
 				url: "/me",
 				method: "PATCH",
-				data: body
+				data: formData,
+				headers: {
+					"Content-Type": "multipart/form-data"
+				},
+				params: {
+					status: paramsData.status,
+					userName: paramsData.userName
+				}
 			})
 		}),
 		getAllUsers: builder.query<FriendsPageUser[], void>({
@@ -22,26 +39,34 @@ export const usersService = createApi({
 				method: "GET",
 			})
 		}),
-		getAllFriends: builder.query({
-			query: (params) => ({
+		getOneUser: builder.query<OneUserResponse, number>({
+			query: (id) => ({
+				url: `/${id}`,
+				method: "GET",
+			})
+		}),
+		getAllFriends: builder.query<FriendsPageUser[], void>({
+			query: () => ({
 				url: "/friends",
 				method: "GET",
-				params
-			})
+			}),
+			providesTags: ["friends"]
 		}),
 		addFriend: builder.mutation<void, AddFriendDto>({
 			query: (body) => ({
 				url: "/add",
 				method: "POST",
 				data: body
-			})
+			}),
+			invalidatesTags: ["friends"]
 		}),
 		removeFriend: builder.mutation({
 			query: (body) => ({
 				url: "/remove",
 				method: "DELETE",
 				data: body
-			})
+			}),
+			invalidatesTags: ["friends"]
 		}),
 		setConfigProfile: builder.mutation({
 			query: (body) => ({
@@ -59,7 +84,8 @@ export const {
 	getAllFriends,
 	getAllUsers,
 	removeFriend,
-	setConfigProfile
+	setConfigProfile,
+	getOneUser
 } = usersService.endpoints;
 
 export const {
@@ -68,5 +94,6 @@ export const {
 	useGetAllFriendsQuery,
 	useGetAllUsersQuery,
 	useRemoveFriendMutation,
-	useSetConfigProfileMutation
+	useSetConfigProfileMutation,
+	useGetOneUserQuery
 } = usersService;

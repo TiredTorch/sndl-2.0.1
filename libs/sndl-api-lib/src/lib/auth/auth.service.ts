@@ -62,7 +62,7 @@ export class AuthService {
 		
 		const token = this.jwtService.sign(createTokenPayload(createdUser.id,));
 
-		return { token, userName: createdUser.name };
+		return { token, id: createdUser.id };
 	}
 
 	public async getTokenFromUser(user: LoginDto) {
@@ -73,7 +73,7 @@ export class AuthService {
 
 		const token = this.jwtService.sign(createTokenPayload(data.id));
             
-		return { token, userName: data.username };
+		return { token, id: data.id };
 	}
 
 	public async sendTokenToResetPassword(email: string) {

@@ -1,5 +1,5 @@
-import { DashboardPost } from "../../../types";
+import { OneUserFollowedPost } from "../../../types";
 
 export type SavedPostsContainerProps = {
-	posts: DashboardPost[]
+	posts: OneUserFollowedPost[]
 };

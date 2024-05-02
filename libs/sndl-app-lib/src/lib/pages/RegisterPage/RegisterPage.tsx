@@ -1,6 +1,9 @@
 import { useCallback } from "react";
 import { RegisterForm } from "../../components";
-import { useShowSnackbarError } from "../../hooks";
+import {
+	useShowSnackbarError,
+	useShowSnackbarSuccess
+} from "../../hooks";
 import { PublicPagesLayout } from "../../layouts";
 import { useRegisterMutation } from "../../redux";
 import {
@@ -14,12 +17,18 @@ const RegisterPage = () => {
 		{
 			isError,
 			error,
+			isSuccess
 		}
 	] = useRegisterMutation();
 
 	useShowSnackbarError(
 		isError,
 		error as CommonErrorType
+	);
+
+	useShowSnackbarSuccess(
+		isSuccess,
+		"TXT_REQUEST_SUCCESS_REGISTER"
 	);
 
 	const handleSubmit = useCallback(

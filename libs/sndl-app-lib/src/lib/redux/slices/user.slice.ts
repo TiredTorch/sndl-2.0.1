@@ -1,4 +1,3 @@
-import { faker } from "@faker-js/faker";
 import {
 	createSlice,
 	PayloadAction
@@ -6,12 +5,6 @@ import {
 import { AlbumData } from "../../types";
 
 const initialState: {
-    //user data section
-	userId: number | null,
-	userImage: string | null,
-	userName: string | null,
-	userStatus: string | null,
-
     //app state section
 	isOpenNavBar: boolean,
 
@@ -28,12 +21,6 @@ const initialState: {
 	currentSongTime: number,
 	currentVolumeLevel: number
 } = {
-    //user data section
-	userId: 1,
-	userImage: faker.image.url(),
-	userName: faker.internet.displayName(),
-	userStatus: faker.lorem.paragraph(),
-
     //app state section
 	isOpenNavBar: false,
     

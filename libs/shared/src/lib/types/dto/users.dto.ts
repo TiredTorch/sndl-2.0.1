@@ -1,7 +1,9 @@
+import { MemoryStorageFile } from "@blazity/nest-file-fastify";
+
 export interface EditProfileDto {
-	avatar?: string;
-	status?: string;
-	name?: string
+	avatar?: MemoryStorageFile;
+	status: string;
+	name: string
 }
 
 export interface CreateUserDto {

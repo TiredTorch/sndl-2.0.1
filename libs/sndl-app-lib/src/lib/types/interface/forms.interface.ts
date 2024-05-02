@@ -11,6 +11,12 @@ export type SongCreationFormData = {
 	songFile?: File;
 };
 
+export type EditProfileFormData = {
+	avatarFile?: File;
+	userName: string;
+	status: string;
+};
+
 export type PostFormData = {
 	message: string
 };

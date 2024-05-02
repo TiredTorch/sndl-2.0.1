@@ -1,3 +1,3 @@
-import { DashboardPost } from "../../../../types";
+import { OneUserFollowedPost } from "../../../../types";
 
-export type SavedPostItemProps = DashboardPost;
+export type SavedPostItemProps = OneUserFollowedPost;

@@ -18,6 +18,7 @@ import settingsIcon from "../../../assets/icons/settingsLinkIcon.png";
 import workshopIcon from "../../../assets/icons/workshopLinkIcon.png";
 import {
 	clearUserData,
+	clearUserSliceState,
 	useTypedDispatch,
 	useTypedSelector
 } from "../../../redux";
@@ -33,11 +34,12 @@ export const Sidebar = () => {
 	const navigate = useNavigate();
 	const dispatch = useTypedDispatch();
 	const isOpenSidebar = useTypedSelector(store => store.userSlice.isOpenNavBar);
-	const userId = useTypedSelector(store => store.userSlice.userId);
+	const userId = useTypedSelector(store => store.authSlice.id);
 
 	const handleLogout = useCallback(
 		() => {
 			dispatch(clearUserData());
+			dispatch(clearUserSliceState());
 		},
 		[dispatch],
 	);

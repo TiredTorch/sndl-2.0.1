@@ -14,6 +14,19 @@ export const profilePageStyles: StyleList = {
 		display: "flex",
 		justifyContent: "space-between",
 		flexDirection: "column",
+		minWidth: "70dvw",
+		maxWidth: "70dvw",
+	},
+	musicHistoryWrapper: {
+		minWidth: "20dvw",
+		maxWidth: "20dvw",
+		display: "flex",
+		flexDirection: "column",
+		gap: "20px",
+		overflowY: "auto",
+		overflowX: "hidden",
+		marginBottom: "130px",
+		paddingRight: "10px",
 	},
 	postsWrapper: {
 		display: "flex",
@@ -53,14 +66,5 @@ export const profilePageStyles: StyleList = {
 		marginLeft: "3%",
 		marginTop: "2%"
 	},
-	musicHistoryWrapper: {
-		minWidth: "320px",
-		display: "flex",
-		flexDirection: "column",
-		gap: "20px",
-		overflowY: "auto",
-		overflowX: "hidden",
-		marginBottom: "130px",
-		paddingRight: "10px",
-	}
+	
 };

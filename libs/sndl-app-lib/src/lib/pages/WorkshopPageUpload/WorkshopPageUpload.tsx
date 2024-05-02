@@ -2,18 +2,13 @@ import { useCallback } from "react";
 import { Box } from "@mui/material";
 import { SongCreationForm } from "../../components";
 import { useShowSnackbarError } from "../../hooks";
-import {
-	useTypedSelector,
-	useUploadSongToAlbumMutation
-} from "../../redux";
+import { useUploadSongToAlbumMutation } from "../../redux";
 import {
 	CommonErrorType,
 	SongCreationFormData
 } from "../../types";
 
 const WorkshopPageUpload = () => {
-	const userName = useTypedSelector(state => state.authSlice.userName);
-
 	const [uploadSongToAlbum, {
 		isError,
 		error
@@ -58,7 +53,7 @@ const WorkshopPageUpload = () => {
             <SongCreationForm 
                 onSubmit={handleUpload} 
                 initState={{
-                    author: userName,
+                    author: "",
                     songName: "",
                     albumName: ""
                 }}

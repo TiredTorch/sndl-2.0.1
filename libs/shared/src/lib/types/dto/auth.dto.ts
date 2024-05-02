@@ -23,7 +23,7 @@ export interface ResetPasswordDto {
 
 export interface TokenResponse {
 	token: string;
-	userName: string;
+	id: number;
 }
 
 export interface ResetPasswordDto {

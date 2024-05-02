@@ -1,7 +1,10 @@
 
 import { useCallback } from "react";
 import { LoginForm } from "../../components";
-import { useShowSnackbarError } from "../../hooks";
+import {
+	useShowSnackbarError,
+	useShowSnackbarSuccess
+} from "../../hooks";
 import { PublicPagesLayout } from "../../layouts";
 import { useLoginMutation } from "../../redux";
 import {
@@ -15,13 +18,19 @@ const LoginPage = () => {
 		{
 			isError,
 			error,
-			isLoading
+			isLoading,
+			isSuccess
 		}
 	] = useLoginMutation();
 
 	useShowSnackbarError(
 		isError,
 		error as CommonErrorType
+	);
+
+	useShowSnackbarSuccess(
+		isSuccess,
+		"TXT_REQUEST_SUCCESS_LOGIN"
 	);
 
 	const handleSubmit = useCallback(
