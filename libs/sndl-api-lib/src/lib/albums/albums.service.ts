@@ -5,6 +5,7 @@ import {
 	InternalServerErrorException,
 	NotFoundException
 } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
 import {
 	AddSongToAlbumDto,
@@ -23,12 +24,13 @@ export class AlbumsService {
 
     constructor(
     	private readonly prismaService: PrismaService,
-    	private readonly jwtService: JwtService
+    	private readonly jwtService: JwtService,
+    	private readonly configService: ConfigService
     ) {
     	this.supabaseStorage = new StorageClient(
-    		"https://adsbxalznzhqyedfglws.supabase.co/storage/v1",
+    		configService.getOrThrow("NX_STORAGE_LINK_SUPABASE"),
     		{
-    		    authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFkc2J4YWx6bnpocXllZGZnbHdzIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcwOTA2MTczOSwiZXhwIjoyMDI0NjM3NzM5fQ.B7H5VF2vLk5UCvVCGaFd6OZgexacEZyuqNMxRkhk42I"
+    		    authorization: configService.getOrThrow("NX_SUPABASE_AUTH_TOKEN")
     	    }
     	);
     }
@@ -222,14 +224,14 @@ export class AlbumsService {
     	await this.prismaService.song.create({
     		data: {
     			name: uploadSongToAlbumDto.data.songName,
-    			sourse: `https://adsbxalznzhqyedfglws.supabase.co/storage/v1/object/public/songs/${data.path}`,
+    			sourse: `${this.configService.getOrThrow("NX_STORAGE_LINK_SUPABASE")}/object/public/songs/${data.path}`,
     			album: {
     				connectOrCreate: {
     					where: {
     						name: uploadSongToAlbumDto.data.albumName
     					},
     					create: {
-    						image: image ? `https://adsbxalznzhqyedfglws.supabase.co/storage/v1/object/public/images/${image}` : "",
+    						image: image ? `${this.configService.getOrThrow("NX_STORAGE_LINK_SUPABASE")}/object/public/images/${image}` : "",
     						pseudoAuthor: uploadSongToAlbumDto.data.author,
     						name: uploadSongToAlbumDto.data.albumName,
     						creator: {

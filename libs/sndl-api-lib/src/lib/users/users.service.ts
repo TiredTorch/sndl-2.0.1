@@ -5,6 +5,7 @@ import {
 	NotFoundException,
 	NotImplementedException
 } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
 import {
 	AddFriendDto,
@@ -22,12 +23,13 @@ export class UsersService {
 
     constructor(
     	private readonly prismaService: PrismaService,
-    	private readonly jwtService: JwtService
+    	private readonly jwtService: JwtService,
+    	private readonly configService: ConfigService
     ) {
     	this.supabaseStorage = new StorageClient(
-    		"https://adsbxalznzhqyedfglws.supabase.co/storage/v1",
+    		configService.getOrThrow("NX_STORAGE_LINK_SUPABASE"),
     		{
-    		    authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFkc2J4YWx6bnpocXllZGZnbHdzIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcwOTA2MTczOSwiZXhwIjoyMDI0NjM3NzM5fQ.B7H5VF2vLk5UCvVCGaFd6OZgexacEZyuqNMxRkhk42I"
+    		    authorization: configService.getOrThrow("NX_SUPABASE_AUTH_TOKEN")
     	    }
     	);
     }
@@ -114,7 +116,7 @@ export class UsersService {
     			id: userId
     		},
     		data: {
-    			avatar: `https://adsbxalznzhqyedfglws.supabase.co/storage/v1/object/public/images/${image}`,
+    			avatar: `${this.configService.getOrThrow("NX_STORAGE_LINK_SUPABASE")}/object/public/images/${image}`,
     			name: editProfileDto.name,
     			status: editProfileDto.status
     		}

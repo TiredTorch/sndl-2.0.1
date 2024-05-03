@@ -21,7 +21,6 @@ import {
 	PostFormData
 } from "../../types";
 import { ANON_AVATAR } from "../../utils";
-import MusicHistoryContainer from "./MusicHistoryContainer/MusicHistoryContainer";
 import { profilePageStyles } from "./ProfilePage.styles";
 import SavedPostsContainer from "./SavedPostsContainer/SavedPostsContainer";
 
@@ -127,7 +126,6 @@ const ProfilePage = () => {
                 </Box>
 
             </Box>
-            <MusicHistoryContainer/>
         </Box>
 	);
 };

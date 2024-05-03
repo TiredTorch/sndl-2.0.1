@@ -14,8 +14,10 @@ export const profilePageStyles: StyleList = {
 		display: "flex",
 		justifyContent: "space-between",
 		flexDirection: "column",
-		minWidth: "70dvw",
-		maxWidth: "70dvw",
+		// minWidth: "calc(100dvw - 150px)",
+		// maxWidth: "calc(100dvw - 150px)",
+		minWidth: "100%",
+		maxWidth: "100%",
 	},
 	musicHistoryWrapper: {
 		minWidth: "20dvw",
