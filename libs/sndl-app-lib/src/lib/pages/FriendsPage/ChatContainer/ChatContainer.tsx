@@ -2,17 +2,27 @@ import {
 	FC,
 	useCallback,
 	useEffect,
-	useMemo,
-	useRef
+	useRef,
+	useState
 } from "react";
-import { faker } from "@faker-js/faker";
 import { Box } from "@mui/material";
 import {
 	Button,
 	SendMessageForm
 } from "../../../components";
-import { useTypedSelector } from "../../../redux";
-import { FriendMessage } from "../../../types";
+import { useCurrentSocket } from "../../../hocs";
+import { useShowSnackbarError } from "../../../hooks";
+import {
+	useGetMessagesQuery,
+	useGetOneUserQuery,
+	useTypedSelector
+} from "../../../redux";
+import {
+	ChatroomResponse,
+	CommonErrorType,
+	SendMessageFormData
+} from "../../../types";
+import { ANON_AVATAR } from "../../../utils";
 import { chatContainerStyles } from "./ChatContainer.styles";
 import { ChatContainerProps } from "./ChatContainer.types";
 import ChatMessageItem from "./ChatMessageItem/ChatMessageItem";
@@ -20,115 +30,87 @@ import ChatMessageItem from "./ChatMessageItem/ChatMessageItem";
 const ChatContainer: FC<ChatContainerProps> = ({
 	selectedUser
 }) => {
+	const userId = useTypedSelector(store => store.authSlice.id);
+
+	const [chatroom, setChatroom] = useState<ChatroomResponse>();
+
 	const chatContainerRef = useRef<HTMLDivElement | null>(null);
 
-	const userId = useTypedSelector(store => store.userSlice.userId) ?? 0;
-	const userImage = useTypedSelector(store => store.userSlice.userImage) ?? "";
+	const currentSocket = useCurrentSocket();
 
-	const mock = useMemo<FriendMessage[]>(
-		() => [
-			{
-				senderId: selectedUser.id,
-				content: faker.lorem.paragraphs({
-					max: 3,
-					min: 1
-				})
-			},
-			{
-				senderId: selectedUser.id,
-				content: faker.lorem.paragraphs({
-					max: 3,
-					min: 1
-				})
-			},
-			{
-				senderId: selectedUser.id,
-				content: faker.lorem.paragraphs({
-					max: 3,
-					min: 1
-				})
-			},
-			{
-				senderId: selectedUser.id,
-				content: faker.lorem.paragraphs({
-					max: 3,
-					min: 1
-				})
-			},
-			{
-				senderId: userId,
-				content: faker.lorem.paragraphs({
-					max: 3,
-					min: 1
-				})
-			},
-			{
-				senderId: userId,
-				content: faker.lorem.paragraphs({
-					max: 3,
-					min: 1
-				})
-			},
-			{
-				senderId: selectedUser.id,
-				content: faker.lorem.paragraphs({
-					max: 3,
-					min: 1
-				})
-			},
-			{
-				senderId: selectedUser.id,
-				content: faker.lorem.paragraphs({
-					max: 3,
-					min: 1
-				})
-			},
-			{
-				senderId: selectedUser.id,
-				content: faker.lorem.paragraphs({
-					max: 3,
-					min: 1
-				})
-			},
-			{
-				senderId: userId,
-				content: faker.lorem.paragraphs({
-					max: 3,
-					min: 1
-				})
-			},
-			{
-				senderId: selectedUser.id,
-				content: faker.lorem.paragraphs({
-					max: 3,
-					min: 1
-				})
-			},
-			{
-				senderId: selectedUser.id,
-				content: faker.lorem.paragraphs({
-					max: 3,
-					min: 1
-				})
-			},
-			{
-				senderId: userId,
-				content: faker.lorem.paragraphs({
-					max: 3,
-					min: 1
-				})
-			}
-		],
-		[selectedUser.id, userId]
+	const {
+		data: chatroomData,
+		isError: chatroomIsError,
+		error: chatroomError,
+		isSuccess: chatroomSuccess,
+		refetch: refetchChatroom
+	} = useGetMessagesQuery(
+		{
+			firstUserId: userId ?? 0,
+			secondUserId: selectedUser.id
+		},
+		{
+			skip: !userId
+		}
+	);
+
+	const {
+		data: userData,
+		isError: userIsError,
+		error: userError,
+		refetch: refetchUser
+	} = useGetOneUserQuery(
+		Number(userId) ?? 0,
+		{
+			skip: !userId
+		}
+	);
+
+	useShowSnackbarError(
+		chatroomIsError,
+		chatroomError as CommonErrorType
+	);
+
+	useShowSnackbarError(
+		userIsError,
+		userError as CommonErrorType
+	);
+
+	useEffect(
+		() => {
+			if (!currentSocket?.socket) return;
+
+			currentSocket.socket.on(
+				"reveivingChatroom",
+				(message) => setChatroom(message)
+			);
+		},
+		[currentSocket]
+	);
+
+	const sendMessage = useCallback(
+		(data: SendMessageFormData) => {
+			if (!currentSocket?.socket) return;
+
+			currentSocket.socket.emit(
+				"sendMessage",
+				{ 
+					senderId: userId,
+					recepientId: selectedUser.id,
+					content: data.message
+				}
+			);
+		},
+		[currentSocket, selectedUser, userId]
 	);
 
 	const getUserImage = useCallback(
 		(id: number) => {
-			if (id === selectedUser.id) return selectedUser.imageUrl;
-			if (id === userId) return userImage;
+			if (id === selectedUser.id) return selectedUser?.avatar ? selectedUser.avatar : ANON_AVATAR;
+			if (id === userId) return userData?.avatar ? userData.avatar : ANON_AVATAR;
 			throw new Error();
 		},
-		[selectedUser.id, selectedUser.imageUrl, userId, userImage],
+		[userId, selectedUser, userData],
 	);
 
 	useEffect(
@@ -138,6 +120,23 @@ const ChatContainer: FC<ChatContainerProps> = ({
 			}
 		},
 		[selectedUser]
+	);
+
+	useEffect(
+		() => {
+			if (chatroomSuccess && chatroomData) {
+				setChatroom(chatroomData);
+			}
+		},
+		[chatroomData, chatroomSuccess]
+	);
+
+	useEffect(
+		() => {
+			refetchUser();
+			refetchChatroom();
+		},
+		[refetchUser, refetchChatroom, selectedUser]
 	);
 
 	return (
@@ -154,7 +153,7 @@ const ChatContainer: FC<ChatContainerProps> = ({
                 sx={chatContainerStyles.messagesWrapper}
                 ref={chatContainerRef}
             >
-                {mock.map((
+                {chatroom?.messages.map((
                     item, i
                     ) => (
                         <ChatMessageItem
@@ -167,7 +166,7 @@ const ChatContainer: FC<ChatContainerProps> = ({
                 }
             </Box>
             <SendMessageForm 
-                onSubmit={console.log} 
+                onSubmit={sendMessage} 
                 initState={{
                     message: ""
                 }}

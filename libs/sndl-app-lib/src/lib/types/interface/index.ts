@@ -5,3 +5,4 @@ export * from "./users.interface";
 export * from "./profile.interface";
 export * from "./library.interface";
 export * from "./forms.interface";
+export * from "./chat.interface";

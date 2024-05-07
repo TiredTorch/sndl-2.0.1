@@ -76,7 +76,7 @@ const ProfilePage = () => {
 		() => {
 			refetchUser();
 		},
-		[refetchUser]
+		[refetchUser, userId]
 	);
 
 	return (

@@ -30,3 +30,7 @@ export type RegisterFormData = {
 	email: string;
 	password: string;
 };
+
+export type SendMessageFormData = {
+	message: string
+};

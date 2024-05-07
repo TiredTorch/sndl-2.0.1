@@ -1,34 +1,29 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { axiosBaseQuery } from "../../axios/baseQuery/baseQuery";
+import {
+	ChatroomRequest,
+	ChatroomResponse
+} from "../../../types";
+import { authAxiosBaseQuery } from "../../axios/authBaseQuery/authBaseQuery";
 
 export const chatService = createApi({
 	reducerPath: "chatService",
-	baseQuery: axiosBaseQuery({
-		baseUrl: "/chats"
+	baseQuery: authAxiosBaseQuery({
+		baseUrl: "api/chats"
 	}),
 	endpoints: (builder) => ({
-		getMessages: builder.query({
+		getMessages: builder.query<ChatroomResponse, ChatroomRequest>({
 			query: (params) => ({
-				url: "/",
+				url: "",
 				method: "GET",
 				params
 			})
 		}),
-		sendMessage: builder.mutation({
-			query: (body) => ({
-				url: "/",
-				method: "POST",
-				data: body
-			})
-		})
 	})
 });
 export const {
 	getMessages,
-	sendMessage
 } = chatService.endpoints;
 
 export const {
 	useGetMessagesQuery,
-	useSendMessageMutation
 } = chatService;

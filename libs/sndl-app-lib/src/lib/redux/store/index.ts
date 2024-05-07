@@ -21,6 +21,7 @@ import {
 import {
 	albumsService,
 	authService,
+	chatService,
 	postsService,
 	usersService
 } from "../api";
@@ -67,7 +68,8 @@ export const store = configureStore({
 			authService.middleware,
 			usersService.middleware,
 			postsService.middleware,
-			albumsService.middleware
+			albumsService.middleware,
+			chatService.middleware
 		])
 });
 

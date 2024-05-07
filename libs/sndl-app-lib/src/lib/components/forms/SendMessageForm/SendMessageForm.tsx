@@ -1,12 +1,18 @@
 import {
 	Form,
-	Formik
+	Formik,
+	FormikHelpers
 } from "formik";
 import {
 	CSSProperties,
-	FC
+	FC,
+	useCallback
 } from "react";
 import { useIntl } from "react-intl";
+import {
+	PostFormData,
+	SendMessageFormData
+} from "../../../types";
 import {
 	Button,
 	Field
@@ -21,11 +27,21 @@ export const SendMessageForm: FC<SendMessageFormProps> = ({
 }) => {
 	const intl = useIntl();
 
+	const handleSubmit = useCallback(
+		(
+			values: PostFormData, formikHelpers: FormikHelpers<SendMessageFormData>
+		) => {
+			onSubmit(values);
+			formikHelpers.resetForm();
+		},
+		[onSubmit],
+	);
+
 	return (
         <Formik
             initialValues={initState}
             validationSchema={validationSchema}
-            onSubmit={onSubmit}
+            onSubmit={handleSubmit}
         >
             {(formik) => (
                 <Form
