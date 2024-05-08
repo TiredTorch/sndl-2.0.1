@@ -8,6 +8,7 @@ import {
 	Socket
 } from "socket.io-client";
 import { useTypedSelector } from "../../redux";
+import { decryptUserInfo } from "../../utils";
 
 export const UseSocket = () => {
 	const token = useTypedSelector(store => store.authSlice.jwt);
@@ -19,7 +20,9 @@ export const UseSocket = () => {
 			path: "/websocket",
 			reconnectionDelayMax: 10000,
 			transports: ["websocket"],
-			Authorization: `Bearer ${token}`
+			auth: {
+				token: `Bearer ${decryptUserInfo(token)}`
+			}
 		}),
 		[token]
 	);

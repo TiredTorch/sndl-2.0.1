@@ -28,6 +28,11 @@ export class ChatsGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
     async sendMessage(
     	client: Socket, payload: MessagePayload
     ) {
+    	// console.log(
+    	// 	"client",
+    	// 	client.handshake.auth["token"]
+    	// );
+
     	const chatroom = await this.chatsService.sendMessage(payload);
 
     	this.server.emit(

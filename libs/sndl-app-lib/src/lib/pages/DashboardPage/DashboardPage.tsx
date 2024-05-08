@@ -2,7 +2,11 @@ import {
 	useCallback,
 	useState
 } from "react";
-import { Box } from "@mui/material";
+import { useIntl } from "react-intl";
+import {
+	Box,
+	CircularProgress
+} from "@mui/material";
 import { ExpandedPostModal } from "../../components";
 import { useShowSnackbarError } from "../../hooks";
 import { useGetPostsQuery } from "../../redux";
@@ -14,6 +18,7 @@ import { dashboardPageStyles } from "./DashboardPage.styles";
 import DashboardPostItem from "./DashboardPostItem/DashboardPostItem";
 
 const DashboardPage = () => {
+	const intl = useIntl();
 	const [selectedPost, setSelectedPost] = useState<DashboardPost | null>(null);
 
 	const handleDeselectPost = useCallback(
@@ -32,6 +37,7 @@ const DashboardPage = () => {
 
 	const {
 		data,
+		isLoading,
 		error,
 		isError
 	} = useGetPostsQuery();
@@ -45,6 +51,20 @@ const DashboardPage = () => {
         <Box
             sx={dashboardPageStyles.root}
         >
+            {isLoading && (
+                <Box
+                    sx={dashboardPageStyles.progressWrapper}
+                >
+                    <CircularProgress/>
+                </Box>
+            )}
+            {data?.length === 0 && (
+                <Box
+                    sx={dashboardPageStyles.noPostsText}
+                >
+                    {intl.formatMessage({ id: "TXT_DASHBOARD_POSTS_NOT_FOUND" })}
+                </Box>
+            )}
             {data?.map((
                 item, i
                 ) => (

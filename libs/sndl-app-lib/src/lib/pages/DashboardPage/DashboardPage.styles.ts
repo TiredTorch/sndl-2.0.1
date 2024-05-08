@@ -1,3 +1,4 @@
+import { Theme } from "@mui/material";
 import { StyleList } from "../../types";
 
 export const dashboardPageStyles: StyleList = {
@@ -12,5 +13,17 @@ export const dashboardPageStyles: StyleList = {
 		paddingLeft: "100px",
 		paddingBottom: "100px",
 		overflowY: "scroll",
+	},
+	progressWrapper: {
+		display: "flex",
+		alignItems: "center",
+		justifyContent: "center",
+		width: "100%"
+	},
+	noPostsText: {
+		fontWeight: "700",
+		fontSize: "1.9rem",
+		textAlign: "center",
+		color: (theme: Theme) => theme.palette.sndlGray[700],
 	}
 };

@@ -2,6 +2,7 @@ import {
 	FC,
 	useCallback
 } from "react";
+import { useIntl } from "react-intl";
 import {
 	Box,
 	Modal
@@ -29,6 +30,7 @@ export const ExpandedPostModal: FC<ExpandedPostModalProps> = ({
 	onClose,
 	selectedPost
 }) => {
+	const intl = useIntl();
 
 	const {
 		data: postData,
@@ -148,6 +150,13 @@ export const ExpandedPostModal: FC<ExpandedPostModalProps> = ({
                             />
                         ))
                     }
+                    {(!postData?.comments.length || postData?.comments.length === 0) && (
+                        <Box
+                            sx={expandedPostModalStyles.noCommentsText}
+                        >
+                            {intl.formatMessage({id: "TXT_DASHBOARD_COMMENTS_NOT_FOUND"})}
+                        </Box>
+                    )}
                 </Box>
                 <PostCommentForm 
                     onSubmit={handleAddComment} 

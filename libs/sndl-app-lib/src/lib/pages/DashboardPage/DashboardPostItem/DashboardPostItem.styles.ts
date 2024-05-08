@@ -23,9 +23,9 @@ export const dashboardPostItemStyles: StyleList = {
 	},
 	content: {
 		display: "flex",
-		alignItems: "center",
 		color: (theme: Theme) => theme.palette.sndlGray[300],
-		padding: "10px"
+		padding: "10px",
+		minHeight: "150px"
 	},
 	image: {
 		width: "50px",

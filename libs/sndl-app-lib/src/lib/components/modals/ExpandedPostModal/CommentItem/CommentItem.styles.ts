@@ -4,7 +4,6 @@ import { StyleList } from "../../../../types";
 export const commentItemStyles: StyleList = {
 	root: {
 		display: "flex",
-		justifyContent: "space-between",
 		alignItems: "center",
 		maxHeight: "100px",
 		gap: "30px",

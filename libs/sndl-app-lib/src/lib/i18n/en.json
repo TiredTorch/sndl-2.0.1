@@ -71,5 +71,8 @@
     "TXT_REQUEST_SUCCESS_LOGIN": "User loged in succsessfully",
 
     "TXT_SETTING_EDIT_PROFILE": "Edit Profile",
-    "TXT_SETTING_EDIT_PROFILE_TEXT": "Change profile data"
+    "TXT_SETTING_EDIT_PROFILE_TEXT": "Change profile data",
+
+    "TXT_DASHBOARD_COMMENTS_NOT_FOUND": "No comments found. Be the first one who comments it!",
+    "TXT_DASHBOARD_POSTS_NOT_FOUND": "No posts found. Try to find someone who usually make them!"
 }

@@ -1,4 +1,7 @@
-import { Theme } from "@mui/material";
+import {
+	alpha,
+	Theme
+} from "@mui/material";
 import { StyleList } from "../../../types";
 
 export const expandedPostModalStyles: StyleList = {
@@ -38,17 +41,34 @@ export const expandedPostModalStyles: StyleList = {
 		fontWeight: "700",
 		fontSize: "1.2rem",
 		color: (theme: Theme) => theme.palette.sndlGray[300],
+		background: (theme: Theme) => theme.palette.sndlGray[500],
+		border: (theme: Theme) => `1px solid ${alpha(
+			`${theme.palette.sndlGray[200]}`,
+			.2
+		)}`,
 		maxHeight: "45%",
 		minHeight: "45%",
-		overflowY: "auto"
+		overflowY: "auto",
+		padding: "20px"
 	},
 	commentWrapper: {
+		background: (theme: Theme) => theme.palette.sndlGray[500],
+		border: (theme: Theme) => `1px solid ${alpha(
+			`${theme.palette.sndlGray[200]}`,
+			.2
+		)}`,
 		maxHeight: "20%",
 		minHeight: "20%",
 		display: "flex",
 		flexDirection: "column",
 		gap: "20px",
 		overflowY: "auto",
-		paddingRight: "5px"
+		padding: "20px"
+	},
+	noCommentsText: {
+		fontWeight: "700",
+		fontSize: "1.9rem",
+		textAlign: "center",
+		color: (theme: Theme) => theme.palette.sndlGray[300],
 	}
 };

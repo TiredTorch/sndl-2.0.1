@@ -58,4 +58,12 @@ theme.components = {
 			background: theme.palette.sndlGray[500]
 		}
 	},
+	MuiCircularProgress: {
+		styleOverrides: {
+			circle: {
+				background: theme.palette.sndlGray[500],
+				color: theme.palette.sndlGray[500]
+			}
+		}
+	}
 };
